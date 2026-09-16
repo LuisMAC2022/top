@@ -57,3 +57,44 @@ demonstrated and tested against it.
 - `pdftotext` is genuinely absent in this environment, so the `unsupported` /
   `manual_required` path is the live default rather than an untested branch.
 - The refusal to write a Python PDF parser is correct and is honoured.
+
+## 4. Defects found *during* implementation
+
+These were not visible from reading the plan. Each was caught by a test or by
+running the pipeline, and each is fixed with a regression test.
+
+| Where | Defect | Why it mattered |
+|---|---|---|
+| `fetch` | A single 512-byte "stub response" floor rejected legitimately short pages. | The seed corpus contains OEIS sequence pages, which are exactly that shape. The floor is now work-type aware with a per-asset override. |
+| `fetch` | `--require-fulltext-all` checked fulltext *assets*. | A purchase-only work has no fulltext asset at all, so the flag passed precisely the gated works it exists to surface. It now counts works. |
+| `extract_html` | JATS abstracts and reference lists were silently dropped. | `ElementTree.iter()` takes an exact tag; `"{*}p"` is find/findall syntax. A JATS article extracted with no abstract and no references, and nothing said so. |
+| `extract` | Artifact lookup was keyed on the declared asset list. | A manually imported copy made the work look unacquired. Now keyed on `work_id`. |
+| `extract` | Hanging-indent bibliographies collapsed into one entry. | The branch that starts an entry required a previous entry of the same style, so the first never started one. Style is now decided once per section. |
+| `references` | Splitting on `.` to find the author list truncated multi-author entries. | Initials are full of periods, so "D. Kleitman and B. Rothschild" lost its second author *and* the title started one name late. |
+| `references` | An ISBN's digit groups were parsed as a page range. | Identifiers are now scrubbed before volume/page detection. |
+| `references` | `normalize_author` read initials only from `X.` patterns. | "Cleo Duarte" and "C. Duarte" got different identity keys — a false split in the author index, not the conservative non-merge it resembles. |
+| `analysis` | The same paper cited with a DOI in one bibliography and without one in another became two nodes. | This is the false-split failure the plan predicts, and it inflated every count derived from those nodes. Discovered records now merge on exact title, year and first-author surname together. |
+| `survey` | `leave_one_out` removed a work's edges but not the work. | It reappeared at the bottom of the rebuilt ranking with every dimension zeroed, reading as a result rather than as the hole it is. |
+| `site` | The stylesheet was not copied for a project root outside the repository. | The site rendered unstyled with broken asset links. Now a hard failure, caught by the link checker. |
+| `survey` | "Independent seed groups" was hardcoded to an alias prefix. | The measure only means something relative to how the seed bibliography was organised, so the pattern is now declared in `config/ranking.json`. |
+
+## 5. Definition of done, audited
+
+Against the plan's section 3:
+
+| Requirement | State |
+|---|---|
+| Every seed record and asset in a validated manifest | **Met structurally.** 24 works, 20/20 seed aliases, A5 expanded. No asset URLs, because the catalogue was not supplied. |
+| Downloads verified and hashed, or a specific recorded failure; nonzero exit | **Met.** Exercised against 403, 404, 429, timeout, truncation, wrong media type, oversized body, redirect loop and an HTML login served as a PDF. |
+| DAG navigable with upstream, downstream, branch, Previous and Next | **Met in the code, empty in this repository.** Fully exercised against the demo corpus; `config/dependencies.json` has no edges because the relationship diagram was not supplied, and the navigator says so. |
+| Every field has an explicit state; empty never means success | **Met**, across five hand-labelled fixtures. |
+| Every passage carries provenance and confidence | **Met.** |
+| Every citation edge keeps its raw string and resolution evidence | **Met.** |
+| Rankings and survey reproducible from versioned data | **Met.** Byte-identical re-runs are tested. |
+| Local build private by default; public build allowlisted | **Met.** |
+| Clean checkout runs the test suite and rebuilds | **Met.** 271 tests from a fresh clone. |
+
+Two quantitative gates — 90% heading precision and recall, 98% auto-accept
+precision — are enforced against fixtures authored in this repository. They
+catch regressions. They are not external validation of real-world accuracy, and
+should not be quoted as if they were.
