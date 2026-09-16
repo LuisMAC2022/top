@@ -1,0 +1,22 @@
+# Private acquired material: never versioned, never published.
+/private/
+
+# Transactional run state and HTTP cache are derived, machine-local, and binary.
+/data/state.sqlite3
+/data/state.sqlite3-journal
+/data/state.sqlite3-wal
+/data/state.sqlite3-shm
+/cache/
+
+# Generated site builds.
+/build/
+/publish/
+
+# Run reports are regenerated; keep the directory, not the runs.
+/reports/*.jsonl
+/reports/*.md
+!/reports/.gitkeep
+
+__pycache__/
+*.pyc
+.DS_Store

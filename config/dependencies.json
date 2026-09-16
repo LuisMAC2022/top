@@ -1,0 +1,222 @@
+{
+  "edge_direction": "from = prerequisite, to = dependent",
+  "edges": [],
+  "nodes": [
+    {
+      "id": "R0",
+      "kind": "work",
+      "label": "R0",
+      "note": null,
+      "options": [],
+      "ref": "local:fcd88686139331a09a8bf3ae592d781b08e439fb1ecd17e51657eb7a2535c416"
+    },
+    {
+      "id": "A1",
+      "kind": "work",
+      "label": "A1",
+      "note": null,
+      "options": [],
+      "ref": "local:9ea9265aa730e84ea21f14ff89f7d4ce43077df10a1d1491734addde8a923d78"
+    },
+    {
+      "id": "A2",
+      "kind": "work",
+      "label": "A2",
+      "note": null,
+      "options": [],
+      "ref": "local:ed7ec9aa31a2172ab5b0ec5b65e2b94a9047fdfbc5269c135b08dde4f8450a02"
+    },
+    {
+      "id": "A3",
+      "kind": "work",
+      "label": "A3",
+      "note": null,
+      "options": [],
+      "ref": "local:781545f7e66d0fa41202cc6a3b24b5eacda7e27eab624d126907164c4245c245"
+    },
+    {
+      "id": "A4",
+      "kind": "work",
+      "label": "A4",
+      "note": null,
+      "options": [],
+      "ref": "local:3ec636a2da1fcb952e68d677de8e7654d7600c3833a8527ac7b15a8721d4bc6b"
+    },
+    {
+      "id": "A5",
+      "kind": "collection",
+      "label": "A5",
+      "note": null,
+      "options": [],
+      "ref": "local:d920bfe4ff014330229353118dc06042ba0669cb36608d886505393c8603e23b"
+    },
+    {
+      "id": "A6",
+      "kind": "work",
+      "label": "A6",
+      "note": null,
+      "options": [],
+      "ref": "local:23e1601583d6beb80a06836e7315f5b1fef89095a770af2fe3ad2d33fc1d1ff9"
+    },
+    {
+      "id": "A7",
+      "kind": "work",
+      "label": "A7",
+      "note": null,
+      "options": [],
+      "ref": "local:14d4a7eaa112d42814b783e9e4334d0e91842b0e81567f2d6e8b7739b405b1d1"
+    },
+    {
+      "id": "B1",
+      "kind": "work",
+      "label": "B1",
+      "note": null,
+      "options": [],
+      "ref": "local:95067d5ca8b23c196077eb9a646a13ab3d65ca28fb8433966372c2f1dea7c173"
+    },
+    {
+      "id": "B2",
+      "kind": "work",
+      "label": "B2",
+      "note": null,
+      "options": [],
+      "ref": "local:6edfb8ca16df8e41e612050380e3119ccddd01b2ee840e3afede9c9497732574"
+    },
+    {
+      "id": "B3",
+      "kind": "work",
+      "label": "B3",
+      "note": null,
+      "options": [],
+      "ref": "local:6b73e66279ecce19326f1590bd6412d4b71ee535cf98e8279facab45cbeb73b0"
+    },
+    {
+      "id": "B4",
+      "kind": "work",
+      "label": "B4",
+      "note": null,
+      "options": [],
+      "ref": "local:7ec17d68824d3f343774462fb5afa1d1d174c7bdfe1eaf91625e69212ff1f5d7"
+    },
+    {
+      "id": "B5",
+      "kind": "work",
+      "label": "B5",
+      "note": null,
+      "options": [],
+      "ref": "local:4f8c65dd51c2d5add2baaa1dfa1f738f2c8a64f4eacd3682c20c6d9074167864"
+    },
+    {
+      "id": "B6",
+      "kind": "work",
+      "label": "B6",
+      "note": null,
+      "options": [],
+      "ref": "local:b87e8d22f25d1030b4eaf8a2f3b204d3f6a988ffdf7884119066db1ee86aba15"
+    },
+    {
+      "id": "C1",
+      "kind": "work",
+      "label": "C1",
+      "note": null,
+      "options": [],
+      "ref": "local:da218fd9cd19b2ea602c9569abcc29ff3a097d00ad0793507717045054410454"
+    },
+    {
+      "id": "C2",
+      "kind": "work",
+      "label": "C2",
+      "note": null,
+      "options": [],
+      "ref": "local:89fea104396099a51f9885b7deddd02dedc25ba1ae4f4d03bf43e2cfbffd4c59"
+    },
+    {
+      "id": "C3",
+      "kind": "work",
+      "label": "C3",
+      "note": null,
+      "options": [],
+      "ref": "local:73d207c0b625b2fd247e1bd4c8b4f904f11740c145a0c8e57bfd3f15018970d1"
+    },
+    {
+      "id": "C4",
+      "kind": "work",
+      "label": "C4",
+      "note": null,
+      "options": [],
+      "ref": "local:54dbe607888bb207e7fbce0d8a42777433575d90ab801754b15705fa71e10620"
+    },
+    {
+      "id": "C5",
+      "kind": "work",
+      "label": "C5",
+      "note": null,
+      "options": [],
+      "ref": "local:47e965c2f0a9e29e8af3cd82b8664c6f305148f63a17f00f95b6dfb87d7723f5"
+    },
+    {
+      "id": "D1",
+      "kind": "work",
+      "label": "D1",
+      "note": null,
+      "options": [],
+      "ref": "local:3c073f810926c6af67b5bd3334a6a2facc5c872d466ea302266c24bc5d096912"
+    },
+    {
+      "id": "A5.1",
+      "kind": "work",
+      "label": "A5.1",
+      "note": null,
+      "options": [],
+      "ref": "local:4886d8bb3dc3bf8e6b323ce15d6c9d19d2be15f537dfccf9c16445c78f3e6f51"
+    },
+    {
+      "id": "A5.2",
+      "kind": "work",
+      "label": "A5.2",
+      "note": null,
+      "options": [],
+      "ref": "local:eaf164e35248a41127737e211ffc80380f9a935ce70d11ead564f008cb6e6e18"
+    },
+    {
+      "id": "A5.3",
+      "kind": "work",
+      "label": "A5.3",
+      "note": null,
+      "options": [],
+      "ref": "local:bf7f4853f4f9ef94a8ad547e0afa36a56177ff28952ba088ad248aa694140274"
+    },
+    {
+      "id": "A5.4",
+      "kind": "work",
+      "label": "A5.4",
+      "note": null,
+      "options": [],
+      "ref": "local:2846db8826b76637e86355b68a049f796e0cc207288f59a35f689074cbb28f7e"
+    },
+    {
+      "id": "choice:proof-foundation",
+      "kind": "choice",
+      "label": "Proof foundation",
+      "note": "Stated as unresolved in the implementation plan, section 2.",
+      "options": [
+        "A7",
+        "C2"
+      ],
+      "ref": null
+    },
+    {
+      "id": "choice:enumeration-text",
+      "kind": "choice",
+      "label": "Second-pass enumeration text",
+      "note": "Stated as unresolved in the implementation plan, section 2.",
+      "options": [
+        "A2",
+        "A3"
+      ],
+      "ref": null
+    }
+  ],
+  "note": "The supplied relationship diagram was not provided, so no typed edge has been recorded. `validate` reports this as an incomplete DAG. Edges must be imported or hand-reviewed before the navigator is meaningful.",
+  "schema_version": "1.0"
+}

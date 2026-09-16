@@ -1,0 +1,361 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "document": "demo fixture",
+    "expected_aliases": [
+      "D-R0",
+      "D-A1",
+      "D-A2",
+      "D-A3",
+      "D-PDF",
+      "D-BOOK",
+      "D-COL",
+      "D-S1",
+      "D-S2"
+    ],
+    "note": "Synthetic fixture. No real publication is represented.",
+    "observed_on": "2026-09-16",
+    "supplied": true
+  },
+  "works": [
+    {
+      "aliases": [
+        "D-R0"
+      ],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "d-r0-fulltext",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://fixtures.invalid/r0.html"
+        }
+      ],
+      "authors": [
+        "Ada Rivera",
+        "Bo Chen"
+      ],
+      "container": null,
+      "id": "local:e0efa3a6ee1118fb3c54b3818a9d8604df98da6f68a4de001d37f7b8ea9ee342",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "A Survey of Finite Structure Enumeration",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 2019
+    },
+    {
+      "aliases": [
+        "D-A1"
+      ],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "d-a1-landing",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://fixtures.invalid/a1-landing.html"
+        },
+        {
+          "expected_media_type": "text/html",
+          "id": "d-a1-fulltext",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://fixtures.invalid/a1.html"
+        }
+      ],
+      "authors": [
+        "Bo Chen"
+      ],
+      "container": null,
+      "id": "local:85296fbb2490e9b33a7b459c95d04b6e08596156728af202ca3576a31b4aae77",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Counting Lattices: An Introduction",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 2020
+    },
+    {
+      "aliases": [
+        "D-A2"
+      ],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "d-a2-fulltext",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://fixtures.invalid/a2.html"
+        }
+      ],
+      "authors": [
+        "Cleo Duarte"
+      ],
+      "container": null,
+      "id": "local:bf6cd561a7de97467522281111c368727e8b6205c2022bc5f9f536dae94c86b8",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Enumeration by Transfer Matrix",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 2021
+    },
+    {
+      "aliases": [
+        "D-A3"
+      ],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "d-a3-fulltext",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://fixtures.invalid/a3.html"
+        }
+      ],
+      "authors": [
+        "Cleo Duarte",
+        "Ada Rivera"
+      ],
+      "container": null,
+      "id": "local:3c6f8ecd96dc7821fe54304f81b51a26173f8685926e8b7e3fb193164c2c2c1c",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Enumeration by Direct Search",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 2021
+    },
+    {
+      "aliases": [
+        "D-PDF"
+      ],
+      "assets": [
+        {
+          "expected_media_type": "application/pdf",
+          "id": "d-pdf-fulltext",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://fixtures.invalid/paper.pdf"
+        }
+      ],
+      "authors": [
+        "Dara Ek"
+      ],
+      "container": null,
+      "id": "local:62b691a762e76fe50a878f28896726b346230ee2621537455e8db16c2a8ea315",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "A Born-Digital Report",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 2022
+    },
+    {
+      "aliases": [
+        "D-BOOK"
+      ],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "d-book-landing",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://fixtures.invalid/book-landing.html"
+        },
+        {
+          "expected_media_type": "text/html",
+          "id": "d-book-preview",
+          "intent": "manual",
+          "note": null,
+          "role": "preview",
+          "url": "https://fixtures.invalid/book-preview.html"
+        }
+      ],
+      "authors": [
+        "Eli Fontaine"
+      ],
+      "container": null,
+      "id": "local:faecad9a3b503595563d65c0b7787329c1666984d31dc932951eac2f24b7408d",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "Purchase-only: full text is manual_required, never auto-fetched.",
+      "observations": [],
+      "rights": {
+        "access": "purchase",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Structures, A Textbook",
+      "title_status": "present",
+      "work_type": "book",
+      "year": 2015
+    },
+    {
+      "aliases": [
+        "D-COL"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:0d3c47fd09a36c08db20a327e1bf9e6ff5108a51527f11962d5dca7065c508ae",
+      "members": [
+        "D-S1",
+        "D-S2"
+      ],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Sequence Collection",
+      "title_status": "present",
+      "work_type": "collection",
+      "year": null
+    },
+    {
+      "aliases": [
+        "D-S1"
+      ],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "d-s1-fulltext",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://fixtures.invalid/s1.html"
+        }
+      ],
+      "authors": [],
+      "container": "D-COL",
+      "id": "local:c41b1f49e57cdd6eb135e36f679fd8ad665d91b968a1749bc34149ed1c0dc438",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Sequence One",
+      "title_status": "present",
+      "work_type": "sequence",
+      "year": null
+    },
+    {
+      "aliases": [
+        "D-S2"
+      ],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "d-s2-fulltext",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://fixtures.invalid/s2.html"
+        }
+      ],
+      "authors": [],
+      "container": "D-COL",
+      "id": "local:0319a35b7e1a8168b02df1279b2969788675f6bf73f985b761d6828fd2705c06",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Sequence Two",
+      "title_status": "present",
+      "work_type": "sequence",
+      "year": null
+    }
+  ]
+}

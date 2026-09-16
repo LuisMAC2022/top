@@ -1,0 +1,640 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "document": "phase-1-access-verification.md",
+    "note": "The access-verification catalogue was not provided with the implementation plan. Every work below is a structural placeholder carrying only facts stated in the plan itself: the 20 seed aliases, and A5 being a collection of four sequence pages. No bibliographic metadata has been invented.",
+    "observed_on": null,
+    "supplied": false
+  },
+  "works": [
+    {
+      "aliases": [
+        "R0"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:fcd88686139331a09a8bf3ae592d781b08e439fb1ecd17e51657eb7a2535c416",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A1"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:9ea9265aa730e84ea21f14ff89f7d4ce43077df10a1d1491734addde8a923d78",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A2"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:ed7ec9aa31a2172ab5b0ec5b65e2b94a9047fdfbc5269c135b08dde4f8450a02",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A3"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:781545f7e66d0fa41202cc6a3b24b5eacda7e27eab624d126907164c4245c245",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A4"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:3ec636a2da1fcb952e68d677de8e7654d7600c3833a8527ac7b15a8721d4bc6b",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A5"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:d920bfe4ff014330229353118dc06042ba0669cb36608d886505393c8603e23b",
+      "members": [
+        "A5.1",
+        "A5.2",
+        "A5.3",
+        "A5.4"
+      ],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "collection",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A6"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:23e1601583d6beb80a06836e7315f5b1fef89095a770af2fe3ad2d33fc1d1ff9",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A7"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:14d4a7eaa112d42814b783e9e4334d0e91842b0e81567f2d6e8b7739b405b1d1",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "B1"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:95067d5ca8b23c196077eb9a646a13ab3d65ca28fb8433966372c2f1dea7c173",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "B2"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:6edfb8ca16df8e41e612050380e3119ccddd01b2ee840e3afede9c9497732574",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "B3"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:6b73e66279ecce19326f1590bd6412d4b71ee535cf98e8279facab45cbeb73b0",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "B4"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:7ec17d68824d3f343774462fb5afa1d1d174c7bdfe1eaf91625e69212ff1f5d7",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "B5"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:4f8c65dd51c2d5add2baaa1dfa1f738f2c8a64f4eacd3682c20c6d9074167864",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "B6"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:b87e8d22f25d1030b4eaf8a2f3b204d3f6a988ffdf7884119066db1ee86aba15",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "C1"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:da218fd9cd19b2ea602c9569abcc29ff3a097d00ad0793507717045054410454",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "C2"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:89fea104396099a51f9885b7deddd02dedc25ba1ae4f4d03bf43e2cfbffd4c59",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "C3"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:73d207c0b625b2fd247e1bd4c8b4f904f11740c145a0c8e57bfd3f15018970d1",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "C4"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:54dbe607888bb207e7fbce0d8a42777433575d90ab801754b15705fa71e10620",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "C5"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:47e965c2f0a9e29e8af3cd82b8664c6f305148f63a17f00f95b6dfb87d7723f5",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "D1"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": null,
+      "id": "local:3c073f810926c6af67b5bd3334a6a2facc5c872d466ea302266c24bc5d096912",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A5.1"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": "A5",
+      "id": "local:4886d8bb3dc3bf8e6b323ce15d6c9d19d2be15f537dfccf9c16445c78f3e6f51",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Sequence page 1 of the A5 collection. Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "sequence",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A5.2"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": "A5",
+      "id": "local:eaf164e35248a41127737e211ffc80380f9a935ce70d11ead564f008cb6e6e18",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Sequence page 2 of the A5 collection. Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "sequence",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A5.3"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": "A5",
+      "id": "local:bf7f4853f4f9ef94a8ad547e0afa36a56177ff28952ba088ad248aa694140274",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Sequence page 3 of the A5 collection. Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "sequence",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A5.4"
+      ],
+      "assets": [],
+      "authors": [],
+      "container": "A5",
+      "id": "local:2846db8826b76637e86355b68a049f796e0cc207288f59a35f689074cbb28f7e",
+      "members": [],
+      "metadata_status": "unverified",
+      "note": "Sequence page 4 of the A5 collection. Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
+      "observations": [],
+      "rights": {
+        "access": "unknown",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "",
+      "title_status": "unknown",
+      "work_type": "sequence",
+      "year": null
+    }
+  ]
+}

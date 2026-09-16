@@ -1,0 +1,169 @@
+{
+  "edge_direction": "from = prerequisite, to = dependent",
+  "edges": [
+    {
+      "from": "D-R0",
+      "note": null,
+      "to": "D-A1",
+      "type": "prerequisite"
+    },
+    {
+      "from": "D-A1",
+      "note": null,
+      "to": "D-A2",
+      "type": "prerequisite"
+    },
+    {
+      "from": "D-A1",
+      "note": null,
+      "to": "D-A3",
+      "type": "prerequisite"
+    },
+    {
+      "from": "D-A2",
+      "note": null,
+      "to": "D-PDF",
+      "type": "prerequisite"
+    },
+    {
+      "from": "D-A3",
+      "note": null,
+      "to": "D-PDF",
+      "type": "prerequisite"
+    },
+    {
+      "from": "D-BOOK",
+      "note": null,
+      "to": "D-PDF",
+      "type": "conditional"
+    },
+    {
+      "from": "D-R0",
+      "note": null,
+      "to": "D-BOOK",
+      "type": "orientation"
+    },
+    {
+      "from": "D-COL",
+      "note": null,
+      "to": "D-S1",
+      "type": "prerequisite"
+    },
+    {
+      "from": "D-COL",
+      "note": null,
+      "to": "D-S2",
+      "type": "prerequisite"
+    },
+    {
+      "from": "D-R0",
+      "note": null,
+      "to": "D-COL",
+      "type": "historical"
+    },
+    {
+      "from": "D-A3",
+      "note": null,
+      "to": "D-A2",
+      "type": "backup"
+    },
+    {
+      "from": "D-S1",
+      "note": null,
+      "to": "D-A2",
+      "type": "validates"
+    },
+    {
+      "from": "D-S2",
+      "note": null,
+      "to": "D-A2",
+      "type": "validates"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "D-R0",
+      "kind": "work",
+      "label": "D-R0",
+      "note": null,
+      "options": [],
+      "ref": "local:e0efa3a6ee1118fb3c54b3818a9d8604df98da6f68a4de001d37f7b8ea9ee342"
+    },
+    {
+      "id": "D-A1",
+      "kind": "work",
+      "label": "D-A1",
+      "note": null,
+      "options": [],
+      "ref": "local:85296fbb2490e9b33a7b459c95d04b6e08596156728af202ca3576a31b4aae77"
+    },
+    {
+      "id": "D-A2",
+      "kind": "work",
+      "label": "D-A2",
+      "note": null,
+      "options": [],
+      "ref": "local:bf6cd561a7de97467522281111c368727e8b6205c2022bc5f9f536dae94c86b8"
+    },
+    {
+      "id": "D-A3",
+      "kind": "work",
+      "label": "D-A3",
+      "note": null,
+      "options": [],
+      "ref": "local:3c6f8ecd96dc7821fe54304f81b51a26173f8685926e8b7e3fb193164c2c2c1c"
+    },
+    {
+      "id": "D-PDF",
+      "kind": "work",
+      "label": "D-PDF",
+      "note": null,
+      "options": [],
+      "ref": "local:62b691a762e76fe50a878f28896726b346230ee2621537455e8db16c2a8ea315"
+    },
+    {
+      "id": "D-BOOK",
+      "kind": "work",
+      "label": "D-BOOK",
+      "note": null,
+      "options": [],
+      "ref": "local:faecad9a3b503595563d65c0b7787329c1666984d31dc932951eac2f24b7408d"
+    },
+    {
+      "id": "D-COL",
+      "kind": "collection",
+      "label": "D-COL",
+      "note": null,
+      "options": [],
+      "ref": "local:0d3c47fd09a36c08db20a327e1bf9e6ff5108a51527f11962d5dca7065c508ae"
+    },
+    {
+      "id": "D-S1",
+      "kind": "work",
+      "label": "D-S1",
+      "note": null,
+      "options": [],
+      "ref": "local:c41b1f49e57cdd6eb135e36f679fd8ad665d91b968a1749bc34149ed1c0dc438"
+    },
+    {
+      "id": "D-S2",
+      "kind": "work",
+      "label": "D-S2",
+      "note": null,
+      "options": [],
+      "ref": "local:0319a35b7e1a8168b02df1279b2969788675f6bf73f985b761d6828fd2705c06"
+    },
+    {
+      "id": "choice:demo-text",
+      "kind": "choice",
+      "label": "Enumeration text",
+      "note": "Deliberately unresolved.",
+      "options": [
+        "D-A2",
+        "D-A3"
+      ],
+      "ref": null
+    }
+  ],
+  "schema_version": "1.0"
+}

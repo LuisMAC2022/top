@@ -1,0 +1,9 @@
+{
+  "name": "default",
+  "note": "null means the alternative is deliberately unresolved.",
+  "schema_version": "1.0",
+  "selections": {
+    "choice:enumeration-text": null,
+    "choice:proof-foundation": null
+  }
+}

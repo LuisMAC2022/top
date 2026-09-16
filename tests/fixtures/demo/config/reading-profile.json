@@ -1,0 +1,7 @@
+{
+  "name": "demo",
+  "schema_version": "1.0",
+  "selections": {
+    "choice:demo-text": null
+  }
+}

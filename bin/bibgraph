@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Optional launcher. The plan forbids Python packaging, so the package is put on
+# the path here rather than installed.
+set -euo pipefail
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PYTHONPATH="$here/src${PYTHONPATH:+:$PYTHONPATH}" exec python3 -m bibgraph "$@"

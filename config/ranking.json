@@ -1,0 +1,28 @@
+{
+  "coupling": {
+    "cluster_threshold": 0.2,
+    "min_shared_references": 2
+  },
+  "note": "Weights are published so any ranking can be recomputed and audited. Components are min-max normalised across the corpus before weighting.",
+  "pagerank": {
+    "damping": 0.85,
+    "iterations": 100,
+    "tolerance": 1e-10
+  },
+  "reading_priority_weights": {
+    "citation_indegree": 0.3,
+    "coupling_centrality": 0.2,
+    "independent_seed_groups": 0.2,
+    "pagerank": 0.3
+  },
+  "schema_version": "1.0",
+  "sensitivity": {
+    "top_n": 10,
+    "weight_deltas": [
+      -0.1,
+      -0.05,
+      0.05,
+      0.1
+    ]
+  }
+}
