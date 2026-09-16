@@ -220,3 +220,172 @@ def render_fetch_markdown(summary: dict, outcomes: list) -> str:
         items = summary[key]
         lines.append("None." if not items else "\n".join(f"- `{i}`" for i in items))
     return "\n".join(lines) + "\n"
+
+
+# ---------------------------------------------------------------------------
+# Built-site checks
+# ---------------------------------------------------------------------------
+
+import html.parser as _html_parser
+import re as _re
+import urllib.parse as _urlparse
+
+
+class _LinkCollector(_html_parser.HTMLParser):
+    """Collect hrefs/srcs. Parsed as data; nothing fetched, nothing executed."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.links: list[tuple[str, str]] = []
+        self.ids: set[str] = set()
+        self.has_title = False
+        self.inline_scripts = 0
+        self._in_title = False
+        self.title = ""
+
+    def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        if "id" in attributes and attributes["id"]:
+            self.ids.add(attributes["id"])
+        for key in ("href", "src"):
+            if attributes.get(key):
+                self.links.append((tag, attributes[key]))
+        if tag == "title":
+            self._in_title = True
+            self.has_title = True
+        if tag == "script" and not attributes.get("src"):
+            self.inline_scripts += 1
+
+    def handle_endtag(self, tag):
+        if tag == "title":
+            self._in_title = False
+
+    def handle_data(self, data):
+        if self._in_title:
+            self.title += data
+
+
+SECRET_PATTERNS = (
+    _re.compile(r"(?i)\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"),
+    _re.compile(r"(?i)\b(api[_-]?key|secret|token|password)\b\s*[=:]\s*\S+"),
+    _re.compile(r"\bsk-[A-Za-z0-9]{16,}\b"),
+)
+
+
+def check_site(root: Path, public: bool = False) -> dict:
+    """Traverse the built site: broken internal links, escaping, and leaks."""
+    root = Path(root)
+    issues: list[model.Issue] = []
+    pages = sorted(root.rglob("*.html"))
+    if not pages:
+        issues.append(model.Issue("error", "empty-site", "no HTML page was produced", str(root)))
+
+    existing = {p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()}
+    anchors: dict[str, set[str]] = {}
+    parsed: dict[str, _LinkCollector] = {}
+
+    for page_path in pages:
+        collector = _LinkCollector()
+        text = page_path.read_text(encoding="utf-8")
+        collector.feed(text)
+        key = page_path.relative_to(root).as_posix()
+        parsed[key] = collector
+        anchors[key] = collector.ids
+        if not collector.has_title or not collector.title.strip():
+            issues.append(model.Issue("error", "missing-title", "page has no title", key))
+        if collector.inline_scripts:
+            issues.append(model.Issue(
+                "error", "inline-script",
+                f"{collector.inline_scripts} inline <script> block(s); extracted "
+                "content must never be executed", key))
+
+    external = 0
+    for key, collector in parsed.items():
+        page_dir = Path(key).parent
+        for _tag, link in collector.links:
+            split = _urlparse.urlsplit(link)
+            if split.scheme in ("http", "https"):
+                external += 1
+                continue
+            if split.scheme and split.scheme not in ("", "mailto"):
+                issues.append(model.Issue("error", "bad-link-scheme",
+                                          f"unsupported scheme in {link}", key))
+                continue
+            if link.startswith("/"):
+                issues.append(model.Issue(
+                    "error", "absolute-link",
+                    f"{link} is root-relative and breaks under a repository subpath", key))
+                continue
+            if not split.path:
+                if split.fragment and split.fragment not in anchors.get(key, set()):
+                    issues.append(model.Issue("error", "broken-anchor",
+                                              f"#{split.fragment} is not on this page", key))
+                continue
+            target = (page_dir / split.path).as_posix()
+            target = _urlparse.urlsplit(_normalize_rel(target)).path
+            candidates = [target, target.rstrip("/") + "/index.html",
+                          (target + "index.html") if target.endswith("/") else target]
+            resolved = next((c for c in candidates if c in existing), None)
+            if resolved is None:
+                issues.append(model.Issue("error", "broken-link",
+                                          f"{link} resolves to {target}, which does not exist", key))
+            elif split.fragment and split.fragment not in anchors.get(resolved, set()):
+                issues.append(model.Issue("warning", "broken-anchor",
+                                          f"{link}: #{split.fragment} not found in {resolved}", key))
+
+    if public:
+        issues += _check_public_safety(root)
+
+    return {
+        "root": str(root),
+        "pages": len(pages),
+        "files": len(existing),
+        "external_links": external,
+        "issues": [i.as_dict() for i in issues],
+        "errors": len(model.errors(issues)),
+        "warnings": len(model.warnings(issues)),
+    }
+
+
+def _normalize_rel(path: str) -> str:
+    parts: list[str] = []
+    for segment in path.split("/"):
+        if segment in ("", "."):
+            continue
+        if segment == "..":
+            if parts:
+                parts.pop()
+            continue
+        parts.append(segment)
+    return "/".join(parts) + ("/" if path.endswith("/") else "")
+
+
+def _check_public_safety(root: Path) -> list[model.Issue]:
+    """Allowlist enforcement: nothing private may appear in a public build."""
+    issues = []
+    forbidden_dirs = ("private", "cache", "raw", "manual-import")
+    for path in sorted(root.rglob("*")):
+        if path.is_dir():
+            continue
+        key = path.relative_to(root).as_posix()
+        if any(part in forbidden_dirs for part in Path(key).parts):
+            issues.append(model.Issue("error", "private-path",
+                                      "private directory present in a public build", key))
+        if path.suffix.lower() in (".pdf", ".sqlite3", ".db", ".part"):
+            issues.append(model.Issue("error", "forbidden-artifact",
+                                      f"{path.suffix} file present in a public build", key))
+        if path.suffix.lower() not in (".html", ".css", ".js", ".json", ".svg", ".txt"):
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if _re.search(r"(?m)^\s*/(home|Users|root|var|tmp)/", text) or \
+                _re.search(r"[\"'>(]/(home|Users)/[A-Za-z0-9._-]+/", text):
+            issues.append(model.Issue("error", "absolute-local-path",
+                                      "an absolute local filesystem path appears in output", key))
+        for pattern in SECRET_PATTERNS:
+            match = pattern.search(text)
+            if match:
+                issues.append(model.Issue(
+                    "error", "secret-pattern",
+                    f"a {pattern.pattern.split('|')[0][:24]}-shaped value appears in output", key))
+                break
+    return issues

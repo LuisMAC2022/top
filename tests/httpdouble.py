@@ -44,7 +44,11 @@ class _Handler(BaseHTTPRequestHandler):
             self.send_header(key, value)
         self.end_headers()
         if body:
-            self.wfile.write(body)
+            try:
+                self.wfile.write(body)
+            except (BrokenPipeError, ConnectionResetError):
+                # Expected when a test aborts mid-body, e.g. the byte-cap case.
+                pass
 
     def do_GET(self):  # noqa: N802 - BaseHTTPRequestHandler API
         path = self.path.split("?", 1)[0]

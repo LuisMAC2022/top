@@ -68,6 +68,21 @@ def build_parser() -> argparse.ArgumentParser:
     p_fetch.add_argument("--delay", type=float, default=1.0,
                          help="seconds between requests (default 1.0)")
 
+    p_site = sub.add_parser("build-site", help="generate the static site")
+    group = p_site.add_mutually_exclusive_group()
+    group.add_argument("--local", action="store_true", default=True,
+                       help="local build: keeps private material (default)")
+    group.add_argument("--public", action="store_true",
+                       help="allowlisted build for publication")
+    p_site.add_argument("--output", default=None, help="destination directory")
+    p_site.add_argument("--allow-incomplete", action="store_true",
+                        help="build despite missing data, with visible badges")
+
+    p_check = sub.add_parser("check-site", help="link-check and inspect a built site")
+    p_check.add_argument("path")
+    p_check.add_argument("--public", action="store_true",
+                         help="also enforce the publication allowlist")
+
     p_local = sub.add_parser("import", help="register a legally obtained local copy")
     p_local.add_argument("alias")
     p_local.add_argument("file")
@@ -277,9 +292,93 @@ def cmd_import(args, ws: Workspace) -> int:
     return EXIT_OK
 
 
+def cmd_build_site(args, ws: Workspace) -> int:
+    from . import site as site_mod
+
+    ws.ensure()
+    try:
+        corpus, deps, profile = _load_or_exit(ws)
+    except (model.ValidationError, FileNotFoundError, json.JSONDecodeError) as exc:
+        _err(f"manifest could not be loaded: {exc}")
+        return EXIT_INVALID_MANIFEST
+    except _Abort as abort:
+        return abort.code
+
+    public = bool(args.public)
+    destination = Path(args.output) if args.output else (ws.publish if public else ws.build_site)
+    data = site_mod.load_site_data(ws, corpus, deps, profile, public=public)
+
+    incomplete = _incompleteness(corpus, data)
+    if incomplete and not args.allow_incomplete:
+        for reason in incomplete:
+            _err(reason)
+        _err("build is incomplete; pass --allow-incomplete to build anyway "
+             "(the site will carry visible incomplete badges)")
+        return EXIT_INCOMPLETE
+
+    written = site_mod.build_site(ws, data, destination)
+    print(f"build-site: {len(written)} file(s) -> {destination}"
+          f"{' (public, allowlisted)' if public else ''}")
+    for reason in incomplete:
+        _warn(reason)
+    return EXIT_OK
+
+
+def _incompleteness(corpus, data) -> list[str]:
+    reasons = []
+    if not corpus.source.get("supplied", False):
+        reasons.append("corpus source catalogue was never supplied; "
+                       "all metadata is placeholder")
+    if not data.deps.edges:
+        reasons.append("dependency graph has no edges; navigation is not meaningful")
+    return reasons
+
+
+def cmd_check_site(args, ws: Workspace) -> int:
+    root = Path(args.path)
+    if not root.is_dir():
+        _err(f"not a directory: {root}")
+        return EXIT_INVALID_MANIFEST
+    report = checks.check_site(root, public=args.public)
+    checks.write_report(
+        ws, "check-site",
+        {**util.derived_header({}, "check-site"), "summary": {
+            "pages": report["pages"], "errors": report["errors"],
+            "warnings": report["warnings"]}, **report},
+        _render_check_site(report))
+    if args.json:
+        print(util.canonical_json(report), end="")
+    else:
+        print(f"check-site: {report['pages']} page(s), {report['files']} file(s), "
+              f"{report['external_links']} external link(s)")
+        for issue in report["issues"]:
+            (_err if issue["severity"] == "error" else _warn)(
+                f"{issue['code']} [{issue['location']}]: {issue['message']}")
+        print(f"check-site: {report['errors']} error(s), {report['warnings']} warning(s)")
+    return EXIT_OK if report["errors"] == 0 else EXIT_INCOMPLETE
+
+
+def _render_check_site(report: dict) -> str:
+    lines = ["# Site check", "", f"Generated: {util.now_iso()}", "",
+             f"- pages: {report['pages']}", f"- files: {report['files']}",
+             f"- external links: {report['external_links']}",
+             f"- errors: {report['errors']}", f"- warnings: {report['warnings']}",
+             "", "## Issues", ""]
+    if not report["issues"]:
+        lines.append("None.")
+    else:
+        lines += ["| Severity | Code | Location | Message |", "| --- | --- | --- | --- |"]
+        for issue in report["issues"]:
+            lines.append(f"| {issue['severity']} | `{issue['code']}` | "
+                         f"`{issue['location']}` | {issue['message']} |")
+    return "\n".join(lines) + "\n"
+
+
 COMMANDS = {
     "doctor": cmd_doctor,
     "fetch": cmd_fetch,
+    "build-site": cmd_build_site,
+    "check-site": cmd_check_site,
     "import": cmd_import,
     "validate": cmd_validate,
     "import-catalogue": cmd_import_catalogue,
