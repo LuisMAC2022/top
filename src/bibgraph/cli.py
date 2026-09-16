@@ -75,6 +75,23 @@ def build_parser() -> argparse.ArgumentParser:
                            help="restrict to these aliases (repeatable)")
     p_extract.add_argument("--pdf-timeout", type=float, default=120.0)
 
+    p_resolve = sub.add_parser("resolve", help="resolve references and build graphs")
+    p_resolve.add_argument("--strict", action="store_true",
+                           help="exit 2 if any reference is wholly unresolved")
+    p_resolve.add_argument("--online", action="store_true",
+                           help="allow optional Crossref lookups (off by default)")
+    p_resolve.add_argument("--no-discovery", action="store_true",
+                           help="do not create metadata-only candidate nodes")
+
+    p_analyze = sub.add_parser("analyze", help="rebuild graphs, clusters and rankings")
+
+    p_promote = sub.add_parser("promote",
+                               help="propose a bounded expansion wave for review")
+    p_promote.add_argument("--max-new", type=int, default=20)
+    p_promote.add_argument("--min-citations", type=int, default=2)
+    p_promote.add_argument("--year-from", type=int, default=None)
+    p_promote.add_argument("--year-to", type=int, default=None)
+
     p_annotate = sub.add_parser("annotate", help="import a Keshav review record")
     p_annotate.add_argument("alias")
     p_annotate.add_argument("file")
@@ -487,10 +504,197 @@ def cmd_annotate(args, ws: Workspace) -> int:
     return EXIT_OK
 
 
+def _load_documents(ws: Workspace) -> dict[str, dict]:
+    documents: dict[str, dict] = {}
+    if ws.documents.exists():
+        for path in sorted(ws.documents.glob("*.json")):
+            document = util.read_json(path)
+            documents[document.get("work_id", path.stem)] = document
+    return documents
+
+
+def _run_analysis(ws: Workspace, corpus, resolutions, command: str) -> dict:
+    from . import analysis as analysis_mod
+
+    ranking = util.read_json(ws.ranking_file) if ws.ranking_file.exists() else {}
+    analysis = analysis_mod.analyze(ws, corpus, resolutions, ranking)
+    analysis_mod.export(ws, corpus, resolutions, analysis, {
+        "corpus.json": util.content_hash(util.read_json(ws.corpus_file)),
+        "ranking.json": util.content_hash(ranking),
+    })
+    return analysis
+
+
+def cmd_resolve(args, ws: Workspace) -> int:
+    from . import fetch as fetch_mod
+    from . import resolve as resolve_mod
+
+    ws.ensure()
+    try:
+        corpus, _deps, _profile = _load_or_exit(ws)
+    except (model.ValidationError, FileNotFoundError, json.JSONDecodeError) as exc:
+        _err(f"manifest could not be loaded: {exc}")
+        return EXIT_INVALID_MANIFEST
+    except _Abort as abort:
+        return abort.code
+
+    documents = _load_documents(ws)
+    if not documents:
+        _warn("no extracted document found; run `extract` first")
+
+    crossref = None
+    if args.online:
+        config = fetch_mod.FetchConfig.from_env()
+        if not config.contact:
+            _warn("BIBGRAPH_CONTACT_EMAIL is unset; Crossref requests will not be "
+                  "identified, which is what its polite pool asks for")
+        crossref = resolve_mod.CrossrefClient(
+            fetch_mod.Fetcher(config), ws.cache, mailto=config.contact)
+
+    resolutions = resolve_mod.resolve_corpus(
+        ws, corpus, documents, crossref=crossref,
+        allow_discovery=not args.no_discovery)
+    analysis = _run_analysis(ws, corpus, resolutions, "resolve")
+    summary = resolve_mod.summarize(resolutions)
+
+    payload = {
+        **util.derived_header(
+            {"corpus.json": util.content_hash(util.read_json(ws.corpus_file))}, "resolve"),
+        "summary": summary,
+        "graph_counts": {
+            "citation_edges": len(analysis["citation_edges"]),
+            "coupling_edges": len(analysis["coupling"]),
+            "clusters": len(analysis["clusters"]),
+            "discovered_works": len(analysis["discovered"]),
+        },
+    }
+    checks.write_report(ws, "resolve", payload, _render_resolve(summary, resolutions))
+
+    if args.json:
+        print(util.canonical_json(payload), end="")
+    else:
+        print("  ".join(f"{k}={v}" for k, v in summary["counts"].items())
+              or "no reference to resolve")
+        print(f"resolve: {summary['auto_accepted']}/{summary['references']} auto-accepted; "
+              f"{len(analysis['citation_edges'])} citation edge(s), "
+              f"{len(analysis['discovered'])} discovered work(s)")
+        if summary["manual_queue"]:
+            _warn(f"{len(summary['manual_queue'])} reference(s) need human review")
+    return resolve_mod.exit_code_for(resolutions, strict=args.strict)
+
+
+def _render_resolve(summary: dict, resolutions: list) -> str:
+    lines = ["# Reference resolution", "", f"Generated: {util.now_iso()}", "",
+             f"Auto-accepted {summary['auto_accepted']} of {summary['references']} "
+             f"reference(s). A match is accepted only when it is both strong and "
+             f"unique; everything else is queued for review rather than merged.",
+             "", "| Status | Count |", "| --- | --- |"]
+    for status, count in summary["counts"].items():
+        lines.append(f"| `{status}` | {count} |")
+    lines += ["", "## Needs review", "",
+              "| Citing | Raw reference | Best method | Score | Reason |",
+              "| --- | --- | --- | --- | --- |"]
+    for resolution in resolutions:
+        if resolution.status in ("resolved", "discovered"):
+            continue
+        lines.append(
+            f"| {resolution.citing_alias} | {resolution.raw[:70].replace('|', '/')} | "
+            f"`{resolution.method or '-'}` | {resolution.confidence:.2f} | "
+            f"{(resolution.reason or '').replace('|', '/')} |")
+    return "\n".join(lines) + "\n"
+
+
+def cmd_analyze(args, ws: Workspace) -> int:
+    from . import resolve as resolve_mod
+
+    ws.ensure()
+    try:
+        corpus, _deps, _profile = _load_or_exit(ws)
+    except _Abort as abort:
+        return abort.code
+    references_path = ws.data / "references.jsonl"
+    if not references_path.exists():
+        _err("data/references.jsonl is missing; run `resolve` first")
+        return EXIT_INCOMPLETE
+
+    rows = [r for r in util.read_jsonl(references_path) if "_meta" not in r]
+    resolutions = [_resolution_from_row(row) for row in rows]
+    analysis = _run_analysis(ws, corpus, resolutions, "analyze")
+    print(f"analyze: {len(analysis['citation_edges'])} citation edge(s), "
+          f"{len(analysis['coupling'])} coupling edge(s), "
+          f"{len(analysis['clusters'])} cluster(s)")
+    return EXIT_OK
+
+
+def _resolution_from_row(row: dict):
+    from .resolve import Candidate, Resolution
+
+    return Resolution(
+        citing_work_id=row["citing_work_id"], citing_alias=row["citing_alias"],
+        reference_index=row["reference_index"], raw=row["raw"], parsed=row["parsed"],
+        status=row["status"], target_id=row["target_id"], method=row["method"],
+        confidence=row["confidence"], reason=row.get("reason"),
+        candidates=[Candidate(c["target_id"], c["source"], c["score"], c["evidence"])
+                    for c in row.get("candidates", [])])
+
+
+def cmd_promote(args, ws: Workspace) -> int:
+    from . import analysis as analysis_mod
+    from . import resolve as resolve_mod
+
+    ws.ensure()
+    try:
+        corpus, _deps, _profile = _load_or_exit(ws)
+    except _Abort as abort:
+        return abort.code
+    references_path = ws.data / "references.jsonl"
+    if not references_path.exists():
+        _err("data/references.jsonl is missing; run `resolve` first")
+        return EXIT_INCOMPLETE
+
+    rows = [r for r in util.read_jsonl(references_path) if "_meta" not in r]
+    resolutions = [_resolution_from_row(row) for row in rows]
+    ranking = util.read_json(ws.ranking_file) if ws.ranking_file.exists() else {}
+    analysis = analysis_mod.analyze(ws, corpus, resolutions, ranking)
+    candidates = analysis_mod.promotion_candidates(
+        analysis, args.max_new, args.min_citations, args.year_from, args.year_to)
+
+    lines = ["# Promotion queue (proposal only)", "",
+             f"Generated: {util.now_iso()}", "",
+             f"Limits: max {args.max_new} new work(s), at least {args.min_citations} "
+             f"citing corpus work(s)"
+             + (f", years {args.year_from or ''}-{args.year_to or ''}"
+                if (args.year_from or args.year_to) else "") + ".", "",
+             "Nothing here has been downloaded or added to the manifest. Move an "
+             "entry into `config/corpus.json` by hand, with a role, an acquisition "
+             "intent and rights, to promote it.", "",
+             "| Cited by | Year | Title | DOI | Authors |", "| --- | --- | --- | --- | --- |"]
+    for row in candidates:
+        lines.append(
+            f"| {row['citing_count']} | {row.get('year') or ''} | "
+            f"{(row.get('title') or '').replace('|', '/')[:80]} | "
+            f"{row.get('doi') or ''} | "
+            f"{'; '.join(row.get('authors') or [])[:60].replace('|', '/')} |")
+    checks.write_report(ws, "promotion-queue", {
+        **util.derived_header({}, "promote"),
+        "summary": {"candidates": len(candidates),
+                    "discovered_total": len(analysis["discovered"])},
+        "candidates": candidates,
+    }, "\n".join(lines) + "\n")
+    print(f"promote: {len(candidates)} candidate(s) of "
+          f"{len(analysis['discovered'])} discovered; "
+          f"proposal written to {ws.reports / 'promotion-queue.md'}")
+    print("  nothing was downloaded and the manifest was not modified")
+    return EXIT_OK
+
+
 COMMANDS = {
     "doctor": cmd_doctor,
     "fetch": cmd_fetch,
     "extract": cmd_extract,
+    "resolve": cmd_resolve,
+    "analyze": cmd_analyze,
+    "promote": cmd_promote,
     "annotate": cmd_annotate,
     "build-site": cmd_build_site,
     "check-site": cmd_check_site,

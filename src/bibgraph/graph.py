@@ -243,3 +243,207 @@ class DagView:
                     {"node": e.target, "type": e.type} for e in self.outgoing(node)],
             })
         return rows
+
+
+# ---------------------------------------------------------------------------
+# Analysis graphs
+#
+# Kept strictly separate from the dependency DAG above. Citation edges may
+# cycle; dependency edges may not. Coupling and co-citation are derived, not
+# observed, and are labelled as such wherever they are displayed.
+# ---------------------------------------------------------------------------
+
+import math as _math
+from collections import defaultdict as _defaultdict
+
+
+def citation_edges(resolutions: list) -> list[dict]:
+    """citing -> cited, one edge per resolved reference, evidence retained."""
+    edges: dict[tuple[str, str], dict] = {}
+    for resolution in resolutions:
+        if resolution.status != "resolved" or not resolution.target_id:
+            continue
+        key = (resolution.citing_work_id, resolution.target_id)
+        if key in edges:
+            # A work may cite the same target twice; collapse deterministically
+            # while keeping every raw string behind the edge.
+            edges[key]["raw_references"].append(resolution.raw)
+            edges[key]["raw_references"].sort()
+            edges[key]["weight"] += 1
+            continue
+        edges[key] = {
+            "source": resolution.citing_work_id,
+            "target": resolution.target_id,
+            "type": "citation",
+            "weight": 1,
+            "method": resolution.method,
+            "confidence": round(resolution.confidence, 4),
+            "raw_references": [resolution.raw],
+            "evidence": [c.as_dict() for c in resolution.candidates[:3]],
+        }
+    return [edges[k] for k in sorted(edges)]
+
+
+def authorship_edges(corpus, discovered: dict[str, dict] | None = None) -> list[dict]:
+    """author -> work, with position and a stated identity confidence."""
+    from . import references as _references
+
+    edges = []
+    for work in corpus.works:
+        for position, author in enumerate(work.authors, start=1):
+            edges.append({
+                "source": f"author:{_references.normalize_author(author)}",
+                "target": work.id,
+                "type": "authorship",
+                "position": position,
+                "author_display": author,
+                "corresponding": None,
+                # A normalised name is a candidate identity, never a person.
+                "identity_confidence": 0.5,
+                "identity_basis": "normalized-name",
+            })
+    for work_id, record in sorted((discovered or {}).items()):
+        for position, author in enumerate(record.get("authors") or [], start=1):
+            edges.append({
+                "source": f"author:{_references.normalize_author(author)}",
+                "target": work_id,
+                "type": "authorship",
+                "position": position,
+                "author_display": author,
+                "corresponding": None,
+                "identity_confidence": 0.35,
+                "identity_basis": "normalized-name-from-reference",
+            })
+    return sorted(edges, key=lambda e: (e["source"], e["target"], e["position"]))
+
+
+def reference_sets(edges: list[dict]) -> dict[str, set[str]]:
+    out: dict[str, set[str]] = _defaultdict(set)
+    for edge in edges:
+        if edge["type"] == "citation":
+            out[edge["source"]].add(edge["target"])
+    return dict(out)
+
+
+def bibliographic_coupling(edges: list[dict], min_shared: int = 1) -> list[dict]:
+    """Undirected coupling weighted by shared references.
+
+    Both the raw count and the Salton cosine are reported. Without the
+    normalisation a work with a very long bibliography looks close to
+    everything, purely because it cites more.
+    """
+    sets = reference_sets(edges)
+    works = sorted(sets)
+    out = []
+    for i, left in enumerate(works):
+        for right in works[i + 1:]:
+            shared = sets[left] & sets[right]
+            if len(shared) < min_shared:
+                continue
+            denominator = _math.sqrt(len(sets[left]) * len(sets[right]))
+            out.append({
+                "type": "coupling",
+                "a": left, "b": right,
+                "shared": len(shared),
+                "shared_references": sorted(shared),
+                "cosine": round(len(shared) / denominator, 6) if denominator else 0.0,
+                "size_a": len(sets[left]), "size_b": len(sets[right]),
+            })
+    return sorted(out, key=lambda e: (-e["cosine"], e["a"], e["b"]))
+
+
+def co_citation(edges: list[dict], min_shared: int = 1) -> list[dict]:
+    """Undirected: how many corpus works cite both X and Y."""
+    citers: dict[str, set[str]] = _defaultdict(set)
+    for edge in edges:
+        if edge["type"] == "citation":
+            citers[edge["target"]].add(edge["source"])
+    targets = sorted(citers)
+    out = []
+    for i, left in enumerate(targets):
+        for right in targets[i + 1:]:
+            shared = citers[left] & citers[right]
+            if len(shared) < min_shared:
+                continue
+            out.append({"type": "co-citation", "a": left, "b": right,
+                        "shared": len(shared), "cited_by": sorted(shared)})
+    return sorted(out, key=lambda e: (-e["shared"], e["a"], e["b"]))
+
+
+def citation_indegree(edges: list[dict]) -> dict[str, int]:
+    counts: dict[str, int] = _defaultdict(int)
+    for edge in edges:
+        if edge["type"] == "citation":
+            counts[edge["target"]] += 1
+    return dict(counts)
+
+
+def pagerank(edges: list[dict], damping: float = 0.85, iterations: int = 100,
+             tolerance: float = 1e-10) -> dict[str, float]:
+    """PageRank over resolved citation edges, with sinks handled explicitly.
+
+    A sink's rank is redistributed uniformly each iteration; without that the
+    total probability leaks away and the scores stop being comparable.
+    """
+    nodes = sorted({e["source"] for e in edges if e["type"] == "citation"} |
+                   {e["target"] for e in edges if e["type"] == "citation"})
+    if not nodes:
+        return {}
+    count = len(nodes)
+    outgoing: dict[str, list[str]] = {n: [] for n in nodes}
+    for edge in edges:
+        if edge["type"] == "citation":
+            outgoing[edge["source"]].append(edge["target"])
+
+    rank = {n: 1.0 / count for n in nodes}
+    sinks = [n for n in nodes if not outgoing[n]]
+    for _ in range(iterations):
+        leaked = sum(rank[n] for n in sinks) / count
+        updated = {n: (1.0 - damping) / count + damping * leaked for n in nodes}
+        for node in nodes:
+            targets = outgoing[node]
+            if not targets:
+                continue
+            share = damping * rank[node] / len(targets)
+            for target in targets:
+                updated[target] += share
+        delta = sum(abs(updated[n] - rank[n]) for n in nodes)
+        rank = updated
+        if delta < tolerance:
+            break
+    total = sum(rank.values())
+    if total:
+        rank = {n: v / total for n, v in rank.items()}
+    return dict(sorted(rank.items()))
+
+
+def connected_components(coupling: list[dict], threshold: float) -> list[list[str]]:
+    """Clusters by thresholded cosine, then connected components.
+
+    Deliberately the simplest method that works; a community-detection library
+    is not added until this demonstrably fails.
+    """
+    parent: dict[str, str] = {}
+
+    def find(node: str) -> str:
+        parent.setdefault(node, node)
+        while parent[node] != node:
+            parent[node] = parent[parent[node]]
+            node = parent[node]
+        return node
+
+    def union(left: str, right: str) -> None:
+        a, b = find(left), find(right)
+        if a != b:
+            parent[max(a, b)] = min(a, b)
+
+    for edge in coupling:
+        parent.setdefault(edge["a"], edge["a"])
+        parent.setdefault(edge["b"], edge["b"])
+        if edge["cosine"] >= threshold:
+            union(edge["a"], edge["b"])
+
+    groups: dict[str, list[str]] = _defaultdict(list)
+    for node in sorted(parent):
+        groups[find(node)].append(node)
+    return [sorted(members) for _root, members in sorted(groups.items())]

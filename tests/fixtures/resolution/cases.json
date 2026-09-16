@@ -1,0 +1,76 @@
+{
+  "cases": [
+    {
+      "expect": "D-A2",
+      "raw": "C. Duarte. Enumeration by Transfer Matrix. J. Demo, 2021. doi:10.1016/j.demo.2021.01.002",
+      "why": "exact DOI"
+    },
+    {
+      "expect": "D-A2",
+      "raw": "Duarte, C. Enumeration by Transfer Matrix. Journal of Demonstration, 2021.",
+      "why": "exact title, year and first author"
+    },
+    {
+      "expect": "D-A3",
+      "raw": "[7] DOI: 10.1016/J.DEMO.2021.01.003",
+      "why": "uppercase DOI with a doi: prefix"
+    },
+    {
+      "expect": "D-A3",
+      "raw": "C. Duarte and A. Rivera. Enumeration by Direct Search. J. Demo, 2021.",
+      "why": "exact title, year and first author"
+    },
+    {
+      "expect": "D-R0",
+      "raw": "A. Rivera and B. Chen. A Survey of Finite Structure Enumeration. 2019.",
+      "why": "exact title, year and first author"
+    },
+    {
+      "expect": "D-A2",
+      "raw": "https://doi.org/10.1016/j.demo.2021.01.002",
+      "why": "DOI as a resolver URL"
+    },
+    {
+      "expect": null,
+      "raw": "C. Duarte. Enumeration by Transfer Matrices. J. Demo, 2021.",
+      "why": "title differs by one word; a near miss must not merge"
+    },
+    {
+      "expect": null,
+      "raw": "Z. Unknown. A Paper Nobody Has. Obscure Journal, 1988.",
+      "why": "not in the corpus at all"
+    },
+    {
+      "expect": null,
+      "raw": "Enumeration by Transfer Matrix.",
+      "why": "title only, no year or author: too weak"
+    },
+    {
+      "expect": null,
+      "raw": "C. Duarte. Enumeration by Transfer Matrix. J. Demo, 1999.",
+      "why": "right title and author, wrong year"
+    },
+    {
+      "expect": null,
+      "raw": "ibid.",
+      "why": "no extractable identity"
+    },
+    {
+      "expect": null,
+      "raw": "[12] See above, note 4.",
+      "why": "cross-reference, not a citation"
+    },
+    {
+      "expect": null,
+      "raw": "P. Alexandroff. Diskrete Raume. Mat. Sbornik, 2:501-519, 1937.",
+      "why": "real work, but outside the local corpus"
+    },
+    {
+      "expect": null,
+      "raw": "doi:10.9999/does.not.exist",
+      "why": "well-formed DOI that matches nothing locally"
+    }
+  ],
+  "corpus": "tests/fixtures/demo",
+  "note": "Hand-labelled resolution cases. 'expect' is the corpus alias a human says the reference denotes, or null when nothing may be auto-accepted. Precision on auto-accepted matches is the measured quantity."
+}

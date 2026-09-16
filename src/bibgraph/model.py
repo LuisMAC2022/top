@@ -124,12 +124,25 @@ class Work:
     year: int | None = None
     container: str | None = None      # parent collection alias, e.g. A5 children
     members: list[str] = dataclasses.field(default_factory=list)
+    identifiers: dict = dataclasses.field(default_factory=dict)  # doi, isbn, oeis, ...
     observations: list[dict] = dataclasses.field(default_factory=list)
     note: str | None = None
 
     @property
     def primary_alias(self) -> str:
         return self.aliases[0] if self.aliases else self.id
+
+    @property
+    def canonical_id_kind(self) -> str:
+        """Which identifier the canonical id rests on, most stable first."""
+        if self.identifiers.get("doi"):
+            return "doi"
+        if self.identifiers.get("isbn"):
+            return "isbn"
+        for key in sorted(self.identifiers):
+            if key not in ("doi", "isbn") and self.identifiers[key]:
+                return key
+        return "local"
 
     @property
     def display_title(self) -> str:
@@ -261,6 +274,7 @@ def load_corpus(path: Path) -> Corpus:
                 year=item.get("year"),
                 container=item.get("container"),
                 members=[str(m) for m in item.get("members", []) or []],
+                identifiers=dict(item.get("identifiers") or {}),
                 observations=list(item.get("observations", []) or []),
                 note=item.get("note"),
             )
@@ -385,6 +399,10 @@ def _validate_corpus(corpus: Corpus) -> list[Issue]:
                 Issue("error", "publish-without-storage", "publish_fulltext=true but local_storage_allowed=false", where)
             )
 
+        for kind, value in sorted(work.identifiers.items()):
+            if value in (None, ""):
+                issues.append(Issue("error", "empty-identifier",
+                                    f"identifier {kind} is declared but empty", where))
         if work.work_type == "collection" and not work.members:
             issues.append(Issue("error", "empty-collection", "collection work has no members", where))
         for member in work.members:
