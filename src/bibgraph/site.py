@@ -197,6 +197,8 @@ class SiteData:
     artifacts: dict[str, dict]          # asset_id -> ledger row
     documents: dict[str, dict]          # work id -> extracted document
     analysis: dict | None = None
+    survey: dict | None = None
+    edges: list[dict] = dataclasses.field(default_factory=list)
     reviews: dict[str, dict] = dataclasses.field(default_factory=dict)
     public: bool = False
 
@@ -601,10 +603,20 @@ def load_site_data(ws: Workspace, corpus: Corpus, deps: Dependencies,
     if analysis_path.exists():
         analysis = util.read_json(analysis_path)
 
+    survey = None
+    survey_path = ws.data / "survey.json"
+    if survey_path.exists():
+        survey = util.read_json(survey_path)
+
+    edges: list[dict] = []
+    edges_path = ws.data / "edges.jsonl"
+    if edges_path.exists():
+        edges = [row for row in util.read_jsonl(edges_path) if "_meta" not in row]
+
     return SiteData(
         corpus=corpus, deps=deps, profile=profile, view=DagView(deps, profile),
         artifacts=artifacts, documents=documents, analysis=analysis,
-        reviews=reviews, public=public,
+        survey=survey, edges=edges, reviews=reviews, public=public,
     )
 
 
@@ -628,7 +640,7 @@ def build_site(ws: Workspace, data: SiteData, destination: Path) -> list[Path]:
         emit(f"works/{util.safe_path_segment(work.primary_alias)}/index.html",
              build_work_page(data, work))
 
-    if data.analysis:
+    if data.analysis and data.survey:
         from .survey import build_graph_page, build_survey_page
 
         emit("graph/index.html", build_graph_page(data))

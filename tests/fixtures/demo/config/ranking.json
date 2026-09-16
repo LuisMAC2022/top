@@ -16,6 +16,8 @@
     "pagerank": 0.3
   },
   "schema_version": "1.0",
+  "seed_group_note": "The demo fixture prefixes every alias with D-, so the group is read after it.",
+  "seed_group_pattern": "^[A-Z]+-([A-Za-z]+)",
   "sensitivity": {
     "top_n": 10,
     "weight_deltas": [

@@ -515,13 +515,26 @@ def _load_documents(ws: Workspace) -> dict[str, dict]:
 
 def _run_analysis(ws: Workspace, corpus, resolutions, command: str) -> dict:
     from . import analysis as analysis_mod
+    from . import survey as survey_mod
+    from .store import open_store
 
     ranking = util.read_json(ws.ranking_file) if ws.ranking_file.exists() else {}
     analysis = analysis_mod.analyze(ws, corpus, resolutions, ranking)
+    analysis["unresolved"] = [
+        {"citing": r.citing_alias, "raw": r.raw, "reason": r.reason}
+        for r in resolutions if r.status in ("ambiguous", "unresolved")]
     analysis_mod.export(ws, corpus, resolutions, analysis, {
         "corpus.json": util.content_hash(util.read_json(ws.corpus_file)),
         "ranking.json": util.content_hash(ranking),
     })
+
+    reviews = {}
+    if ws.state_db.exists():
+        with open_store(ws.state_db) as store:
+            reviews = store.reviews()
+    stopwords = survey_mod.load_stopwords(ws.stopwords_file)
+    survey = survey_mod.build_survey(corpus, analysis, reviews, ranking, stopwords)
+    util.write_json_atomic(ws.data / "survey.json", survey)
     return analysis
 
 
@@ -620,9 +633,15 @@ def cmd_analyze(args, ws: Workspace) -> int:
     rows = [r for r in util.read_jsonl(references_path) if "_meta" not in r]
     resolutions = [_resolution_from_row(row) for row in rows]
     analysis = _run_analysis(ws, corpus, resolutions, "analyze")
+    survey = util.read_json(ws.data / "survey.json")
     print(f"analyze: {len(analysis['citation_edges'])} citation edge(s), "
           f"{len(analysis['coupling'])} coupling edge(s), "
-          f"{len(analysis['clusters'])} cluster(s)")
+          f"{len(analysis['clusters'])} cluster(s), "
+          f"{len(survey['author_rankings'])} author identity/identities")
+    if survey.get("sensitivity"):
+        moved = sum(1 for row in survey["sensitivity"] if row["order_changed"])
+        print(f"  shortlist order changes under {moved} of "
+              f"{len(survey['sensitivity'])} weight variations")
     return EXIT_OK
 
 

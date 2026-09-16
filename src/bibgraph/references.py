@@ -124,14 +124,24 @@ def surname(author: str) -> str:
 
 
 def normalize_author(author: str) -> str:
-    """'Alexandroff, P.' and 'P. Alexandroff' collapse to the same key."""
+    """'Alexandroff, P.', 'P. Alexandroff' and 'Pavel Alexandroff' share a key.
+
+    Initials are taken from the given names whether they are written out or
+    abbreviated. Reading them only from "X." patterns splits "Cleo Duarte" from
+    "C. Duarte", which is a false split in the author index rather than the
+    conservative non-merge it looks like.
+    """
     author = util.normalize_text(author).rstrip(".,;")
-    initials = re.findall(r"\b([A-Z])\.", author)
-    if not initials:
-        initials = [w[0] for w in author.split() if len(w) == 1 and w.isupper()]
     last = surname(author)
+    if "," in author:
+        given = author.split(",", 1)[1]
+    else:
+        cut = author.rfind(last)
+        given = author[:cut] if cut > 0 else ""
+    initials = [token[0].lower()
+                for token in re.findall(r"[^\W\d_][\w'\u00c0-\u024f-]*", given)]
     key = util.normalize_for_match(last)
-    return f"{key} {''.join(i.lower() for i in initials)}".strip()
+    return f"{key} {''.join(initials)}".strip()
 
 
 def parse_reference(index: int, raw: str) -> ParsedReference:

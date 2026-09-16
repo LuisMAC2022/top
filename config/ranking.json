@@ -16,6 +16,8 @@
     "pagerank": 0.3
   },
   "schema_version": "1.0",
+  "seed_group_note": "Groups the seed catalogue as R, A, B, C, D from the alias prefix; A5.1 stays with A5.",
+  "seed_group_pattern": "^([A-Za-z]+)",
   "sensitivity": {
     "top_n": 10,
     "weight_deltas": [

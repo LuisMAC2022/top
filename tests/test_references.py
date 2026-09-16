@@ -109,3 +109,24 @@ class TestParsing(unittest.TestCase):
     def test_diacritics_survive_in_the_title(self):
         parsed = self.parse("P. Alexandroff. Diskrete Räume. Mat. Sbornik, 1937.")
         self.assertEqual(parsed.title, "Diskrete Räume")
+
+
+class TestAuthorIdentityKeys(unittest.TestCase):
+    """A written-out given name must key the same as its initial."""
+
+    EQUIVALENT = [
+        ("Cleo Duarte", "C. Duarte", "Duarte, C."),
+        ("Pavel Alexandroff", "P. Alexandroff", "Alexandroff, P."),
+        ("M. Erné", "Erne, M."),
+    ]
+
+    def test_equivalent_spellings_share_a_key(self):
+        for group in self.EQUIVALENT:
+            keys = {references.normalize_author(name) for name in group}
+            self.assertEqual(len(keys), 1, f"{group} -> {keys}")
+
+    def test_different_people_do_not_share_a_key(self):
+        self.assertNotEqual(references.normalize_author("C. Duarte"),
+                            references.normalize_author("X. Duarte"))
+        self.assertNotEqual(references.normalize_author("D. Kleitman"),
+                            references.normalize_author("D. Kleitmann"))
