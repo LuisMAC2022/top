@@ -91,7 +91,16 @@ def strip_volatile(obj: Any) -> Any:
     return obj
 
 
-def read_json(path: Path) -> Any:
+# A hand-reviewed manifest is small by construction; anything far larger is a
+# mistake or a hostile payload, and parsing it first is the expensive part.
+MAX_JSON_BYTES = 64 * 1024 * 1024
+
+
+def read_json(path: Path, max_bytes: int = MAX_JSON_BYTES) -> Any:
+    path = Path(path)
+    size = path.stat().st_size
+    if size > max_bytes:
+        raise ValueError(f"{path} is {size} bytes, over the {max_bytes} byte limit")
     with open(path, "r", encoding="utf-8") as handle:
         return json.load(handle)
 

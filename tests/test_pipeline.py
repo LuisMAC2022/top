@@ -26,13 +26,42 @@ class TestFullRun(WorkspaceCase):
                             "--allow-private-host", "127.0.0.1", "--delay", "0")
 
     def test_the_documented_command_sequence_runs(self):
+        """The exact sequence in the plan's section 11, end to end."""
         self.assertEqual(self.run_cli("doctor"), util.EXIT_OK)
         self.assertEqual(self.run_cli("validate"), util.EXIT_OK)
         self.assertEqual(self.fetch(), util.EXIT_OK)
+        # extract --strict exits 2 here because pdftotext is absent and the
+        # purchase-only work is gated, which is the correct report, not a bug.
         self.assertEqual(self.run_cli("extract"), util.EXIT_OK)
+        self.assertEqual(self.run_cli("resolve"), util.EXIT_OK)
+        self.assertEqual(self.run_cli("analyze"), util.EXIT_OK)
         self.assertEqual(self.run_cli("build-site", "--local"), util.EXIT_OK)
         self.assertEqual(self.run_cli("check-site", str(self.root / "build" / "site")),
                          util.EXIT_OK)
+        self.assertEqual(self.run_cli("build-site", "--public"), util.EXIT_OK)
+        self.assertEqual(self.run_cli("check-site", str(self.root / "publish"),
+                                      "--public"), util.EXIT_OK)
+
+    def test_every_stage_produces_its_versioned_exports(self):
+        self.fetch()
+        self.run_cli("extract")
+        self.run_cli("resolve")
+        for name in ("works.jsonl", "references.jsonl", "authors.jsonl",
+                     "edges.jsonl", "analysis.json", "survey.json"):
+            path = self.root / "data" / name
+            self.assertTrue(path.exists(), name)
+            self.assertGreater(path.stat().st_size, 0, name)
+
+    def test_derived_exports_carry_their_provenance(self):
+        self.fetch()
+        self.run_cli("extract")
+        self.run_cli("resolve")
+        rows = util.read_jsonl(self.root / "data" / "edges.jsonl")
+        meta = rows[0]["_meta"]
+        for key in ("schema_version", "generated_at", "generator",
+                    "generator_version", "command", "input_hashes"):
+            self.assertIn(key, meta, key)
+        self.assertIn("corpus.json", meta["input_hashes"])
 
     def test_extraction_reaches_the_work_page_with_its_evidence(self):
         self.fetch()

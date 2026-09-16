@@ -336,6 +336,10 @@ def cmd_build_site(args, ws: Workspace) -> int:
     destination = Path(args.output) if args.output else (ws.publish if public else ws.build_site)
     data = site_mod.load_site_data(ws, corpus, deps, profile, public=public)
 
+    publication_report = None
+    if public:
+        data, publication_report = site_mod.apply_public_allowlist(data)
+
     incomplete = _incompleteness(corpus, data)
     if incomplete and not args.allow_incomplete:
         for reason in incomplete:
@@ -347,6 +351,22 @@ def cmd_build_site(args, ws: Workspace) -> int:
     written = site_mod.build_site(ws, data, destination)
     print(f"build-site: {len(written)} file(s) -> {destination}"
           f"{' (public, allowlisted)' if public else ''}")
+
+    if publication_report is not None:
+        checks.write_report(ws, "publication", publication_report,
+                            site_mod.render_publication_report(publication_report))
+        size = site_mod.measure_size(destination)
+        publication_report["size"] = size
+        print(f"  {publication_report['counts']['included']} passage(s) cleared for "
+              f"publication, {publication_report['counts']['withheld']} withheld; "
+              f"see {ws.reports / 'publication.md'}")
+        print(f"  size {size['bytes'] / 1024:.1f} KiB in {size['files']} file(s)")
+        if size["bytes"] > site_mod.DEFAULT_SIZE_BUDGET_BYTES:
+            _err(f"public build is {size['bytes']} bytes, over the "
+                 f"{site_mod.DEFAULT_SIZE_BUDGET_BYTES} byte budget; publish "
+                 "metadata and graphs rather than copied documents")
+            return EXIT_INCOMPLETE
+
     for reason in incomplete:
         _warn(reason)
     return EXIT_OK

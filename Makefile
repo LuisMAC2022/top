@@ -26,8 +26,8 @@ check-site:   ## link-check and escape-check the built site
 	$(BIB) check-site build/site
 publish:      ## build the allowlisted public site
 	$(BIB) build-site --public && $(BIB) check-site publish --public
-serve:        ## serve the local build
-	$(PY) -m http.server --directory build/site $(PORT)
+serve:        ## serve the local build on loopback only
+	$(PY) -m http.server --bind 127.0.0.1 --directory build/site $(PORT)
 test:         ## run the standard library test suite
 	$(PY) -m unittest
 clean:

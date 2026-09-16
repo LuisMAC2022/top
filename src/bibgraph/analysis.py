@@ -117,6 +117,17 @@ def citation_edges_including_discovered(resolutions: list[resolve.Resolution],
     return graph.citation_edges(promoted)
 
 
+# Untrusted input reaches these structures through parsed bibliographies, so
+# the derived graph is bounded. Exceeding a bound is a visible error, not a
+# silently truncated graph.
+MAX_NODES = 50_000
+MAX_EDGES = 500_000
+
+
+class GraphTooLarge(Exception):
+    pass
+
+
 def analyze(ws: Workspace, corpus: Corpus, resolutions: list[resolve.Resolution],
             ranking: dict) -> dict:
     discovered, alias = merge_discovered(discovered_works(resolutions))
@@ -128,6 +139,17 @@ def analyze(ws: Workspace, corpus: Corpus, resolutions: list[resolve.Resolution]
     threshold = float(coupling_config.get("cluster_threshold", 0.2))
     coupling = graph.bibliographic_coupling(edges, min_shared=min_shared)
     cocitation = graph.co_citation(edges, min_shared=2)
+
+    nodes = ({e["source"] for e in edges} | {e["target"] for e in edges}
+             | {w.id for w in corpus.works})
+    if len(nodes) > MAX_NODES:
+        raise GraphTooLarge(
+            f"{len(nodes)} nodes exceeds the {MAX_NODES} bound; narrow the corpus "
+            "or raise MAX_NODES deliberately")
+    total_edges = len(edges) + len(authorship) + len(coupling) + len(cocitation)
+    if total_edges > MAX_EDGES:
+        raise GraphTooLarge(
+            f"{total_edges} edges exceeds the {MAX_EDGES} bound")
 
     pagerank_config = ranking.get("pagerank", {})
     ranks = graph.pagerank(

@@ -721,3 +721,143 @@ def collect_report_summaries(ws: Workspace) -> list[dict]:
             "summary": text,
         })
     return summaries
+
+
+# ---------------------------------------------------------------------------
+# Publication allowlist
+#
+# An allowlist, not a denylist: the public build starts from nothing and copies
+# in only what has been explicitly cleared. Open web access is not proof of
+# redistribution permission, so an unknown licence publishes a citation and a
+# link, never a copied document or extracted section.
+# ---------------------------------------------------------------------------
+
+# GitHub documents a 1 GB published-site ceiling. The default budget sits far
+# below it because the right thing to publish is metadata and graphs, not a
+# mirror of the bibliography.
+DEFAULT_SIZE_BUDGET_BYTES = 100 * 1024 * 1024
+
+PUBLISHABLE_TEXT_FIELDS = {
+    "abstract": "publish_abstract",
+    "introduction": "publish_fulltext",
+    "conclusion": "publish_fulltext",
+}
+
+
+def clearance_for(work, field_name: str) -> tuple[bool, str]:
+    """May this field's text be redistributed? Returns the decision and why."""
+    rights = work.rights
+    if field_name == "title":
+        return (rights.publish_metadata,
+                "publish_metadata" if rights.publish_metadata else "metadata withheld")
+    if field_name == "references":
+        return (rights.publish_metadata,
+                "reference strings are metadata" if rights.publish_metadata
+                else "metadata withheld")
+    flag = PUBLISHABLE_TEXT_FIELDS.get(field_name)
+    if flag is None:
+        return False, "no publication policy for this field"
+    if not getattr(rights, flag):
+        return False, f"{flag}=false"
+    if not rights.license_evidence_url:
+        return False, f"{flag}=true but no licence evidence is recorded"
+    return True, f"{flag}=true with licence evidence {rights.license_evidence_url}"
+
+
+def apply_public_allowlist(data: SiteData) -> tuple[SiteData, dict]:
+    """Strip everything not explicitly cleared, and report what survived."""
+    by_id = data.corpus.by_id()
+    included: list[dict] = []
+    withheld: list[dict] = []
+
+    documents: dict[str, dict] = {}
+    for work_id, document in data.documents.items():
+        work = by_id.get(work_id)
+        if work is None:
+            continue
+        clean = {k: v for k, v in document.items() if k != "fields"}
+        # Local paths and the private text layer never reach a public build.
+        clean["source"] = None
+        clean["hyphen_joins"] = []
+        fields = {}
+        publishable = {}
+        for name, field in document.get("fields", {}).items():
+            allowed, reason = clearance_for(work, name)
+            publishable[name] = allowed
+            copy = dict(field)
+            if copy.get("source"):
+                copy["source"] = {"asset_sha256": copy["source"].get("asset_sha256"),
+                                  "pages": copy["source"].get("pages")}
+            if not allowed and copy.get("text"):
+                copy["text"] = None
+                copy["reason"] = (copy.get("reason") or "") + \
+                    f" (text withheld from the public build: {reason})"
+            present = field.get("status") == "present"
+            record = {"alias": work.primary_alias, "field": name,
+                      "reason": reason if present
+                      else f"nothing to publish: field is {field.get('status')}",
+                      "license": work.rights.license,
+                      "license_evidence_url": work.rights.license_evidence_url}
+            (included if (allowed and present) else withheld).append(record)
+            fields[name] = copy
+        clean["fields"] = fields
+        clean["publishable"] = publishable
+        documents[work_id] = clean
+
+    artifacts = {}
+    for asset_id, row in data.artifacts.items():
+        artifacts[asset_id] = {**row, "path": None}
+
+    reviews = {}
+    for work_id, review in data.reviews.items():
+        payload = review.get("payload") or {}
+        if payload.get("publish") is True:
+            reviews[work_id] = review
+        else:
+            withheld.append({"alias": by_id.get(work_id).primary_alias
+                             if work_id in by_id else work_id,
+                             "field": "keshav_review", "license": None,
+                             "license_evidence_url": None,
+                             "reason": "private annotation: set \"publish\": true to "
+                                       "include a note in the public build"})
+
+    public_data = dataclasses.replace(
+        data, documents=documents, artifacts=artifacts, reviews=reviews, public=True)
+    report = {
+        **util.derived_header({}, "build-site --public"),
+        "included": sorted(included, key=lambda r: (r["alias"], r["field"])),
+        "withheld": sorted(withheld, key=lambda r: (r["alias"], r["field"])),
+        "counts": {"included": len(included), "withheld": len(withheld)},
+    }
+    return public_data, report
+
+
+def render_publication_report(report: dict) -> str:
+    lines = ["# Publication report", "", f"Generated: {util.now_iso()}", "",
+             "Every full-text or abstract passage included in the public build is "
+             "listed below with the licence evidence that permits it. An unknown "
+             "licence publishes a citation and a link, never a copied document.",
+             "", "## Included", "",
+             "| Alias | Field | Licence | Evidence | Basis |",
+             "| --- | --- | --- | --- | --- |"]
+    if not report["included"]:
+        lines.append("| _none_ | | | | |")
+    for row in report["included"]:
+        lines.append(f"| {row['alias']} | {row['field']} | {row['license'] or '—'} | "
+                     f"{row['license_evidence_url'] or '—'} | {row['reason']} |")
+    lines += ["", "## Withheld", "", "| Alias | Field | Reason |", "| --- | --- | --- |"]
+    for row in report["withheld"]:
+        lines.append(f"| {row['alias']} | {row['field']} | {row['reason']} |")
+    return "\n".join(lines) + "\n"
+
+
+def measure_size(root: Path) -> dict:
+    files = [p for p in Path(root).rglob("*") if p.is_file()]
+    total = sum(p.stat().st_size for p in files)
+    largest = sorted(files, key=lambda p: -p.stat().st_size)[:5]
+    return {
+        "bytes": total,
+        "files": len(files),
+        "largest": [{"path": str(p.relative_to(root)), "bytes": p.stat().st_size}
+                    for p in largest],
+    }
