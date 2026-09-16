@@ -50,6 +50,29 @@ def build_parser() -> argparse.ArgumentParser:
     p_validate.add_argument("--strict", action="store_true",
                             help="treat warnings as failures")
 
+    p_fetch = sub.add_parser("fetch", help="acquire explicitly requested assets")
+    p_fetch.add_argument("--strict", action="store_true",
+                         help="stop at the first failed required asset")
+    p_fetch.add_argument("--keep-going", action="store_true",
+                         help="collect every failure; the exit status is unchanged")
+    p_fetch.add_argument("--alias", action="append", default=None,
+                         help="restrict to these aliases (repeatable)")
+    p_fetch.add_argument("--require-fulltext-all", action="store_true",
+                         help="exit 2 unless every fulltext asset was downloaded")
+    p_fetch.add_argument("--allow-http", action="store_true",
+                         help="permit plain http (refused by default)")
+    p_fetch.add_argument("--allow-private-host", action="append", default=[],
+                         help="permit a non-public host, e.g. 127.0.0.1 (repeatable)")
+    p_fetch.add_argument("--no-robots", action="store_true",
+                         help="skip robots.txt guidance (records the decision)")
+    p_fetch.add_argument("--delay", type=float, default=1.0,
+                         help="seconds between requests (default 1.0)")
+
+    p_local = sub.add_parser("import", help="register a legally obtained local copy")
+    p_local.add_argument("alias")
+    p_local.add_argument("file")
+    p_local.add_argument("--role", default="fulltext")
+
     p_import = sub.add_parser("import-catalogue",
                               help="convert the access-verification Markdown into corpus.json")
     p_import.add_argument("path", help="catalogue Markdown file")
@@ -153,8 +176,111 @@ def cmd_import_catalogue(args, ws: Workspace) -> int:
     return EXIT_OK
 
 
+def _load_or_exit(ws: Workspace):
+    """Nothing touches the network until the manifest validates."""
+    corpus, deps, profile, issues = checks.load_and_validate(ws)
+    errors = model.errors(issues)
+    if errors:
+        for issue in errors:
+            _err(str(issue))
+        _err("manifest is invalid; refusing to continue")
+        raise _Abort(EXIT_INVALID_MANIFEST)
+    return corpus, deps, profile
+
+
+class _Abort(Exception):
+    def __init__(self, code: int):
+        super().__init__(code)
+        self.code = code
+
+
+def cmd_fetch(args, ws: Workspace) -> int:
+    from . import fetch as fetch_mod
+    from .store import open_store
+
+    ws.ensure()
+    try:
+        corpus, _deps, _profile = _load_or_exit(ws)
+    except (model.ValidationError, FileNotFoundError, json.JSONDecodeError) as exc:
+        _err(f"manifest could not be loaded: {exc}")
+        return EXIT_INVALID_MANIFEST
+    except _Abort as abort:
+        return abort.code
+
+    config = fetch_mod.FetchConfig.from_env(
+        allow_http=args.allow_http,
+        allow_private_hosts=tuple(args.allow_private_host),
+        respect_robots=not args.no_robots,
+        delay_between_requests=args.delay,
+    )
+    if not config.contact:
+        _warn("BIBGRAPH_CONTACT_EMAIL is unset; requests carry no contact address")
+
+    run_id = util.now_utc().strftime("%Y%m%dT%H%M%SZ")
+    events: list[dict] = []
+
+    def on_event(outcome) -> None:
+        events.append(outcome.as_event())
+        if outcome.status == fetch_mod.STATUS_FAILED:
+            _err(f"{outcome.alias} [{outcome.role}] {outcome.requested_url}: {outcome.reason}")
+
+    with open_store(ws.state_db) as store:
+        outcomes = fetch_mod.fetch_corpus(
+            ws, corpus, store, config,
+            aliases=args.alias,
+            keep_going=not args.strict or args.keep_going,
+            fetcher=None, run_id=run_id, on_event=on_event,
+        )
+
+    summary = fetch_mod.summarize(outcomes, corpus)
+    payload = {
+        **util.derived_header(
+            {"corpus.json": util.content_hash(util.read_json(ws.corpus_file))}, "fetch"),
+        "run_id": run_id,
+        "summary": summary,
+        "events": events,
+    }
+    checks.write_report(ws, f"fetch-{run_id}", payload,
+                        checks.render_fetch_markdown(summary, outcomes))
+    checks.write_report(ws, "fetch", payload,
+                        checks.render_fetch_markdown(summary, outcomes))
+
+    if args.json:
+        print(util.canonical_json(payload), end="")
+    else:
+        print("  ".join(f"{k}={v}" for k, v in summary["counts"].items()) or "nothing requested")
+        print(f"fetch: report written to {ws.reports / f'fetch-{run_id}.md'}")
+
+    return fetch_mod.exit_code_for(
+        outcomes, require_fulltext_all=args.require_fulltext_all, corpus=corpus)
+
+
+def cmd_import(args, ws: Workspace) -> int:
+    from . import fetch as fetch_mod
+    from .store import open_store
+
+    ws.ensure()
+    try:
+        corpus, _deps, _profile = _load_or_exit(ws)
+    except _Abort as abort:
+        return abort.code
+    with open_store(ws.state_db) as store:
+        try:
+            outcome = fetch_mod.import_local(
+                ws, corpus, store, args.alias, Path(args.file), role=args.role)
+        except fetch_mod.FetchError as exc:
+            _err(str(exc))
+            return EXIT_INVALID_MANIFEST
+    print(f"imported {args.alias} <- {args.file}")
+    print(f"  sha256 {outcome.sha256}")
+    print(f"  stored {outcome.path} (provenance: user_supplied, never published by default)")
+    return EXIT_OK
+
+
 COMMANDS = {
     "doctor": cmd_doctor,
+    "fetch": cmd_fetch,
+    "import": cmd_import,
     "validate": cmd_validate,
     "import-catalogue": cmd_import_catalogue,
 }

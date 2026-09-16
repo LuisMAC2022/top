@@ -187,3 +187,36 @@ def render_validation_markdown(summary: dict, issues: list[model.Issue]) -> str:
             lines.append(f"| `{issue.code}` | `{issue.location}` | {issue.message} |")
         lines.append("")
     return "\n".join(lines)
+
+
+def render_fetch_markdown(summary: dict, outcomes: list) -> str:
+    """Human-readable acquisition ledger. Local absolute paths never appear."""
+    lines = [
+        "# Acquisition report",
+        "",
+        f"Generated: {util.now_iso()}",
+        "",
+        "## Outcome counts",
+        "",
+        "| Status | Count |",
+        "| --- | --- |",
+    ]
+    for status, count in summary["counts"].items():
+        lines.append(f"| `{status}` | {count} |")
+    lines += ["", "## Per asset", "",
+              "| Alias | Role | Intent | Status | HTTP | Bytes | SHA-256 | Reason |",
+              "| --- | --- | --- | --- | --- | --- | --- | --- |"]
+    for outcome in outcomes:
+        digest = (outcome.sha256 or "")[:12]
+        lines.append(
+            f"| {outcome.alias} | {outcome.role} | {outcome.intent} | `{outcome.status}` | "
+            f"{outcome.http_status or ''} | {outcome.bytes or ''} | `{digest}` | "
+            f"{(outcome.reason or '').replace('|', '/')} |")
+    for label, key in (("Required assets that failed", "required_failures"),
+                       ("Integrity failures", "integrity_failures"),
+                       ("Full text not downloaded", "fulltext_not_downloaded"),
+                       ("Works with no verified full text", "works_without_fulltext")):
+        lines += ["", f"## {label}", ""]
+        items = summary[key]
+        lines.append("None." if not items else "\n".join(f"- `{i}`" for i in items))
+    return "\n".join(lines) + "\n"

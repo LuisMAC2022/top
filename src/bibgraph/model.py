@@ -86,6 +86,7 @@ class Asset:
     intent: str
     expected_media_type: str | None = None
     note: str | None = None
+    min_bytes: int | None = None   # override the work-type default floor
 
     @property
     def is_required(self) -> bool:
@@ -243,6 +244,7 @@ def load_corpus(path: Path) -> Corpus:
                     intent=str(_require(a_raw, "intent", a_where)),
                     expected_media_type=a_raw.get("expected_media_type"),
                     note=a_raw.get("note"),
+                    min_bytes=a_raw.get("min_bytes"),
                 )
             )
         works.append(
@@ -410,6 +412,11 @@ def _validate_corpus(corpus: Corpus) -> list[Issue]:
                 seen_urls[asset.url] = a_where
                 if not asset.url.startswith(("https://", "http://")):
                     issues.append(Issue("error", "bad-url-scheme", f"unsupported scheme in {asset.url}", a_where))
+            if asset.min_bytes is not None and (
+                    not isinstance(asset.min_bytes, int) or asset.min_bytes < 1):
+                issues.append(Issue("error", "bad-min-bytes",
+                                    f"min_bytes must be a positive integer, got {asset.min_bytes!r}",
+                                    a_where))
             if asset.intent == "required" and asset.role not in ("fulltext", "metadata", "mirror"):
                 issues.append(
                     Issue("error", "required-non-content", f"intent=required is not meaningful for role {asset.role}", a_where)
