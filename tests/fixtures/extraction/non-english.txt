@@ -1,0 +1,24 @@
+Uber die Anzahl der Topologien auf endlichen Mengen
+
+Zusammenfassung
+
+Wir zahlen die Topologien auf einer endlichen Menge und geben eine
+Strukturformel an.
+
+1. Einleitung
+
+Die Anzahl der Topologien auf einer n-elementigen Menge wachst sehr schnell.
+
+2. Strukturformeln
+
+Jede endliche Topologie entspricht einer Quasiordnung.
+
+3. Schluss
+
+Die Formel liefert exakte Werte fur kleine n.
+
+Literatur
+
+[1] P. Alexandroff. Diskrete Raume. Mat. Sbornik, 2:501-519, 1937.
+[2] M. Erne. Struktur- und Anzahlformeln fur Topologien auf endlichen Mengen.
+    Manuscripta Math., 11:221-259, 1974.

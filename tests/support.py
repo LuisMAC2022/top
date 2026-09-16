@@ -26,7 +26,16 @@ class WorkspaceCase(unittest.TestCase):
         self.ws.ensure()
         self.addCleanup(shutil.rmtree, self._tmp, True)
 
-    def run_cli(self, *argv: str) -> int:
+    def run_cli(self, *argv: str, capture: bool = True) -> int:
+        """Invoke the CLI in-process, silencing its output by default."""
+        import contextlib
+        import io
+
         from bibgraph.cli import main
 
-        return main(["--root", str(self.root), *argv])
+        if not capture:
+            return main(["--root", str(self.root), *argv])
+        self.stdout, self.stderr = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(self.stdout), \
+                contextlib.redirect_stderr(self.stderr):
+            return main(["--root", str(self.root), *argv])

@@ -1,0 +1,15 @@
+{
+  "expect_fields": {
+    "conclusion": "present",
+    "references": "present",
+    "title": "present"
+  },
+  "expect_reference_count": 2,
+  "headings": [
+    "Orderly generation",
+    "Conclusions",
+    "References"
+  ],
+  "note": "Column interleaving is visible in the Abstract/Introduction line. The extractor must not claim high confidence on this material.",
+  "work_type": "article"
+}

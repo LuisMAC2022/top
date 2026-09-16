@@ -1,0 +1,19 @@
+{
+  "expect_fields": {
+    "abstract": "not_present",
+    "conclusion": "not_applicable",
+    "references": "present",
+    "title": "present"
+  },
+  "expect_reference_count": 2,
+  "headings": [
+    "Preface",
+    "Foundations",
+    "Relations",
+    "Lattices",
+    "Topologies",
+    "Bibliography"
+  ],
+  "note": "A book legitimately has no abstract and no article-style conclusion.",
+  "work_type": "book"
+}

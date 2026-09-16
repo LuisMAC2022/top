@@ -1,0 +1,20 @@
+Orderly Generation of Finite Topologies
+
+Abstract                              1. Introduction
+
+We enumerate finite topologies by    Direct search is conceptually simpler
+orderly generation with isomorph     than the transfer matrix method, and
+rejection.                           easier to verify independently.
+
+2. Orderly generation
+
+Canonical augmentation avoids generating isomorphs.
+
+3. Conclusions
+
+Direct search verifies the transfer matrix results for n <= 16.
+
+References
+
+[1] R. Stanley. On the number of open sets of finite topologies, 1971.
+[2] M. Erne. Struktur- und Anzahlformeln, 1974.

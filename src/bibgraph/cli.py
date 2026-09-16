@@ -68,6 +68,17 @@ def build_parser() -> argparse.ArgumentParser:
     p_fetch.add_argument("--delay", type=float, default=1.0,
                          help="seconds between requests (default 1.0)")
 
+    p_extract = sub.add_parser("extract", help="extract first-pass structure")
+    p_extract.add_argument("--strict", action="store_true",
+                           help="exit 2 if any work lands in the manual queue")
+    p_extract.add_argument("--alias", action="append", default=None,
+                           help="restrict to these aliases (repeatable)")
+    p_extract.add_argument("--pdf-timeout", type=float, default=120.0)
+
+    p_annotate = sub.add_parser("annotate", help="import a Keshav review record")
+    p_annotate.add_argument("alias")
+    p_annotate.add_argument("file")
+
     p_site = sub.add_parser("build-site", help="generate the static site")
     group = p_site.add_mutually_exclusive_group()
     group.add_argument("--local", action="store_true", default=True,
@@ -374,9 +385,113 @@ def _render_check_site(report: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def cmd_extract(args, ws: Workspace) -> int:
+    from . import extract as extract_mod
+    from .store import open_store
+
+    ws.ensure()
+    try:
+        corpus, _deps, _profile = _load_or_exit(ws)
+    except (model.ValidationError, FileNotFoundError, json.JSONDecodeError) as exc:
+        _err(f"manifest could not be loaded: {exc}")
+        return EXIT_INVALID_MANIFEST
+    except _Abort as abort:
+        return abort.code
+
+    with open_store(ws.state_db) as store:
+        documents = extract_mod.extract_corpus(
+            ws, corpus, store, aliases=args.alias, pdf_timeout=args.pdf_timeout)
+
+    summary = extract_mod.summarize(documents)
+    for document in documents:
+        if document["overall_status"] in (extract_mod.STATUS_FAILED,
+                                          extract_mod.STATUS_UNSUPPORTED):
+            _err(f"{document['alias']}: {document['overall_status']}: "
+                 f"{'; '.join(document['warnings'])[:300]}")
+    payload = {
+        **util.derived_header(
+            {"corpus.json": util.content_hash(util.read_json(ws.corpus_file))}, "extract"),
+        "summary": summary,
+        "documents": [{k: v for k, v in d.items() if k != "fields"} | {
+            "fields": {n: {kk: vv for kk, vv in f.items() if kk != "text"}
+                       for n, f in d["fields"].items()}} for d in documents],
+    }
+    checks.write_report(ws, "extract", payload, _render_extract(summary, documents))
+
+    if args.json:
+        print(util.canonical_json(payload), end="")
+    else:
+        print("  ".join(f"{k}={v}" for k, v in summary["counts"].items()) or "nothing to extract")
+        print(f"extract: {summary['references_found']} raw reference(s); "
+              f"report written to {ws.reports / 'extract.md'}")
+        if summary["manual_queue"]:
+            _warn("manual queue: " + ", ".join(summary["manual_queue"]))
+    return extract_mod.exit_code_for(documents, strict=args.strict)
+
+
+def _render_extract(summary: dict, documents: list) -> str:
+    lines = ["# Extraction report", "", f"Generated: {util.now_iso()}", "",
+             "## Overall", "", "| Status | Count |", "| --- | --- |"]
+    for status, count in summary["counts"].items():
+        lines.append(f"| `{status}` | {count} |")
+    lines += ["", "## Field states", "", "| Field | States |", "| --- | --- |"]
+    for name, states in summary["field_states"].items():
+        lines.append(f"| {name} | " + ", ".join(f"`{k}`={v}" for k, v in states.items()) + " |")
+    lines += ["", "## Per work", "",
+              "| Alias | Type | Adapter | Status | Sections | References | Warnings |",
+              "| --- | --- | --- | --- | --- | --- | --- |"]
+    for document in documents:
+        lines.append(
+            f"| {document['alias']} | {document['work_type']} | `{document['adapter']}` | "
+            f"`{document['overall_status']}` | {len(document['sections'])} | "
+            f"{len(document['raw_references'])} | "
+            f"{'; '.join(document['warnings'])[:160].replace('|', '/')} |")
+    lines += ["", "## Manual queue", ""]
+    lines.append("None." if not summary["manual_queue"]
+                 else "\n".join(f"- {a}" for a in summary["manual_queue"]))
+    return "\n".join(lines) + "\n"
+
+
+def cmd_annotate(args, ws: Workspace) -> int:
+    from .store import open_store
+
+    ws.ensure()
+    try:
+        corpus, _deps, _profile = _load_or_exit(ws)
+    except _Abort as abort:
+        return abort.code
+    work = corpus.by_alias().get(args.alias)
+    if work is None:
+        _err(f"unknown alias {args.alias}")
+        return EXIT_INVALID_MANIFEST
+    try:
+        payload = util.read_json(Path(args.file))
+    except (OSError, json.JSONDecodeError) as exc:
+        _err(f"annotation could not be read: {exc}")
+        return EXIT_INVALID_MANIFEST
+    if not isinstance(payload, dict):
+        _err("annotation must be a JSON object")
+        return EXIT_INVALID_MANIFEST
+
+    pass_status = str(payload.get("pass_status", "unread"))
+    if pass_status not in ("unread", "pass_1", "pass_2", "pass_3"):
+        _err(f"pass_status {pass_status!r} is not one of unread, pass_1, pass_2, pass_3")
+        return EXIT_INVALID_MANIFEST
+
+    ws.annotations.mkdir(parents=True, exist_ok=True)
+    util.write_json_atomic(
+        ws.annotations / f"{util.safe_path_segment(args.alias)}.json", payload)
+    with open_store(ws.state_db) as store:
+        store.set_review(work.id, pass_status, payload, util.now_iso())
+    print(f"annotate: {args.alias} recorded at {pass_status}")
+    return EXIT_OK
+
+
 COMMANDS = {
     "doctor": cmd_doctor,
     "fetch": cmd_fetch,
+    "extract": cmd_extract,
+    "annotate": cmd_annotate,
     "build-site": cmd_build_site,
     "check-site": cmd_check_site,
     "import": cmd_import,

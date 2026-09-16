@@ -1,0 +1,43 @@
+Counting Finite Topologies by Transfer Matrix
+
+Cleo Duarte
+Institute of Combinatorics
+
+Abstract
+
+We describe a transfer matrix method for counting topologies on a finite
+set and extend the known sequence by two terms.
+
+1. Introduction
+
+The number of distinct topologies on an n-element set grows very quickly.
+Kleitman and Rothschild gave asymptotics; exact values are known only for
+small n.
+
+2. The transfer matrix
+
+We build the matrix layer by layer.
+
+2.1 Construction
+
+Each antichain contributes one row.
+
+2.2 Complexity
+
+The method is exponential but tractable to n = 18.
+
+3. Results
+
+The two new terms agree with independent direct search.
+
+4. Discussion and Conclusions
+
+Transfer matrices are currently the most effective exact method.
+
+References
+
+[1] P. Alexandroff. Diskrete Raume. Mat. Sbornik, 2:501-519, 1937.
+[2] D. Kleitman and B. Rothschild. The number of finite topologies.
+    Proc. Amer. Math. Soc., 25:276-282, 1970.
+[3] R. Stanley. On the number of open sets of finite topologies.
+    J. Combin. Theory Ser. A, 10(1):74-79, 1971. doi:10.1016/S0021-9800(71)80011-5

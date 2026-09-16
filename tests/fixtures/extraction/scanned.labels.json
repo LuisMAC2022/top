@@ -1,0 +1,10 @@
+{
+  "expect_fields": {
+    "abstract": "not_present",
+    "references": "not_present"
+  },
+  "expect_reference_count": 0,
+  "headings": [],
+  "note": "Stands in for an image-only PDF. No field may be claimed.",
+  "work_type": "article"
+}

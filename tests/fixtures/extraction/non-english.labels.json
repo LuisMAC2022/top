@@ -1,0 +1,19 @@
+{
+  "expect_fields": {
+    "abstract": "present",
+    "conclusion": "present",
+    "introduction": "present",
+    "references": "present",
+    "title": "present"
+  },
+  "expect_reference_count": 2,
+  "headings": [
+    "Zusammenfassung",
+    "Einleitung",
+    "Strukturformeln",
+    "Schluss",
+    "Literatur"
+  ],
+  "note": "German headings exercise the controlled vocabulary beyond English.",
+  "work_type": "article"
+}

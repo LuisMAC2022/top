@@ -161,8 +161,11 @@ def render_dag_svg(view: DagView, depth: int, corpus: Corpus) -> str:
         label = node_id if len(node_id) <= 22 else node_id[:21] + "…"
         parts.append(
             f'<a href="{esc(node_href(depth, view, node_id))}">'
+            # Filled with the page background so edges pass behind the label
+            # rather than through it; the fill follows the colour scheme.
             f'<rect x="{pos["x"]}" y="{pos["y"]}" width="{box_w}" height="{box_h}" '
-            f'{shape} fill="none" stroke="{esc(stroke)}" stroke-width="1.6"{dash}/>'
+            f'{shape} fill="var(--bg, #ffffff)" stroke="{esc(stroke)}" '
+            f'stroke-width="1.6"{dash}/>'
             f'<text x="{pos["x"] + 10}" y="{pos["y"] + 25}" fill="currentColor">'
             f'{esc(label)}</text>'
             f'<title>{esc(alias_titles.get(node_id, node_id))}</title></a>')

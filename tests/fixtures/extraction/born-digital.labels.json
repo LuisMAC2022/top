@@ -1,0 +1,23 @@
+{
+  "expect_conclusion_warning": true,
+  "expect_fields": {
+    "abstract": "present",
+    "conclusion": "present",
+    "introduction": "present",
+    "references": "present",
+    "title": "present"
+  },
+  "expect_reference_count": 3,
+  "headings": [
+    "Abstract",
+    "Introduction",
+    "The transfer matrix",
+    "Construction",
+    "Complexity",
+    "Results",
+    "Discussion and Conclusions",
+    "References"
+  ],
+  "note": "Hand-labelled. Headings a human judges to be real section boundaries.",
+  "work_type": "article"
+}

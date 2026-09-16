@@ -1,0 +1,28 @@
+Structures, A Textbook
+
+Eli Fontaine
+
+Preface
+
+This book grew out of a lecture course.
+
+1. Foundations
+
+We begin with sets and relations.
+
+1.1 Relations
+
+A relation is a subset of a product.
+
+2. Lattices
+
+Lattices are posets with binary meets and joins.
+
+3. Topologies
+
+A topology is a family of subsets closed under union and finite intersection.
+
+Bibliography
+
+Alexandroff, P. Diskrete Raume. Mat. Sbornik, 1937.
+Birkhoff, G. Lattice Theory. AMS Colloquium Publications, 1940.
