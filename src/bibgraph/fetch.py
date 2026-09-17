@@ -562,9 +562,9 @@ def _fetch_one(ws: Workspace, work: Work, asset: Asset, store: Store,
     media_type = response.media_type or sniff_media_type(
         response.body_path.read_bytes()[:1024])
     destination = artifact_path(ws, work, asset, media_type)
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    # Atomic: the temp file is only renamed into place after validation passed.
-    os.replace(response.body_path, destination)
+    # Atomic: the temp file is only installed after validation passed.  The
+    # helper also handles /tmp and the workspace being separate filesystems.
+    util.move_file_atomic(response.body_path, destination)
 
     base.status = STATUS_DOWNLOADED
     base.final_url = response.final_url

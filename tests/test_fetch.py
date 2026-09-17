@@ -3,9 +3,11 @@
 Everything is served by the local test double; no test touches a publisher.
 """
 
+import errno
 import json
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from bibgraph import fetch, model, util
 from bibgraph.store import Store
@@ -88,6 +90,32 @@ class TestSuccessPath(FetchCase):
         self.assertEqual(len(response.redirects), 1)
         self.assertEqual(response.redirects[0]["status"], 302)
         self.assertTrue(response.final_url.endswith("/paper.pdf"))
+
+    def test_download_is_installed_when_temp_directory_is_on_another_device(self):
+        corpus = self.rewrite_corpus_to_local()
+        real_replace = util.os.replace
+        calls = 0
+
+        def replace_with_cross_device_first(source, destination):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError(errno.EXDEV, "Invalid cross-device link")
+            return real_replace(source, destination)
+
+        with mock.patch.object(util.os, "replace", replace_with_cross_device_first):
+            outcomes = fetch.fetch_corpus(
+                self.ws, corpus, self.store, self.config(),
+                fetcher=self.fetcher(), run_id="cross-device",
+            )
+
+        downloaded = [outcome for outcome in outcomes
+                      if outcome.status == fetch.STATUS_DOWNLOADED]
+        self.assertTrue(downloaded)
+        self.assertGreaterEqual(calls, 2)
+        for outcome in downloaded:
+            self.assertEqual(
+                util.sha256_file(self.ws.root / outcome.path), outcome.sha256)
 
 
 class TestIntegrityFailures(FetchCase):
