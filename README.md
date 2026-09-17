@@ -63,9 +63,10 @@ carries visible incomplete notices.
 
 ## Current state of `config/`
 
-The access-verification catalogue was not supplied, so the manifest holds 24
-structural placeholders (20 seed aliases plus A5's four sequence children) with
-no metadata and no dependency edges. Supply the catalogue to populate it:
+The checked access-verification catalogue is committed as
+`phase-1-access-verification.md`. The manifest contains its 20 seed records,
+the four individual OEIS sequences grouped by A5, all 54 recorded routes, and
+the curated dependency relationships. Re-import it reproducibly with:
 
 ```bash
 ./bin/bibgraph import-catalogue phase-1-access-verification.md --observed-on 2026-09-16
@@ -77,8 +78,8 @@ naming the columns it found and the columns it needs. Required columns:
 License, License Evidence, Observed, Notes, Container, Members`. One work may
 span several rows, one row per asset.
 
-Dependency edges are curated data and are not derivable from a table; they must
-be reviewed into `config/dependencies.json` by hand.
+Dependency edges are curated data and are not derivable from the table; the
+reviewed relationships are stored separately in `config/dependencies.json`.
 
 ## Acquisition policy
 
