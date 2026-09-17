@@ -2,559 +2,351 @@
   "schema_version": "1.0",
   "source": {
     "document": "phase-1-access-verification.md",
-    "note": "The access-verification catalogue was not provided with the implementation plan. Every work below is a structural placeholder carrying only facts stated in the plan itself: the 20 seed aliases, and A5 being a collection of four sequence pages. No bibliographic metadata has been invented.",
-    "observed_on": null,
-    "supplied": false
+    "note": "Imported from the access-verification catalogue. Access states are observations on the recorded date, not permanent truths.",
+    "observed_on": "2026-09-16",
+    "supplied": true
   },
   "works": [
     {
       "aliases": [
         "R0"
       ],
-      "assets": [],
-      "authors": [],
+      "assets": [
+        {
+          "expected_media_type": "application/pdf",
+          "id": "R0-fulltext-1",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://ccr.sigcomm.org/online/files/p83-keshavA.pdf"
+        }
+      ],
+      "authors": [
+        "Keshav, S."
+      ],
       "container": null,
-      "id": "local:fcd88686139331a09a8bf3ae592d781b08e439fb1ecd17e51657eb7a2535c416",
+      "id": "local:80c1b4f333b228f3f0b41afb0f642c1174ef61aae010fee0fedf5f1fe2d9b6e4",
       "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
+      "metadata_status": "verified",
+      "note": "Reading-method source.",
+      "observations": [
+        {
+          "note": "Publisher PDF opened (pages 83–84).",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
       "rights": {
-        "access": "unknown",
+        "access": "open",
         "license": null,
         "license_evidence_url": null,
-        "local_storage_allowed": false,
+        "local_storage_allowed": true,
         "publish_abstract": false,
         "publish_fulltext": false,
         "publish_metadata": true
       },
-      "title": "",
-      "title_status": "unknown",
+      "title": "How to Read a Paper",
+      "title_status": "present",
       "work_type": "article",
-      "year": null
+      "year": 2007
     },
     {
       "aliases": [
         "A1"
       ],
-      "assets": [],
-      "authors": [],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "A1-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://www.math.uchicago.edu/~may/MISCMaster.html"
+        },
+        {
+          "expected_media_type": "application/pdf",
+          "id": "A1-fulltext-2",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://www.math.uchicago.edu/~may/MISC/FiniteSpaces.pdf"
+        },
+        {
+          "expected_media_type": "application/pdf",
+          "id": "A1-mirror-3",
+          "intent": "fallback",
+          "note": null,
+          "role": "mirror",
+          "url": "https://webhomes.maths.ed.ac.uk/~v1ranick/papers/mayfinitespaces.pdf"
+        }
+      ],
+      "authors": [
+        "May, J. P."
+      ],
       "container": null,
-      "id": "local:9ea9265aa730e84ea21f14ff89f7d4ce43077df10a1d1491734addde8a923d78",
+      "id": "local:e519a2c9b53c1e7c7ddc2169889a6f85d422af91559250a80517d5a1de912fcf",
       "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
+      "metadata_status": "verified",
+      "note": "REU notes.",
+      "observations": [
+        {
+          "note": "Official index opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
       "rights": {
-        "access": "unknown",
+        "access": "open",
         "license": null,
         "license_evidence_url": null,
-        "local_storage_allowed": false,
+        "local_storage_allowed": true,
         "publish_abstract": false,
         "publish_fulltext": false,
         "publish_metadata": true
       },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
+      "title": "Finite Topological Spaces",
+      "title_status": "present",
+      "work_type": "notes",
       "year": null
     },
     {
       "aliases": [
         "A2"
       ],
-      "assets": [],
-      "authors": [],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "A2-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://cs.uwaterloo.ca/journals/JIS/VOL10/Kolli/messaoud30.html"
+        },
+        {
+          "expected_media_type": "application/pdf",
+          "id": "A2-fulltext-2",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://cs.uwaterloo.ca/journals/JIS/VOL10/Kolli/messaoud30.pdf"
+        }
+      ],
+      "authors": [
+        "Kolli, M."
+      ],
       "container": null,
-      "id": "local:ed7ec9aa31a2172ab5b0ec5b65e2b94a9047fdfbc5269c135b08dde4f8450a02",
+      "id": "local:a121552c9909a2371b872f81238ef8d7184b9658fb89fea293d868496d7b004d",
       "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
+      "metadata_status": "verified",
+      "note": "Journal of Integer Sequences 10, Article 07.3.1.",
+      "observations": [
+        {
+          "note": "Opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
       "rights": {
-        "access": "unknown",
+        "access": "open",
         "license": null,
         "license_evidence_url": null,
-        "local_storage_allowed": false,
+        "local_storage_allowed": true,
         "publish_abstract": false,
         "publish_fulltext": false,
         "publish_metadata": true
       },
-      "title": "",
-      "title_status": "unknown",
+      "title": "Direct and elementary approach to enumerate topologies on a finite set",
+      "title_status": "present",
       "work_type": "article",
-      "year": null
+      "year": 2007
     },
     {
       "aliases": [
         "A3"
       ],
-      "assets": [],
-      "authors": [],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "A3-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://cs.uwaterloo.ca/journals/JIS/VOL9/Benoumhani/benoumhani11.html"
+        },
+        {
+          "expected_media_type": "application/pdf",
+          "id": "A3-fulltext-2",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://cs.uwaterloo.ca/journals/JIS/VOL9/Benoumhani/benoumhani11.pdf"
+        }
+      ],
+      "authors": [
+        "Benoumhani, M."
+      ],
       "container": null,
-      "id": "local:781545f7e66d0fa41202cc6a3b24b5eacda7e27eab624d126907164c4245c245",
+      "id": "local:6a875df90e2f08833f4a9e6c337ec6fbe549518be8e057be03aa93fda8c658a7",
       "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
+      "metadata_status": "verified",
+      "note": "Journal of Integer Sequences 9, Article 06.2.6.",
+      "observations": [
+        {
+          "note": "Opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
       "rights": {
-        "access": "unknown",
+        "access": "open",
         "license": null,
         "license_evidence_url": null,
-        "local_storage_allowed": false,
+        "local_storage_allowed": true,
         "publish_abstract": false,
         "publish_fulltext": false,
         "publish_metadata": true
       },
-      "title": "",
-      "title_status": "unknown",
+      "title": "The number of topologies on a finite set",
+      "title_status": "present",
       "work_type": "article",
-      "year": null
+      "year": 2006
     },
     {
       "aliases": [
         "A4"
       ],
-      "assets": [],
-      "authors": [],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "A4-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://cs.uwaterloo.ca/journals/JIS/VOL8/McKay/mckay170.html"
+        },
+        {
+          "expected_media_type": "application/pdf",
+          "id": "A4-fulltext-2",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://cs.uwaterloo.ca/journals/JIS/VOL8/McKay/mckay170.pdf"
+        }
+      ],
+      "authors": [
+        "Brinkmann, G.",
+        "McKay, B. D."
+      ],
       "container": null,
-      "id": "local:3ec636a2da1fcb952e68d677de8e7654d7600c3833a8527ac7b15a8721d4bc6b",
+      "id": "local:bb492fe1370ec3201bacca420a7633556d9a36f022a08a4676b5549909e04baa",
       "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
+      "metadata_status": "verified",
+      "note": "Journal of Integer Sequences 8, Article 05.2.1.",
+      "observations": [
+        {
+          "note": "Opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
       "rights": {
-        "access": "unknown",
+        "access": "open",
         "license": null,
         "license_evidence_url": null,
-        "local_storage_allowed": false,
+        "local_storage_allowed": true,
         "publish_abstract": false,
         "publish_fulltext": false,
         "publish_metadata": true
       },
-      "title": "",
-      "title_status": "unknown",
+      "title": "Counting unlabeled topologies and transitive relations",
+      "title_status": "present",
       "work_type": "article",
-      "year": null
+      "year": 2005
     },
     {
       "aliases": [
         "A5"
       ],
-      "assets": [],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "A5-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://oeis.org/A000798"
+        }
+      ],
       "authors": [],
       "container": null,
-      "id": "local:d920bfe4ff014330229353118dc06042ba0669cb36608d886505393c8603e23b",
+      "id": "local:7b3b21fd007154d11a8ad51001fa12cef673d9adac7330796eafd3aaff604730",
       "members": [
         "A5.1",
         "A5.2",
         "A5.3",
         "A5.4"
       ],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
+      "metadata_status": "verified",
+      "note": "Keep labeled/unlabeled and topology/T0 distinctions explicit.",
+      "observations": [
+        {
+          "note": "All four sequence pages opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
       "rights": {
-        "access": "unknown",
+        "access": "open",
         "license": null,
         "license_evidence_url": null,
-        "local_storage_allowed": false,
+        "local_storage_allowed": true,
         "publish_abstract": false,
         "publish_fulltext": false,
         "publish_metadata": true
       },
-      "title": "",
-      "title_status": "unknown",
+      "title": "OEIS ground-truth sequences",
+      "title_status": "present",
       "work_type": "collection",
-      "year": null
-    },
-    {
-      "aliases": [
-        "A6"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:23e1601583d6beb80a06836e7315f5b1fef89095a770af2fe3ad2d33fc1d1ff9",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "A7"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:14d4a7eaa112d42814b783e9e4334d0e91842b0e81567f2d6e8b7739b405b1d1",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "B1"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:95067d5ca8b23c196077eb9a646a13ab3d65ca28fb8433966372c2f1dea7c173",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "B2"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:6edfb8ca16df8e41e612050380e3119ccddd01b2ee840e3afede9c9497732574",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "B3"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:6b73e66279ecce19326f1590bd6412d4b71ee535cf98e8279facab45cbeb73b0",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "B4"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:7ec17d68824d3f343774462fb5afa1d1d174c7bdfe1eaf91625e69212ff1f5d7",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "B5"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:4f8c65dd51c2d5add2baaa1dfa1f738f2c8a64f4eacd3682c20c6d9074167864",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "B6"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:b87e8d22f25d1030b4eaf8a2f3b204d3f6a988ffdf7884119066db1ee86aba15",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "C1"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:da218fd9cd19b2ea602c9569abcc29ff3a097d00ad0793507717045054410454",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "C2"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:89fea104396099a51f9885b7deddd02dedc25ba1ae4f4d03bf43e2cfbffd4c59",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "C3"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:73d207c0b625b2fd247e1bd4c8b4f904f11740c145a0c8e57bfd3f15018970d1",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "C4"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:54dbe607888bb207e7fbce0d8a42777433575d90ab801754b15705fa71e10620",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "C5"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:47e965c2f0a9e29e8af3cd82b8664c6f305148f63a17f00f95b6dfb87d7723f5",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
-      "year": null
-    },
-    {
-      "aliases": [
-        "D1"
-      ],
-      "assets": [],
-      "authors": [],
-      "container": null,
-      "id": "local:3c073f810926c6af67b5bd3334a6a2facc5c872d466ea302266c24bc5d096912",
-      "members": [],
-      "metadata_status": "unverified",
-      "note": "Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
-      "rights": {
-        "access": "unknown",
-        "license": null,
-        "license_evidence_url": null,
-        "local_storage_allowed": false,
-        "publish_abstract": false,
-        "publish_fulltext": false,
-        "publish_metadata": true
-      },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "article",
       "year": null
     },
     {
       "aliases": [
         "A5.1"
       ],
-      "assets": [],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "A5.1-metadata-1",
+          "intent": "required",
+          "note": null,
+          "role": "metadata",
+          "url": "https://oeis.org/A000798"
+        }
+      ],
       "authors": [],
       "container": "A5",
-      "id": "local:4886d8bb3dc3bf8e6b323ce15d6c9d19d2be15f537dfccf9c16445c78f3e6f51",
+      "id": "local:d2c28c0b087aee171611510fb521520fc0151c49f6145cb6a351d1832ea95c11",
       "members": [],
-      "metadata_status": "unverified",
-      "note": "Sequence page 1 of the A5 collection. Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [
+        {
+          "note": "Opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
       "rights": {
-        "access": "unknown",
+        "access": "open",
         "license": null,
         "license_evidence_url": null,
-        "local_storage_allowed": false,
+        "local_storage_allowed": true,
         "publish_abstract": false,
         "publish_fulltext": false,
         "publish_metadata": true
       },
-      "title": "",
-      "title_status": "unknown",
+      "title": "A000798 — labeled topologies / preorders",
+      "title_status": "present",
       "work_type": "sequence",
       "year": null
     },
@@ -562,25 +354,40 @@
       "aliases": [
         "A5.2"
       ],
-      "assets": [],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "A5.2-metadata-1",
+          "intent": "required",
+          "note": null,
+          "role": "metadata",
+          "url": "https://oeis.org/A001930"
+        }
+      ],
       "authors": [],
       "container": "A5",
-      "id": "local:eaf164e35248a41127737e211ffc80380f9a935ce70d11ead564f008cb6e6e18",
+      "id": "local:19576153416c292d875b4bc6a61062821ffbba407415a2d1d56deb8db9b4e96e",
       "members": [],
-      "metadata_status": "unverified",
-      "note": "Sequence page 2 of the A5 collection. Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [
+        {
+          "note": "Opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
       "rights": {
-        "access": "unknown",
+        "access": "open",
         "license": null,
         "license_evidence_url": null,
-        "local_storage_allowed": false,
+        "local_storage_allowed": true,
         "publish_abstract": false,
         "publish_fulltext": false,
         "publish_metadata": true
       },
-      "title": "",
-      "title_status": "unknown",
+      "title": "A001930 — unlabeled topologies",
+      "title_status": "present",
       "work_type": "sequence",
       "year": null
     },
@@ -588,25 +395,40 @@
       "aliases": [
         "A5.3"
       ],
-      "assets": [],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "A5.3-metadata-1",
+          "intent": "required",
+          "note": null,
+          "role": "metadata",
+          "url": "https://oeis.org/A001035"
+        }
+      ],
       "authors": [],
       "container": "A5",
-      "id": "local:bf7f4853f4f9ef94a8ad547e0afa36a56177ff28952ba088ad248aa694140274",
+      "id": "local:a41a69b6a167aab2d104c5bbc04e18a5e5d5f7330e4f3e0ffb62fa7baa221909",
       "members": [],
-      "metadata_status": "unverified",
-      "note": "Sequence page 3 of the A5 collection. Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [
+        {
+          "note": "Opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
       "rights": {
-        "access": "unknown",
+        "access": "open",
         "license": null,
         "license_evidence_url": null,
-        "local_storage_allowed": false,
+        "local_storage_allowed": true,
         "publish_abstract": false,
         "publish_fulltext": false,
         "publish_metadata": true
       },
-      "title": "",
-      "title_status": "unknown",
+      "title": "A001035 — labeled posets / labeled T0 topologies",
+      "title_status": "present",
       "work_type": "sequence",
       "year": null
     },
@@ -614,16 +436,184 @@
       "aliases": [
         "A5.4"
       ],
-      "assets": [],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "A5.4-metadata-1",
+          "intent": "required",
+          "note": null,
+          "role": "metadata",
+          "url": "https://oeis.org/A000112"
+        }
+      ],
       "authors": [],
       "container": "A5",
-      "id": "local:2846db8826b76637e86355b68a049f796e0cc207288f59a35f689074cbb28f7e",
+      "id": "local:23ceb5ac4b8b28368238f6e08c0653b0756cda9071797d09c0440e3f7d2c1309",
       "members": [],
-      "metadata_status": "unverified",
-      "note": "Sequence page 4 of the A5 collection. Placeholder. The source catalogue phase-1-access-verification.md was not supplied, so no title, URL, licence or access observation has been recorded. Run `bibgraph import-catalogue <file>` to replace this with reviewed data.",
-      "observations": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [
+        {
+          "note": "Opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
       "rights": {
-        "access": "unknown",
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "A000112 — unlabeled posets / unlabeled T0 topologies",
+      "title_status": "present",
+      "work_type": "sequence",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A6"
+      ],
+      "assets": [
+        {
+          "expected_media_type": "application/pdf",
+          "id": "A6-fulltext-1",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://oeis.org/A000798/a000798_12.pdf"
+        },
+        {
+          "expected_media_type": null,
+          "id": "A6-landing-2",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://oeis.org/A000798"
+        }
+      ],
+      "authors": [
+        "Finch, S. R."
+      ],
+      "container": null,
+      "id": "local:74b326f808d929194a6cb766a3b840b1f3ac1c0ccbc89fa433f5eefce74a61ed",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [
+        {
+          "note": "Opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Note on transitive relations, topologies, and partial orders",
+      "title_status": "present",
+      "work_type": "article",
+      "year": null
+    },
+    {
+      "aliases": [
+        "A7"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "A7-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://richardhammack.github.io/BookOfProof/"
+        },
+        {
+          "expected_media_type": "application/pdf",
+          "id": "A7-fulltext-2",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://richardhammack.github.io/BookOfProof/Main.pdf"
+        }
+      ],
+      "authors": [
+        "Hammack, R."
+      ],
+      "container": null,
+      "id": "local:49d62ae9707bd7b96faadef21284c85231573ee53bb45642064c86331186bab6",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [
+        {
+          "note": "Opened; current revision identified as 3.4.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Book of Proof",
+      "title_status": "present",
+      "work_type": "book",
+      "year": null
+    },
+    {
+      "aliases": [
+        "B1"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "B1-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://www.jstor.org/stable/2689890"
+        },
+        {
+          "expected_media_type": "application/pdf",
+          "id": "B1-fulltext-2",
+          "intent": "manual",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://www.jstor.org/stable/pdf/2689890.pdf"
+        }
+      ],
+      "authors": [
+        "Brinn, R."
+      ],
+      "container": null,
+      "id": "local:9f755efd3d2d5f66ded76c5568c49166cea2c6048a1f8556c37e59ded9d4f627",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "Mathematics Magazine 58, 67–77; PDF requires a JSTOR session or library access.",
+      "observations": [
+        {
+          "note": "Stable record opened.",
+          "observed_on": "2026-09-16",
+          "status": "institutional"
+        }
+      ],
+      "rights": {
+        "access": "institutional",
         "license": null,
         "license_evidence_url": null,
         "local_storage_allowed": false,
@@ -631,10 +621,666 @@
         "publish_fulltext": false,
         "publish_metadata": true
       },
-      "title": "",
-      "title_status": "unknown",
-      "work_type": "sequence",
+      "title": "Computing topologies",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 1985
+    },
+    {
+      "aliases": [
+        "B2"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "B2-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://doi.org/10.1145/363282.363311"
+        },
+        {
+          "expected_media_type": null,
+          "id": "B2-landing-2",
+          "intent": "ignore",
+          "note": null,
+          "role": "landing",
+          "url": "https://dl.acm.org/doi/10.1145/363282.363311"
+        },
+        {
+          "expected_media_type": "application/pdf",
+          "id": "B2-fulltext-3",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://oeis.org/A000798/a000798_8.pdf"
+        }
+      ],
+      "authors": [
+        "Evans, J. W.",
+        "Harary, F.",
+        "Lynn, M. S."
+      ],
+      "container": null,
+      "id": "local:b3b21a634188000afa34b171080a32f8f2aa9250a957ef0f41d5412073c0494e",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "Communications of the ACM 10, 295–297.",
+      "observations": [
+        {
+          "note": "DOI route available.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "On the computer enumeration of finite topologies",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 1967
+    },
+    {
+      "aliases": [
+        "B3"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "B3-preview-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "preview",
+          "url": "https://link.springer.com/article/10.1007/BF00383446"
+        },
+        {
+          "expected_media_type": null,
+          "id": "B3-landing-2",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://doi.org/10.1007/BF00383446"
+        }
+      ],
+      "authors": [
+        "Erné, M.",
+        "Stege, K."
+      ],
+      "container": null,
+      "id": "local:999ae4f4d2403ee8158fb50fce3f49fdf4da77241087bdc64ce213084bf12c94",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "Order 8, 247–265.",
+      "observations": [
+        {
+          "note": "Record and preview opened; full text gated.",
+          "observed_on": "2026-09-16",
+          "status": "institutional"
+        }
+      ],
+      "rights": {
+        "access": "institutional",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Counting finite posets and topologies",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 1991
+    },
+    {
+      "aliases": [
+        "B4"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "B4-preview-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "preview",
+          "url": "https://link.springer.com/article/10.1023/A:1016543307592"
+        },
+        {
+          "expected_media_type": null,
+          "id": "B4-landing-2",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://doi.org/10.1023/A:1016543307592"
+        },
+        {
+          "expected_media_type": "application/pdf",
+          "id": "B4-fulltext-3",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://users.cecs.anu.edu.au/~bdm/papers/posets.pdf"
+        }
+      ],
+      "authors": [
+        "Brinkmann, G.",
+        "McKay, B. D."
+      ],
+      "container": null,
+      "id": "local:c1bb4132da89f96deeb5d3ff1e2ebef7a298e31e916bc95589a4b9eb49a501be",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "Order 19, 147–179.",
+      "observations": [
+        {
+          "note": "Record opened; publisher full text gated.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Posets on up to 16 points",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 2002
+    },
+    {
+      "aliases": [
+        "B5"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "B5-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://doi.org/10.1090/S0002-9939-1970-0253944-9"
+        },
+        {
+          "expected_media_type": null,
+          "id": "B5-landing-2",
+          "intent": "ignore",
+          "note": null,
+          "role": "landing",
+          "url": "https://www.ams.org/journals/proc/1970-025-02/S0002-9939-1970-0253944-9/"
+        },
+        {
+          "expected_media_type": null,
+          "id": "B5-preview-3",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "preview",
+          "url": "https://www.jstor.org/stable/2037205"
+        }
+      ],
+      "authors": [
+        "Kleitman, D. J.",
+        "Rothschild, B. L."
+      ],
+      "container": null,
+      "id": "local:bf13d69edaf400bc6db3d907ba3016f9232f7c4fc9cfe52431582f320390108f",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "Proceedings of the AMS 25, 276–282.",
+      "observations": [
+        {
+          "note": "DOI route available.",
+          "observed_on": "2026-09-16",
+          "status": "institutional"
+        }
+      ],
+      "rights": {
+        "access": "institutional",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "The number of finite topologies",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 1970
+    },
+    {
+      "aliases": [
+        "B6"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "B6-preview-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "preview",
+          "url": "https://link.springer.com/book/10.1007/978-3-642-22003-6"
+        },
+        {
+          "expected_media_type": null,
+          "id": "B6-landing-2",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://doi.org/10.1007/978-3-642-22003-6"
+        },
+        {
+          "expected_media_type": "application/pdf",
+          "id": "B6-fulltext-3",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://webhomes.maths.ed.ac.uk/~v1ranick/papers/barmak2.pdf"
+        }
+      ],
+      "authors": [
+        "Barmak, J. A."
+      ],
+      "container": null,
+      "id": "local:2a0456262920a1cff1144b2810ad3dee613075b25df517928cca0cd41cc89f37",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "Lecture Notes in Mathematics 2032.",
+      "observations": [
+        {
+          "note": "Record opened; publisher version gated.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Algebraic Topology of Finite Topological Spaces and Applications",
+      "title_status": "present",
+      "work_type": "book",
+      "year": 2011
+    },
+    {
+      "aliases": [
+        "C1"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "C1-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://www.pearson.com/en-us/subject-catalog/p/topology-classic-version/P200000006299/9780137848669"
+        },
+        {
+          "expected_media_type": null,
+          "id": "C1-borrow-2",
+          "intent": "manual",
+          "note": null,
+          "role": "borrow",
+          "url": "https://search.worldcat.org/title/Topology/oclc/1015863335"
+        },
+        {
+          "expected_media_type": "text/html",
+          "id": "C1-preview-3",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "preview",
+          "url": "https://books.google.com/books/about/Topology.html?id=OogGyAEACAAJ"
+        }
+      ],
+      "authors": [
+        "Munkres, J. R."
+      ],
+      "container": null,
+      "id": "local:ea4b9349720843d53fcbf78dd605130cbb1fcf07d5ff515fa184cde4965d06a4",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "Use WorldCat to locate a library copy.",
+      "observations": [
+        {
+          "note": "Page opened; eText needs course, instructor, or LMS access.",
+          "observed_on": "2026-09-16",
+          "status": "institutional"
+        }
+      ],
+      "rights": {
+        "access": "institutional",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Topology, 2nd ed.",
+      "title_status": "present",
+      "work_type": "book",
       "year": null
+    },
+    {
+      "aliases": [
+        "C2"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "C2-preview-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "preview",
+          "url": "https://www.cambridge.org/highereducation/books/how-to-prove-it/6D2965D625C6836CD4A785A2C843B3DA"
+        },
+        {
+          "expected_media_type": null,
+          "id": "C2-landing-2",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://doi.org/10.1017/9781108539890"
+        },
+        {
+          "expected_media_type": null,
+          "id": "C2-borrow-3",
+          "intent": "manual",
+          "note": null,
+          "role": "borrow",
+          "url": "https://search.worldcat.org/search?q=isbn%3A9781108439534"
+        }
+      ],
+      "authors": [
+        "Velleman, D. J."
+      ],
+      "container": null,
+      "id": "local:a0ee6cf2014d3a7910d835df1d307b028957a361168c64698fc809a00eb12cf7",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [
+        {
+          "note": "Official record opened; full text requires purchase or institutional access.",
+          "observed_on": "2026-09-16",
+          "status": "purchase"
+        }
+      ],
+      "rights": {
+        "access": "purchase",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "How to Prove It, 3rd ed.",
+      "title_status": "present",
+      "work_type": "book",
+      "year": null
+    },
+    {
+      "aliases": [
+        "C3"
+      ],
+      "assets": [
+        {
+          "expected_media_type": "text/html",
+          "id": "C3-preview-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "preview",
+          "url": "https://books.google.com/books/about/Counterexamples_in_Topology.html?id=Uz0rV250nhsC"
+        },
+        {
+          "expected_media_type": null,
+          "id": "C3-borrow-2",
+          "intent": "manual",
+          "note": null,
+          "role": "borrow",
+          "url": "https://archive.org/details/counterexamplesi0000stee"
+        },
+        {
+          "expected_media_type": null,
+          "id": "C3-borrow-3",
+          "intent": "manual",
+          "note": null,
+          "role": "borrow",
+          "url": "https://search.worldcat.org/search?q=isbn%3A9780486687353"
+        }
+      ],
+      "authors": [
+        "Steen, L. A.",
+        "Seebach, J. A. Jr."
+      ],
+      "container": null,
+      "id": "local:d22cd4c2e3f6b63efd947b783d0d87440a73cfe4a192048721029d6c6ef3e284",
+      "members": [],
+      "metadata_status": "verified",
+      "note": null,
+      "observations": [
+        {
+          "note": "Limited preview opened.",
+          "observed_on": "2026-09-16",
+          "status": "preview"
+        }
+      ],
+      "rights": {
+        "access": "preview",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Counterexamples in Topology",
+      "title_status": "present",
+      "work_type": "book",
+      "year": null
+    },
+    {
+      "aliases": [
+        "C4"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "C4-landing-1",
+          "intent": "ignore",
+          "note": null,
+          "role": "landing",
+          "url": "https://doi.org/10.1201/9781003068006"
+        },
+        {
+          "expected_media_type": "text/html",
+          "id": "C4-preview-2",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "preview",
+          "url": "https://books.google.com/books/about/Combinatorial_Algorithms.html?id=0ArDOdcWNQcC"
+        },
+        {
+          "expected_media_type": "text/html",
+          "id": "C4-landing-3",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://pages.mtu.edu/~kreher/cages.html"
+        },
+        {
+          "expected_media_type": null,
+          "id": "C4-borrow-4",
+          "intent": "manual",
+          "note": null,
+          "role": "borrow",
+          "url": "https://search.worldcat.org/search?q=isbn%3A9780849339882"
+        }
+      ],
+      "authors": [
+        "Kreher, D. L.",
+        "Stinson, D. R."
+      ],
+      "container": null,
+      "id": "local:06b1b700c10fb5a2dc86200c1276cbf07368e78ef58656553f07475031aa5384",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "Conditional: only if the project goes past n=5.",
+      "observations": [
+        {
+          "note": "Publisher route returned HTTP 403.",
+          "observed_on": "2026-09-16",
+          "status": "preview"
+        }
+      ],
+      "rights": {
+        "access": "preview",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Combinatorial Algorithms: Generation, Enumeration, and Search",
+      "title_status": "present",
+      "work_type": "book",
+      "year": null
+    },
+    {
+      "aliases": [
+        "C5"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "C5-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://www.informit.com/store/art-of-computer-programming-volume-4a-combinatorial-9780201038040"
+        },
+        {
+          "expected_media_type": null,
+          "id": "C5-landing-2",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://www.pearson.com/en-gb/subject-catalog/p/art-of-computer-programming-the-combinatorial-algorithms-volume-4a-part-1/P200000009030/9780201038040"
+        },
+        {
+          "expected_media_type": "text/html",
+          "id": "C5-preview-3",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "preview",
+          "url": "https://books.google.com/books/about/The_Art_of_Computer_Programming_Volume_4.html?id=7k6_1UUpnLsC"
+        },
+        {
+          "expected_media_type": null,
+          "id": "C5-borrow-4",
+          "intent": "manual",
+          "note": null,
+          "role": "borrow",
+          "url": "https://search.worldcat.org/search?q=isbn%3A9780201038040"
+        }
+      ],
+      "authors": [
+        "Knuth, D. E."
+      ],
+      "container": null,
+      "id": "local:5083ba371f648138558c92dc07cde7b084815eb8281e7d02d794e225d24d9415",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "Reference only; conditional on implementation-level bit techniques.",
+      "observations": [
+        {
+          "note": "Official catalogue opened.",
+          "observed_on": "2026-09-16",
+          "status": "purchase"
+        }
+      ],
+      "rights": {
+        "access": "purchase",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": false,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "The Art of Computer Programming, Vol. 4A, section 7.1.3",
+      "title_status": "present",
+      "work_type": "book",
+      "year": null
+    },
+    {
+      "aliases": [
+        "D1"
+      ],
+      "assets": [
+        {
+          "expected_media_type": null,
+          "id": "D1-landing-1",
+          "intent": "metadata_only",
+          "note": null,
+          "role": "landing",
+          "url": "https://www.mathnet.ru/eng/sm5579"
+        },
+        {
+          "expected_media_type": null,
+          "id": "D1-fulltext-2",
+          "intent": "required",
+          "note": null,
+          "role": "fulltext",
+          "url": "https://www.mathnet.ru/php/getFT.phtml?jrnid=sm&option_lang=eng&paperid=5579&what=fullt"
+        }
+      ],
+      "authors": [
+        "Alexandroff, P."
+      ],
+      "container": null,
+      "id": "local:16003aff33538111e0580c63f816e003604c56564378fc84dd2c5c1873623967",
+      "members": [],
+      "metadata_status": "verified",
+      "note": "German; historical citation only; pages 501–519.",
+      "observations": [
+        {
+          "note": "Opened.",
+          "observed_on": "2026-09-16",
+          "status": "open"
+        }
+      ],
+      "rights": {
+        "access": "open",
+        "license": null,
+        "license_evidence_url": null,
+        "local_storage_allowed": true,
+        "publish_abstract": false,
+        "publish_fulltext": false,
+        "publish_metadata": true
+      },
+      "title": "Diskrete Räume",
+      "title_status": "present",
+      "work_type": "article",
+      "year": 1937
     }
   ]
 }

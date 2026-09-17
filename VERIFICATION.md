@@ -4,39 +4,26 @@ This records what was checked before implementation began, what was found to be
 sound, and the points where the plan could not be followed literally. It is kept
 in the repository so the deviations are reviewable rather than buried in history.
 
-## 1. Missing input — unresolved
+## 1. Supplied input — resolved 2026-09-17
 
-The plan names `phase-1-access-verification.md` as its input. That file was not
-supplied and is not in this repository. It holds the actual catalogue (titles,
-URLs, roles, access observations) and the relationship diagram that Phase 0 is
-supposed to encode.
+The catalogue and relationship constraints were subsequently supplied. They
+are preserved in `phase-1-access-verification.md`; `config/corpus.json` now
+contains 24 works and 54 routes observed on 2026-09-16, while
+`config/dependencies.json` contains 26 nodes and 18 reviewed, typed edges. A5
+is a collection of four independently named OEIS sequence records, and the
+choices `A7 | C2` and `A2 | A3` intentionally remain unresolved.
 
-**Consequence.** No bibliographic metadata has been invented. `config/corpus.json`
-contains only facts stated in the plan itself:
-
-- the 20 seed aliases `R0, A1–A7, B1–B6, C1–C5, D1`;
-- A5 modelled as a `collection` with four `sequence` children (`A5.1`–`A5.4`);
-- the two deliberately unresolved choices, `A7 | C2` and `A2 | A3`.
-
-Every work is `metadata_status: "unverified"` with no title, no URL, no licence
-and no access observation. `config/dependencies.json` carries the 26 nodes but
-**zero edges**, because the relationship diagram was not supplied.
-`validate` reports this truthfully instead of presenting an empty graph as done.
-
-**To resolve:** supply the catalogue and run
+The corpus can be regenerated with:
 
 ```bash
-python -m bibgraph import-catalogue phase-1-access-verification.md --observed-on 2026-09-16
+./bin/bibgraph import-catalogue phase-1-access-verification.md --observed-on 2026-09-16
 ```
 
-The importer handles exactly one table shape and refuses anything else with a
-message naming the columns it found and the columns it needs. Dependency edges
-still need a human review pass; they are curated data, not derivable from a table.
-
-Because `config/` is necessarily inert, a complete synthetic corpus lives at
-`tests/fixtures/demo/`. It exercises all six edge types, a choice node, a
-collection, a purchase-only work and a PDF, and the whole pipeline is
-demonstrated and tested against it.
+Dependency edges remain curated data rather than importer output, so regenerating
+the corpus does not overwrite `config/dependencies.json`. A complete synthetic
+corpus remains at `tests/fixtures/demo/` for deterministic, offline pipeline
+tests; it exercises all six edge types, a choice node, a collection, a
+purchase-only work, and a PDF.
 
 ## 2. Defects found in the plan, and how they were resolved
 
@@ -84,9 +71,9 @@ Against the plan's section 3:
 
 | Requirement | State |
 |---|---|
-| Every seed record and asset in a validated manifest | **Met structurally.** 24 works, 20/20 seed aliases, A5 expanded. No asset URLs, because the catalogue was not supplied. |
+| Every seed record and asset in a validated manifest | **Met.** 24 works, 20/20 seed aliases, A5 expanded, and 54 catalogued routes. |
 | Downloads verified and hashed, or a specific recorded failure; nonzero exit | **Met.** Exercised against 403, 404, 429, timeout, truncation, wrong media type, oversized body, redirect loop and an HTML login served as a PDF. |
-| DAG navigable with upstream, downstream, branch, Previous and Next | **Met in the code, empty in this repository.** Fully exercised against the demo corpus; `config/dependencies.json` has no edges because the relationship diagram was not supplied, and the navigator says so. |
+| DAG navigable with upstream, downstream, branch, Previous and Next | **Met.** The checked configuration has 26 nodes and 18 typed edges; behavior is also exercised against the offline demo corpus. |
 | Every field has an explicit state; empty never means success | **Met**, across five hand-labelled fixtures. |
 | Every passage carries provenance and confidence | **Met.** |
 | Every citation edge keeps its raw string and resolution evidence | **Met.** |
