@@ -7,10 +7,12 @@ from __future__ import annotations
 
 import dataclasses
 import datetime as _dt
+import errno
 import hashlib
 import json
 import os
 import re
+import shutil
 import tempfile
 import unicodedata
 from pathlib import Path
@@ -133,6 +135,48 @@ def write_text_atomic(path: Path, text: str) -> None:
         except OSError:
             pass
         raise
+
+
+def move_file_atomic(source: Path, destination: Path) -> None:
+    """Move a file into place atomically, including across filesystems.
+
+    Download temporary files normally live in the system temporary directory,
+    which is not guaranteed to share a filesystem with the workspace.  A
+    direct rename is preferred; when that reports ``EXDEV``, copy to a second
+    temporary file beside the destination and rename that local file instead.
+    The final path is therefore never exposed with partial contents.
+    """
+    source = Path(source)
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        os.replace(source, destination)
+        return
+    except OSError as exc:
+        if exc.errno != errno.EXDEV:
+            raise
+
+    handle = tempfile.NamedTemporaryFile(
+        "wb", dir=str(destination.parent), delete=False, suffix=".tmp"
+    )
+    temporary = Path(handle.name)
+    try:
+        with source.open("rb") as input_file:
+            shutil.copyfileobj(input_file, handle)
+        handle.flush()
+        os.fsync(handle.fileno())
+        handle.close()
+        os.replace(temporary, destination)
+    except BaseException:
+        handle.close()
+        temporary.unlink(missing_ok=True)
+        raise
+    try:
+        source.unlink()
+    except OSError:
+        # Installation succeeded; failure to clean a system temp file must not
+        # turn a valid download into a failed acquisition.
+        pass
 
 
 def write_jsonl_atomic(path: Path, rows: Iterable[Any]) -> None:
