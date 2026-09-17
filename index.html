@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Punto de entrada accesible al manual, la aplicación y las verificaciones de bibgraph.">
+  <title>Centro de control | bibgraph</title>
+  <link rel="stylesheet" href="site-src/launcher.css">
+  <script src="site-src/launcher.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="bibgraph, inicio">bibgraph<span aria-hidden="true">.</span></a>
+    <nav aria-label="Navegación principal">
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#accesos">Accesos</a></li>
+        <li><a href="#verificaciones">Verificaciones</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" id="inicio" aria-labelledby="titulo-principal">
+      <p class="eyebrow">Bibliografía local y reproducible</p>
+      <h1 id="titulo-principal">Todo lo necesario,<br><em>en un solo lugar.</em></h1>
+      <p class="intro">Consulta la guía, abre la aplicación local y escucha las comprobaciones esenciales antes de empezar.</p>
+      <p class="hero-actions">
+        <a class="button primary" href="build/site/index.html">Ejecutar aplicación</a>
+        <a class="button secondary" href="MANUAL_USUARIO.html">Abrir manual</a>
+      </p>
+      <p class="availability"><span aria-hidden="true">●</span> La aplicación estará disponible después de ejecutar <code>make site</code>.</p>
+    </section>
+
+    <section class="access" id="accesos" aria-labelledby="titulo-accesos">
+      <header class="section-heading">
+        <p class="eyebrow">Accesos directos</p>
+        <h2 id="titulo-accesos">Elige cómo continuar</h2>
+      </header>
+      <ol class="cards">
+        <li>
+          <article>
+            <p class="card-number" aria-hidden="true">01</p>
+            <h3>Leer el manual</h3>
+            <p>Instrucciones en español para instalar, configurar, revisar y publicar de forma segura.</p>
+            <a href="MANUAL_USUARIO.html">Consultar la guía <span aria-hidden="true">→</span></a>
+          </article>
+        </li>
+        <li>
+          <article>
+            <p class="card-number" aria-hidden="true">02</p>
+            <h3>Abrir bibgraph</h3>
+            <p>Explora el corpus, las dependencias, los trabajos y los informes en la aplicación generada.</p>
+            <a href="build/site/index.html">Ir a la aplicación <span aria-hidden="true">→</span></a>
+          </article>
+        </li>
+        <li>
+          <article>
+            <p class="card-number" aria-hidden="true">03</p>
+            <h3>Verificar el sistema</h3>
+            <p>Revisa el entorno, la configuración y las pruebas con apoyo de indicaciones sonoras.</p>
+            <a href="#verificaciones">Iniciar revisión <span aria-hidden="true">↓</span></a>
+          </article>
+        </li>
+      </ol>
+    </section>
+
+    <section class="checks" id="verificaciones" aria-labelledby="titulo-verificaciones">
+      <header class="section-heading">
+        <p class="eyebrow">Comprobación asistida</p>
+        <h2 id="titulo-verificaciones">Verificaciones sonoras</h2>
+        <p>Ejecuta cada comando en una terminal. El botón de su fila explica en voz alta qué resultado debes confirmar; la información también permanece visible en pantalla.</p>
+      </header>
+
+      <p class="audio-actions">
+        <button class="button primary" type="button" id="read-all">Escuchar todas</button>
+        <button class="text-button" type="button" id="stop-speech">Detener audio</button>
+      </p>
+      <p class="speech-status" id="speech-status" role="status" aria-live="polite">Audio preparado.</p>
+
+      <ol class="check-list">
+        <li>
+          <article>
+            <header><span class="check-mark" aria-hidden="true">1</span><h3>Revisar el entorno</h3></header>
+            <p>Informa de las capacidades disponibles y de las adaptaciones opcionales.</p>
+            <p><code>./bin/bibgraph doctor</code></p>
+            <button type="button" class="listen" data-speech="Primera verificación: revisa el entorno. Ejecuta punto barra bin barra bibgraph doctor. Confirma que el informe distingue las capacidades disponibles de las opcionales.">Escuchar indicación</button>
+          </article>
+        </li>
+        <li>
+          <article>
+            <header><span class="check-mark" aria-hidden="true">2</span><h3>Validar la configuración</h3></header>
+            <p>Comprueba los manifiestos antes de iniciar cualquier proceso.</p>
+            <p><code>./bin/bibgraph validate</code></p>
+            <button type="button" class="listen" data-speech="Segunda verificación: valida la configuración. Ejecuta punto barra bin barra bibgraph validate. Un código de salida cero indica que los manifiestos son válidos.">Escuchar indicación</button>
+          </article>
+        </li>
+        <li>
+          <article>
+            <header><span class="check-mark" aria-hidden="true">3</span><h3>Ejecutar las pruebas</h3></header>
+            <p>Verifica el comportamiento del proyecto con la suite incluida.</p>
+            <p><code>python3 -m unittest</code></p>
+            <button type="button" class="listen" data-speech="Tercera verificación: ejecuta las pruebas. Escribe python tres, guion eme, unittest. La comprobación termina correctamente cuando todas las pruebas finalizan sin errores.">Escuchar indicación</button>
+          </article>
+        </li>
+      </ol>
+
+      <aside class="privacy-note" aria-labelledby="privacidad-audio">
+        <h3 id="privacidad-audio">Audio local y opcional</h3>
+        <p>La lectura utiliza la síntesis de voz del navegador y solo se activa al pulsar un botón. Si no está disponible, las mismas indicaciones siguen accesibles como texto.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>bibgraph</strong> · Flujo local, accesible y reproducible.</p>
+    <p><a href="README.md">Documentación técnica</a> · <a href="VERIFICATION.md">Informe de verificación</a></p>
+  </footer>
+</body>
+</html>
