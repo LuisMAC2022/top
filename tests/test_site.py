@@ -116,6 +116,22 @@ class TestNoJavaScriptRequired(SiteCase):
 
 
 class TestAccessibility(SiteCase):
+    def test_every_page_has_a_skip_link_and_persistent_sidebar(self):
+        root = self.build()
+        for path in root.rglob("*.html"):
+            page = path.read_text(encoding="utf-8")
+            self.assertIn('<a class="skip-link" href="#main-content">', page)
+            self.assertIn('<aside class="sidebar">', page)
+            self.assertIn('<main id="main-content" tabindex="-1">', page)
+
+    def test_sidebar_always_links_to_documents_and_graphs(self):
+        self.build()
+        for relative in ("index.html", "works/D-R0/index.html"):
+            page = self.read(relative)
+            nav = re.search(r'<nav aria-label="Main">(.*?)</nav>', page, re.S).group(1)
+            for label in ("Dependencies", "Works", "Citation graph", "Survey", "Reports"):
+                self.assertIn(f">{label}</a>", nav)
+
     def test_svg_has_an_accessible_name_and_a_text_equivalent(self):
         self.build()
         page = self.read("dependencies/index.html")
