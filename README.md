@@ -15,7 +15,7 @@ literally.
 
 For step-by-step instructions in clear Spanish, including environment setup,
 catalogue import, every CLI command, troubleshooting, backups, and safe
-publication, see the [complete user manual](MANUAL_USUARIO.md).
+publication, see the [complete HTML user manual](MANUAL_USUARIO.html) (also available as [Markdown source](MANUAL_USUARIO.md)).
 
 ## Quick start
 

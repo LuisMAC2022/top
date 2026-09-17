@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual completo para preparar, usar, revisar y publicar bibliografías con bibgraph.">
+  <title>Manual de usuario de bibgraph</title>
+  <style>
+    :root { color-scheme: light dark; --bg: #fff; --surface: #f3f6f8; --text: #17212b; --muted: #4c5967; --accent: #075ea8; --border: #aeb8c2; --code: #f1f3f5; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #101820; --surface: #18232d; --text: #edf3f7; --muted: #c2ccd4; --accent: #75bdff; --border: #65727d; --code: #202d38; } }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 1rem/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    header, main, footer { width: min(100% - 2rem, 76rem); margin-inline: auto; }
+    header { padding-block: 3rem 1.5rem; border-bottom: 1px solid var(--border); }
+    main { padding-block: 1rem 4rem; }
+    footer { padding-block: 1.5rem 3rem; border-top: 1px solid var(--border); color: var(--muted); }
+    h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; }
+    h2 { margin-block-start: 3rem; font-size: clamp(1.5rem, 4vw, 2.15rem); line-height: 1.25; }
+    h3 { margin-block-start: 2.25rem; font-size: 1.35rem; line-height: 1.3; }
+    h4 { margin-block-start: 1.75rem; font-size: 1.1rem; }
+    p, li { max-width: 78ch; }
+    a { color: var(--accent); text-underline-offset: .18em; }
+    a:hover { text-decoration-thickness: .14em; }
+    :focus-visible { outline: .2rem solid var(--accent); outline-offset: .2rem; }
+    .skip-link { position: absolute; left: 1rem; top: -5rem; z-index: 2; padding: .7rem 1rem; background: var(--bg); border: 2px solid var(--accent); }
+    .skip-link:focus { top: 1rem; }
+    .subtitle { color: var(--muted); font-size: 1.15rem; }
+    .contents { margin-block: 2rem; padding: .25rem 1.5rem 1.5rem; background: var(--surface); border-left: .3rem solid var(--accent); }
+    .contents h2 { margin-block-start: 1.25rem; }
+    .contents ul { columns: 2 20rem; }
+    .contents ul ul { columns: auto; }
+    .heading-link { font-size: .7em; opacity: .55; text-decoration: none; }
+    code { padding: .08em .3em; background: var(--code); border-radius: .2rem; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    pre { max-width: 100%; overflow: auto; padding: 1rem; background: var(--code); border: 1px solid var(--border); border-radius: .35rem; line-height: 1.45; }
+    pre code { padding: 0; background: transparent; }
+    table { display: block; width: 100%; overflow-x: auto; margin-block: 1.5rem; border-collapse: collapse; }
+    th, td { padding: .6rem .75rem; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+    th { background: var(--surface); }
+    tbody tr:nth-child(even) { background: var(--surface); }
+    @media (max-width: 40rem) { header, main, footer { width: min(100% - 1.25rem, 76rem); } .contents { padding-inline: 1rem; } }
+    @media print { .skip-link, .heading-link { display: none; } body { color: #000; background: #fff; font-size: 10pt; } header, main, footer { width: 100%; } a { color: inherit; } pre, table { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <header>
+    <h1>Manual de usuario de bibgraph</h1>
+    <p class="subtitle">Guía completa de instalación, uso, revisión y publicación segura.</p>
+  </header>
+  <main id="contenido">
+    <article>
+<nav class="contents" aria-labelledby="índice">
+<h2 id="índice">Índice <a class="heading-link" href="#índice" aria-label="Enlace permanente a esta sección">#</a></h2>
+<ul>
+<li><a href="#parte-i-manual-completo">Parte I. Manual completo</a>
+<ul>
+<li><a href="#1-portada">1. Portada</a></li>
+<li><a href="#2-resumen-de-cinco-minutos">2. Resumen de cinco minutos</a></li>
+<li><a href="#3-conceptos-básicos">3. Conceptos básicos</a></li>
+<li><a href="#4-requisitos-previos">4. Requisitos previos</a></li>
+<li><a href="#5-entrar-en-la-carpeta-del-proyecto">5. Entrar en la carpeta del proyecto</a></li>
+<li><a href="#6-primera-comprobación">6. Primera comprobación</a></li>
+<li><a href="#7-preparar-la-bibliografía">7. Preparar la bibliografía</a></li>
+<li><a href="#8-importar-el-catálogo">8. Importar el catálogo</a></li>
+<li><a href="#9-configurar-las-dependencias">9. Configurar las dependencias</a></li>
+<li><a href="#10-validar-la-configuración">10. Validar la configuración</a></li>
+<li><a href="#11-descargar-los-documentos">11. Descargar los documentos</a></li>
+<li><a href="#12-importar-copias-locales-obtenidas-legalmente">12. Importar copias locales</a></li>
+<li><a href="#13-extraer-la-información">13. Extraer la información</a></li>
+<li><a href="#14-resolver-referencias">14. Resolver referencias</a></li>
+<li><a href="#15-analizar-los-resultados">15. Analizar los resultados</a></li>
+<li><a href="#16-proponer-ampliaciones-de-la-bibliografía">16. Proponer ampliaciones</a></li>
+<li><a href="#17-añadir-anotaciones-y-revisiones-humanas">17. Añadir anotaciones</a></li>
+<li><a href="#18-construir-el-sitio-local">18. Construir el sitio local</a></li>
+<li><a href="#19-comprobar-el-sitio">19. Comprobar el sitio</a></li>
+<li><a href="#20-iniciar-el-sitio">20. Iniciar el sitio</a></li>
+<li><a href="#21-crear-una-versión-pública">21. Crear una versión pública</a></li>
+<li><a href="#22-opciones-globales">22. Opciones globales</a></li>
+<li><a href="#23-atajos-de-make">23. Atajos de Make</a></li>
+<li><a href="#24-receta-completa-para-copiar-y-pegar">24. Receta completa</a></li>
+<li><a href="#25-tabla-completa-de-comandos">25. Tabla completa de comandos</a></li>
+<li><a href="#26-códigos-de-salida">26. Códigos de salida</a></li>
+<li><a href="#27-solución-de-problemas">27. Solución de problemas</a></li>
+<li><a href="#28-recuperación-y-copias-de-seguridad">28. Recuperación y copias de seguridad</a></li>
+<li><a href="#29-privacidad-y-publicación-segura">29. Privacidad y publicación segura</a></li>
+<li><a href="#30-glosario">30. Glosario</a></li>
+<li><a href="#31-lista-final-de-comprobación">31. Lista final de comprobación</a></li>
+</ul>
+</li>
+<li><a href="#parte-ii-hoja-rápida-de-una-página">Parte II. Hoja rápida</a>
+</li>
+<li><a href="#parte-iii-tabla-resumen-de-todos-los-comandos">Parte III. Tabla resumen</a>
+</li>
+<li><a href="#parte-iv-árbol-de-decisión-de-solución-de-problemas">Parte IV. Árbol de decisión</a>
+</li>
+<li><a href="#parte-v-lista-de-comprobación-antes-de-publicar">Parte V. Comprobación antes de publicar</a>
+</li>
+<li><a href="#parte-vi-aspectos-que-no-pudieron-verificarse">Parte VI. Aspectos no verificados</a>
+</li>
+</ul>
+</nav>
+<h2 id="parte-i-manual-completo">Parte I. Manual completo <a class="heading-link" href="#parte-i-manual-completo" aria-label="Enlace permanente a esta sección">#</a></h2>
+<h2 id="1-portada">1. Portada <a class="heading-link" href="#1-portada" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p><strong>Propósito.</strong> Este manual explica cómo preparar, usar, revisar y publicar de forma segura una bibliografía con <strong>bibgraph</strong>.</p>
+<p><strong>Público.</strong> Personas sin experiencia con programación, terminales, Python ni administración de sistemas.</p>
+<p><strong>Edición.</strong> 17 de septiembre de 2026, basada en la implementación incluida en este repositorio.</p>
+<p><strong>Resultado.</strong> Al terminar, tendrá un sitio web local navegable y, si los derechos lo permiten, una versión pública separada y comprobada.</p>
+<h2 id="2-resumen-de-cinco-minutos">2. Resumen de cinco minutos <a class="heading-link" href="#2-resumen-de-cinco-minutos" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p>bibgraph recibe un catálogo de obras académicas. Comprueba sus datos y permisos. Descarga solo las rutas autorizadas o registra copias legales aportadas por usted. Después extrae partes de los documentos, relaciona referencias, crea grafos y rankings, y genera un sitio web sin servidor de base de datos.</p>
+<pre tabindex="0"><code class="language-text">Catálogo → Validación → Descarga o importación → Extracción
+→ Referencias → Análisis → Sitio web local
+└→ Versión pública permitida</code></pre>
+<p>La aplicación usa solo la biblioteca estándar de Python: no hay que instalar paquetes con <code>pip</code>. Requiere Python 3.10 o posterior. <code>pdftotext</code>, incluido en Poppler, es opcional, pero se necesita para extraer PDF automáticamente.</p>
+<p><strong>Límites importantes:</strong> bibgraph no inicia sesión, no resuelve CAPTCHA y no elude muros de pago ni controles de acceso. Que un documento pueda verse gratis no concede por sí mismo permiso para redistribuirlo. El material local se considera privado. Nunca obtenga el sitio público copiando <code>build/site/</code>.</p>
+<p><strong>Estado inicial.</strong> Este repositorio puede incluir 24 registros provisionales en <code>config/corpus.json</code>: los 20 alias semilla y cuatro partes de A5, sin títulos, autores ni URL reales. <code>config/dependencies.json</code> contiene 26 nodos, incluidas dos elecciones, pero cero relaciones. En ese estado, la aplicación puede inspeccionarse y el sitio puede construirse con <code>--allow-incomplete</code>; no producirá resultados bibliográficos útiles hasta importar el catálogo real. Las dependencias deben revisarse a mano.</p>
+<h2 id="3-conceptos-básicos">3. Conceptos básicos <a class="heading-link" href="#3-conceptos-básicos" aria-label="Enlace permanente a esta sección">#</a></h2>
+<table tabindex="0">
+<thead><tr><th scope="col">Concepto</th><th scope="col">Explicación sencilla</th></tr></thead>
+<tbody>
+<tr><td>Terminal</td><td>Ventana de texto en la que se escriben instrucciones para el equipo. En macOS se llama Terminal; en Linux puede llamarse Terminal; en Windows use WSL o Git Bash para el lanzador Bash.</td></tr>
+<tr><td>Comando</td><td>Instrucción escrita en la terminal y confirmada con <code>Enter</code>.</td></tr>
+<tr><td>Carpeta o directorio</td><td>Lugar que agrupa archivos. Ambos términos significan lo mismo aquí.</td></tr>
+<tr><td>Catálogo bibliográfico</td><td>Lista estructurada de obras, enlaces, acceso y derechos.</td></tr>
+<tr><td>Alias</td><td>Nombre corto y único para una obra, como <code>R0</code> o <code>A1</code>.</td></tr>
+<tr><td>Recurso o <em>asset</em></td><td>Una ruta asociada a una obra: página informativa, PDF, vista previa, etc.</td></tr>
+<tr><td>Manifiesto</td><td>Archivo JSON revisado por personas que describe el corpus o sus dependencias.</td></tr>
+<tr><td>Metadatos</td><td>Datos sobre una obra: título, autores, año y URL, no necesariamente su texto.</td></tr>
+<tr><td>Grafo</td><td>Conjunto de elementos conectados; aquí representa citas o dependencias.</td></tr>
+<tr><td>Dependencia</td><td>Regla que relaciona una lectura con otra.</td></tr>
+<tr><td>Sitio estático</td><td>Conjunto de HTML, CSS y otros archivos que el navegador muestra sin ejecutar una aplicación remota.</td></tr>
+<tr><td>Construcción local</td><td>Sitio en <code>build/site/</code>; puede revelar datos privados y solo debe usarse en el equipo.</td></tr>
+<tr><td>Construcción pública</td><td>Sitio separado en <code>publish/</code>, creado desde una lista explícita de contenido permitido.</td></tr>
+<tr><td>Código de salida</td><td>Número que el comando devuelve al terminar: <code>0</code> es éxito; otros números describen problemas.</td></tr>
+</tbody></table>
+<h2 id="4-requisitos-previos">4. Requisitos previos <a class="heading-link" href="#4-requisitos-previos" aria-label="Enlace permanente a esta sección">#</a></h2>
+<h3 id="windows">Windows <a class="heading-link" href="#windows" aria-label="Enlace permanente a esta sección">#</a></h3>
+<p><code>bin/bibgraph</code> es un programa Bash; no es un lanzador nativo de Símbolo del sistema ni PowerShell. Use <strong>WSL</strong> (Subsistema de Windows para Linux) o Git Bash con <code>python3</code> disponible. WSL es la opción más cercana al entorno esperado. Abra su terminal Linux y ejecute las comprobaciones de esta sección. Las rutas de WSL suelen parecerse a <code>/mnt/c/Users/NOMBRE/...</code>.</p>
+<h3 id="macos-y-linux">macOS y Linux <a class="heading-link" href="#macos-y-linux" aria-label="Enlace permanente a esta sección">#</a></h3>
+<p>Abra <strong>Terminal</strong> desde las aplicaciones. Los comandos de este manual usan Bash o un entorno compatible.</p>
+<h3 id="comprobaciones">Comprobaciones <a class="heading-link" href="#comprobaciones" aria-label="Enlace permanente a esta sección">#</a></h3>
+<ol>
+<li>Compruebe Python:
+</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">python3 --version</code></pre>
+<p>Debe indicar <code>Python 3.10</code> o una versión mayor. Python incluye el módulo SQLite que bibgraph usa; no basta con tener solamente el programa externo <code>sqlite3</code>.</p>
+<ol start="2">
+<li>Compruebe SQLite dentro de Python:
+</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">python3 -c &quot;import sqlite3; print(sqlite3.sqlite_version)&quot;</code></pre>
+<p>Debe aparecer un número de versión.</p>
+<ol start="3">
+<li>Compruebe la herramienta opcional de PDF:
+</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">pdftotext -v</code></pre>
+<p>Si no existe, bibgraph sigue funcionando, pero los PDF pueden quedar en <code>manual_required</code>. Instale el paquete Poppler con el gestor de software de su sistema.</p>
+<ol start="4">
+<li>Compruebe escritura desde la carpeta del proyecto con <code>doctor</code>, explicado en la sección 6. No use <code>sudo</code> como arreglo general.
+</li>
+</ol>
+<ol start="5">
+<li>Necesita Internet solamente para <code>fetch</code> y para <code>resolve --online</code>. La importación local, extracción, análisis y construcción pueden funcionar sin Internet una vez presentes los archivos.
+</li>
+</ol>
+<h2 id="5-entrar-en-la-carpeta-del-proyecto">5. Entrar en la carpeta del proyecto <a class="heading-link" href="#5-entrar-en-la-carpeta-del-proyecto" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p><code>cd</code> significa “cambiar de carpeta”. Sustituya <code>RUTA/AL/PROYECTO</code> por la ubicación real.</p>
+<p>En macOS, Linux, WSL o Git Bash:</p>
+<pre tabindex="0"><code class="language-bash">cd RUTA/AL/PROYECTO</code></pre>
+<p>Ejemplo, solo si el proyecto está realmente allí:</p>
+<pre tabindex="0"><code class="language-bash">cd /workspace/top</code></pre>
+<p>En PowerShell, <code>cd C:\ruta\al\proyecto</code> cambia de carpeta, pero después deberá abrir WSL/Git Bash para usar <code>./bin/bibgraph</code>. En WSL una ruta de Windows puede escribirse así:</p>
+<pre tabindex="0"><code class="language-bash">cd /mnt/c/Users/NOMBRE/ruta/al/proyecto</code></pre>
+<p>Compruebe la ubicación:</p>
+<pre tabindex="0"><code class="language-bash">pwd</code></pre>
+<pre tabindex="0"><code class="language-bash">test -f bin/bibgraph -a -f config/corpus.json &amp;&amp; echo &quot;Carpeta correcta&quot;</code></pre>
+<p>El segundo comando debe mostrar <code>Carpeta correcta</code>.</p>
+<h2 id="6-primera-comprobación">6. Primera comprobación <a class="heading-link" href="#6-primera-comprobación" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph doctor</code></pre>
+<p><code>doctor</code> crea y borra pequeños archivos de prueba para verificar escritura en <code>config</code>, <code>data</code>, <code>reports</code>, <code>private</code>, <code>cache</code> y <code>build</code>. También informa la versión de Python, SSL, SQLite, <code>pdftotext</code>, variables de entorno y presencia de los archivos de configuración. No imprime valores secretos.</p>
+<p>Python 3.10+, SQLite utilizable y las seis ubicaciones escribibles son obligatorios. <code>pdftotext</code> es opcional. SSL es necesario para descargas HTTPS fiables.</p>
+<p>La salida humana comienza con <code>bibgraph doctor</code> y muestra cada capacidad. <code>ABSENT</code> para <code>pdftotext</code> es una limitación, no un bloqueo general. Corrija Python con una instalación actual, SQLite instalando una distribución completa de Python, y permisos dando escritura a su usuario sobre su propia copia del proyecto.</p>
+<p>Forma equivalente, útil si el lanzador Bash no se puede ejecutar:</p>
+<pre tabindex="0"><code class="language-bash">PYTHONPATH=src python3 -m bibgraph doctor</code></pre>
+<p>En ambos casos sitúese primero en la raíz del proyecto. La segunda forma configura manualmente dónde Python encuentra bibgraph.</p>
+<h2 id="7-preparar-la-bibliografía">7. Preparar la bibliografía <a class="heading-link" href="#7-preparar-la-bibliografía" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p>Cree <code>phase-1-access-verification.md</code> en la raíz. Es un archivo Markdown: texto sencillo con una tabla delimitada por barras verticales. El importador busca la primera tabla cuya cabecera contenga todas las columnas obligatorias; no es un importador Markdown universal.</p>
+<h3 id="ejemplo-completo-y-copiable">Ejemplo completo y copiable <a class="heading-link" href="#ejemplo-completo-y-copiable" aria-label="Enlace permanente a esta sección">#</a></h3>
+<pre tabindex="0"><code class="language-markdown">| ID | Title | Type | Access | URL | Role | Intent | Authors | Year | License | License Evidence | Observed | Notes | Container | Members |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| R0 | Guía de ejemplo | article | open | https://example.org/record | landing | metadata_only | Ana Pérez; Luis Soto | 2020 | CC BY 4.0 | https://example.org/license | Consultado y visible | Página descriptiva | | |
+| R0 | Guía de ejemplo | article | open | https://example.org/document.pdf | fulltext | required | Ana Pérez; Luis Soto | 2020 | CC BY 4.0 | https://example.org/license | PDF accesible | Texto completo | | |
+| A1 | Libro sin descarga autorizada | book | purchase | https://example.org/book | landing | manual | Carmen Ruiz | 2018 | | | Solo compra | Obtener legalmente por biblioteca o compra | | |
+| A5 | Colección de secuencias | collection | open | https://example.org/collection | landing | metadata_only | Equipo Ejemplo | 2021 | CC0 | https://example.org/rights | Catálogo visible | Contenedor | | A5.1, A5.2 |
+| A5.1 | Primera secuencia | sequence | open | https://example.org/sequence-1.html | fulltext | required | Equipo Ejemplo | 2021 | CC0 | https://example.org/rights | Texto visible | Miembro uno | A5 | |
+| A5.2 | Segunda secuencia | sequence | preview | https://example.org/sequence-2 | preview | manual | Equipo Ejemplo | 2021 | | | Vista previa | Requiere copia legal | A5 | |</code></pre>
+<p>Las URL <code>example.org</code> son ejemplos: sustitúyalas por fuentes reales y revisadas.</p>
+<h3 id="significado-de-las-columnas">Significado de las columnas <a class="heading-link" href="#significado-de-las-columnas" aria-label="Enlace permanente a esta sección">#</a></h3>
+<table tabindex="0">
+<thead><tr><th scope="col">Nombre</th><th scope="col">Obligatoria</th><th scope="col">Propósito</th><th scope="col">Valores admitidos</th><th scope="col">Ejemplo</th><th scope="col">Error frecuente</th></tr></thead>
+<tbody>
+<tr><td><code>ID</code></td><td>Sí</td><td>Alias que agrupa filas de la misma obra.</td><td>Texto no vacío.</td><td><code>R0</code></td><td>Cambiar el ID entre dos URL de una obra.</td></tr>
+<tr><td><code>Title</code></td><td>Sí como columna</td><td>Título; puede estar vacío, pero queda sin verificar.</td><td>Texto.</td><td><code>Guía</code></td><td>Usar <code>|</code> dentro de una celda.</td></tr>
+<tr><td><code>Type</code></td><td>Sí</td><td>Clase de obra.</td><td><code>article</code>, <code>book</code>, <code>notes</code>, <code>sequence</code>, <code>web_page</code>, <code>collection</code></td><td><code>article</code></td><td>Escribir un valor libre como <code>paper</code>.</td></tr>
+<tr><td><code>Access</code></td><td>Sí</td><td>Acceso observado.</td><td><code>open</code>, <code>preview</code>, <code>borrow</code>, <code>purchase</code>, <code>institutional</code>, <code>unknown</code></td><td><code>open</code></td><td>Confundir acceso con licencia.</td></tr>
+<tr><td><code>URL</code></td><td>Sí como columna</td><td>Dirección del recurso; si queda vacía no se crea recurso.</td><td>URL HTTP(S), sola o enlace Markdown.</td><td><code>https://.../doc.pdf</code></td><td>Poner dos URL en una celda.</td></tr>
+<tr><td><code>Role</code></td><td>Sí</td><td>Función de esa URL.</td><td><code>landing</code>, <code>fulltext</code>, <code>metadata</code>, <code>mirror</code>, <code>preview</code>, <code>borrow</code></td><td><code>fulltext</code></td><td>Llamar <code>fulltext</code> a una portada.</td></tr>
+<tr><td><code>Intent</code></td><td>Sí</td><td>Acción de adquisición.</td><td><code>required</code>, <code>fallback</code>, <code>metadata_only</code>, <code>manual</code>, <code>ignore</code></td><td><code>required</code></td><td>Marcar como requerida una ruta no autorizada.</td></tr>
+<tr><td><code>Authors</code></td><td>No</td><td>Autores de la obra.</td><td>Nombres separados por punto y coma.</td><td><code>Ana Pérez; Luis Soto</code></td><td>Separar por coma, que puede pertenecer al nombre.</td></tr>
+<tr><td><code>Year</code></td><td>No</td><td>Año.</td><td>Exactamente cuatro cifras o vacío.</td><td><code>2020</code></td><td>Escribir una fecha completa; se importaría como <code>null</code>.</td></tr>
+<tr><td><code>License</code></td><td>No</td><td>Nombre de la licencia.</td><td>Texto revisado.</td><td><code>CC BY 4.0</code></td><td>Suponerla por el acceso abierto.</td></tr>
+<tr><td><code>License Evidence</code></td><td>No</td><td>URL que demuestra la licencia.</td><td>Una URL extraíble.</td><td><code>https://.../license</code></td><td>Escribir evidencia sin URL.</td></tr>
+<tr><td><code>Observed</code></td><td>No</td><td>Nota sobre lo observado.</td><td>Texto.</td><td><code>PDF accesible</code></td><td>Confundirla con la fecha; la fecha general va en <code>--observed-on</code>.</td></tr>
+<tr><td><code>Notes</code></td><td>No</td><td>Nota libre.</td><td>Texto sin barras verticales.</td><td><code>Copia en biblioteca</code></td><td>Incluir secretos o datos personales.</td></tr>
+<tr><td><code>Container</code></td><td>No</td><td>Alias de la colección que contiene esta obra.</td><td>Alias.</td><td><code>A5</code></td><td>Referir un contenedor inexistente.</td></tr>
+<tr><td><code>Members</code></td><td>No</td><td>Miembros de una colección.</td><td>Alias separados por comas.</td><td><code>A5.1, A5.2</code></td><td>Separarlos con punto y coma.</td></tr>
+</tbody></table>
+<p>Para una sola URL use una fila. Para varias URL repita el mismo <code>ID</code>, una fila por recurso: por ejemplo una fila <code>landing</code> con <code>metadata_only</code> y otra <code>fulltext</code> con <code>required</code>. La primera aparición de un ID fija los datos de la obra; revise que las filas repetidas sean coherentes. Una obra sin permiso de descarga debe usar, por ejemplo, <code>purchase</code> y <code>manual</code>, no <code>required</code>. La evidencia de licencia debe ser una URL en <code>License Evidence</code>.</p>
+<p><strong>Advertencia:</strong> al importar, <code>open</code> permite almacenamiento local, pero no activa <code>publish_abstract</code> ni <code>publish_fulltext</code>. Acceso abierto no se convierte automáticamente en permiso de publicación.</p>
+<h2 id="8-importar-el-catálogo">8. Importar el catálogo <a class="heading-link" href="#8-importar-el-catálogo" aria-label="Enlace permanente a esta sección">#</a></h2>
+<ol>
+<li>Pruebe sin guardar. Sustituya <code>AAAA-MM-DD</code> por la fecha pasada o actual en que verificó el acceso:
+</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import-catalogue phase-1-access-verification.md --observed-on AAAA-MM-DD --dry-run</code></pre>
+<p><code>--dry-run</code> imprime el JSON resultante y no reemplaza el catálogo.</p>
+<ol start="2">
+<li>Antes de importar definitivamente, respalde el archivo actual:
+</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">cp config/corpus.json config/corpus.json.backup</code></pre>
+<ol start="3">
+<li>Importe:
+</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import-catalogue phase-1-access-verification.md --observed-on AAAA-MM-DD</code></pre>
+<p>Por defecto reemplaza atómicamente <code>config/corpus.json</code>. Debe informar cuántas obras y recursos importó. Abra el archivo con un editor y busque sus títulos, alias y URL.</p>
+<ol start="4">
+<li>Para no tocar el catálogo predeterminado:
+</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import-catalogue ARCHIVO.md --output RUTA/AL/CORPUS.json</code></pre>
+<p><code>--observed-on</code> registra cuándo se observó el estado de acceso; no afirma que sea permanente. Si faltan los alias semilla esperados, la importación termina pero muestra una advertencia. <code>validate</code> también lo reflejará. Una cabecera o separador incorrectos causa rechazo indicando las columnas requeridas. El importador acepta exclusivamente una tabla con barras, una fila separadora de guiones y las columnas indicadas.</p>
+<h2 id="9-configurar-las-dependencias">9. Configurar las dependencias <a class="heading-link" href="#9-configurar-las-dependencias" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p>Abra <code>config/dependencies.json</code> con un editor de texto. Es JSON: claves entre comillas, dos puntos entre clave y valor, y comas entre elementos. <code>nodes</code> enumera nodos; <code>edges</code> contiene relaciones como esta:</p>
+<pre tabindex="0"><code class="language-json">{
+  &quot;from&quot;: &quot;R0&quot;,
+  &quot;to&quot;: &quot;A1&quot;,
+  &quot;type&quot;: &quot;prerequisite&quot;,
+  &quot;note&quot;: &quot;R0 debe leerse antes que A1.&quot;
+}</code></pre>
+<p><code>from</code> es el prerrequisito y <code>to</code> el documento dependiente.</p>
+<table tabindex="0">
+<thead><tr><th scope="col">Tipo</th><th scope="col">Uso</th><th scope="col">Afecta al orden</th></tr></thead>
+<tbody>
+<tr><td><code>prerequisite</code></td><td>Lectura necesaria antes de otra.</td><td>Sí.</td></tr>
+<tr><td><code>backup</code></td><td>Alternativa o respaldo.</td><td>No.</td></tr>
+<tr><td><code>validates</code></td><td>Una obra ayuda a comprobar otra.</td><td>No.</td></tr>
+<tr><td><code>conditional</code></td><td>Ruta que depende de una condición.</td><td>Sí.</td></tr>
+<tr><td><code>orientation</code></td><td>Lectura de orientación previa.</td><td>Sí.</td></tr>
+<tr><td><code>historical</code></td><td>Antecedente histórico.</td><td>Sí.</td></tr>
+</tbody></table>
+<p>Los cuatro tipos que afectan al orden no deben formar ciclos: un ciclo exigiría leer A antes de B y B antes de A.</p>
+<p><code>config/reading-profile.json</code> elige una opción para los nodos de tipo <code>choice</code>. Un valor <code>null</code> significa que la decisión sigue deliberadamente sin resolver; no es un error tipográfico. Sustitúyalo solo por uno de los alias incluidos en <code>options</code>, después de una revisión humana.</p>
+<h2 id="10-validar-la-configuración">10. Validar la configuración <a class="heading-link" href="#10-validar-la-configuración" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph validate</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph validate --strict</code></pre>
+<p>Un <strong>error</strong> invalida el manifiesto y devuelve código 3. Una <strong>advertencia</strong> describe una carencia o riesgo sin bloquear el modo normal. Con <code>--strict</code>, cualquier advertencia también hace fallar la validación con código 3. El informe legible queda en <code>reports/validate.md</code> y el registro estructurado en <code>reports/validate.jsonl</code>.</p>
+<p>Los mensajes pueden referirse, por ejemplo, a metadatos no verificados, alias semilla ausentes, un grafo sin relaciones o una referencia de nodo incorrecta. Esos son ejemplos de categorías, no copias prometidas de una salida. Lea la ubicación y el texto de cada entrada, corrija el archivo indicado y repita <code>validate</code>.</p>
+<h2 id="11-descargar-los-documentos">11. Descargar los documentos <a class="heading-link" href="#11-descargar-los-documentos" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p>Uso habitual:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph fetch</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph fetch --strict</code></pre>
+<p><code>--strict</code> detiene el recorrido ante el primer recurso obligatorio fallido. Para recoger todos los fallos:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph fetch --keep-going</code></pre>
+<p>Limite por alias; la opción se puede repetir:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph fetch --alias R0 --alias A1</code></pre>
+<p>Exija texto completo para toda obra no contenedora:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph fetch --require-fulltext-all</code></pre>
+<p>Cambie la pausa entre solicitudes, en segundos:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph fetch --delay 2.5</code></pre>
+<p>Opciones avanzadas, no recomendadas de forma habitual:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph fetch --allow-http</code></pre>
+<p>HTTP no cifra el tráfico. Úselo solo si comprende el riesgo y la fuente no ofrece HTTPS.</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph fetch --allow-private-host 127.0.0.1</code></pre>
+<p>Se puede repetir para hosts concretos. Permite conexiones a redes no públicas y reduce la protección contra solicitudes internas. Nunca lo use como arreglo general.</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph fetch --no-robots</code></pre>
+<p>Omite la orientación de <code>robots.txt</code> y registra la decisión. No debe ser la primera solución ante un bloqueo; solicite permiso o aporte una copia legal.</p>
+<p>Identifíquese de forma responsable ante servidores y Crossref:</p>
+<pre tabindex="0"><code class="language-bash">export BIBGRAPH_CONTACT_EMAIL=&quot;nombre@example.org&quot;</code></pre>
+<p>Este formato sirve en Bash, zsh, WSL y Git Bash y dura hasta cerrar la terminal. En <code>fish</code>: <code>set -x BIBGRAPH_CONTACT_EMAIL nombre@example.org</code>. En PowerShell, para una invocación directa equivalente de Python: <code>$env:BIBGRAPH_CONTACT_EMAIL=&quot;nombre@example.org&quot;</code>.</p>
+<p>Solo se solicitan recursos con intención explícita. <code>ignore</code> no se solicita; <code>manual</code> entra en cola manual; <code>metadata_only</code> no solicita el texto. Si <code>local_storage_allowed</code> es falso, bibgraph no guarda la copia. Los archivos finales quedan bajo <code>private/raw/</code>; los importados manualmente, bajo <code>private/manual-import/</code>. <code>data/state.sqlite3</code> y los informes <code>reports/fetch-FECHA.md</code>/<code>.jsonl</code> registran estado, URL, redirecciones, tamaño, tipo, hash SHA-256, procedencia y errores sin publicar rutas absolutas.</p>
+<p>La descarga acepta solo HTTP(S), rechaza credenciales incrustadas, HTTP por defecto y direcciones privadas. Respeta <code>robots.txt</code>, limita cada cuerpo a 64 MiB, sigue como máximo cinco redirecciones, aplica tiempo de espera y reintenta fallos transitorios hasta tres intentos. <code>429</code> y ciertos errores de servidor pueden reintentarse respetando <code>Retry-After</code>; 401, 403 y 404 no. Un tipo declarado o firma de archivo incompatible produce fallo de integridad; una página de acceso recibida en lugar de PDF también. No intente evadir autenticación, CAPTCHA ni pago.</p>
+<h2 id="12-importar-copias-locales-obtenidas-legalmente">12. Importar copias locales obtenidas legalmente <a class="heading-link" href="#12-importar-copias-locales-obtenidas-legalmente" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import ALIAS RUTA/AL/ARCHIVO</code></pre>
+<p>El rol predeterminado es <code>fulltext</code>. Puede indicarlo:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import ALIAS RUTA/AL/ARCHIVO --role ROL</code></pre>
+<p>Ejemplos:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import R0 documentos/articulo.pdf</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import A1 documentos/pagina.html --role fulltext</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import B2 documentos/notas.txt --role fulltext</code></pre>
+<p>El alias debe existir. El comando detecta PDF, HTML, XML o texto, copia el archivo a <code>private/manual-import/</code>, calcula su SHA-256 y lo registra como <code>user_supplied</code>: aportado por el usuario, no descargado ni verificado por bibgraph. El rol es texto libre en este subcomando; use normalmente uno de los roles controlados para mantener coherencia. El archivo sigue siendo privado y nunca se publica por defecto.</p>
+<h2 id="13-extraer-la-información">13. Extraer la información <a class="heading-link" href="#13-extraer-la-información" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph extract</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph extract --strict</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph extract --alias R0 --alias A1</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph extract --pdf-timeout 180</code></pre>
+<p>Procesa HTML, XML/JATS, texto y PDF. Para PDF llama a <code>pdftotext</code>; <code>--pdf-timeout</code> fija cuántos segundos puede tardar cada conversión. Intenta obtener título, resumen, introducción, jerarquía de secciones, conclusión y referencias. Conserva procedencia y confianza.</p>
+<p>Cada documento estructurado se guarda en <code>data/documents/</code>; el texto privado puede quedar en <code>private/text/</code>. El resumen está en <code>reports/extract.md</code> y <code>.jsonl</code>. La cola manual enumera obras que requieren intervención. Sin <code>pdftotext</code>, un PDF no se interpreta a medias: sus campos quedan <code>manual_required</code>. Con <code>--strict</code>, cualquier obra de la cola manual produce código 2.</p>
+<table tabindex="0">
+<thead><tr><th scope="col">Estado</th><th scope="col">Significado</th></tr></thead>
+<tbody>
+<tr><td><code>present</code></td><td>Se encontró contenido con procedencia.</td></tr>
+<tr><td><code>not_present</code></td><td>El campo era pertinente, pero no se encontró.</td></tr>
+<tr><td><code>not_applicable</code></td><td>Ese campo no corresponde al tipo de obra.</td></tr>
+<tr><td><code>manual_required</code></td><td>Hace falta una herramienta o revisión humana.</td></tr>
+<tr><td><code>failed</code></td><td>Un error impidió extraerlo.</td></tr>
+</tbody></table>
+<h2 id="14-resolver-referencias">14. Resolver referencias <a class="heading-link" href="#14-resolver-referencias" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph resolve</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph resolve --strict</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph resolve --online</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph resolve --no-discovery</code></pre>
+<p>Resolver significa relacionar una referencia escrita dentro de un documento con una obra identificada. bibgraph acepta automáticamente solo una coincidencia fuerte y única. Las ambiguas o no resueltas quedan en la cola de revisión; <code>--strict</code> devuelve código 2 si alguna queda totalmente sin resolver.</p>
+<p>Por defecto, una referencia fiable que no pertenece al catálogo puede convertirse en un nodo descubierto, solo de metadatos. <code>--no-discovery</code> impide crear estos candidatos. <code>--online</code> permite consultas opcionales a Crossref y, por tanto, usa Internet; configure <code>BIBGRAPH_CONTACT_EMAIL</code>. Ejecute siempre <code>extract</code> antes porque las referencias salen de los documentos extraídos. El resultado principal queda en <code>data/references.jsonl</code> y el informe en <code>reports/resolve.md</code>.</p>
+<h2 id="15-analizar-los-resultados">15. Analizar los resultados <a class="heading-link" href="#15-analizar-los-resultados" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph analyze</code></pre>
+<p>El <strong>grafo de citas</strong> muestra quién cita a quién. El <strong>acoplamiento bibliográfico</strong> aproxima qué obras comparten referencias. Las <strong>agrupaciones</strong> reúnen obras relacionadas. El <strong>ranking</strong> combina medidas publicadas en <code>config/ranking.json</code>; la <strong>prioridad de lectura</strong> sugiere un orden, no una verdad. El <strong>análisis de sensibilidad</strong> muestra si pequeños cambios de pesos alteran la lista. Los <strong>índices de autores</strong> agrupan identidades normalizadas.</p>
+<p>El comando lee <code>data/references.jsonl</code>, vuelve a generar grafos y <code>data/survey.json</code>, y exporta datos derivados. Las métricas no reemplazan la lectura humana ni prueban que una obra apoye o contradiga una afirmación.</p>
+<h2 id="16-proponer-ampliaciones-de-la-bibliografía">16. Proponer ampliaciones de la bibliografía <a class="heading-link" href="#16-proponer-ampliaciones-de-la-bibliografía" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph promote</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph promote --max-new 10 --min-citations 2 --year-from 2015 --year-to 2025</code></pre>
+<p><code>--max-new</code> limita candidatos; <code>--min-citations</code> exige que los cite un mínimo de obras del corpus; los dos límites de año filtran el intervalo. La propuesta queda en <code>reports/promotion-queue.md</code> y <code>.jsonl</code>. No descarga, no modifica <code>config/corpus.json</code> y necesita revisión humana de identidad, pertinencia, acceso y derechos.</p>
+<h2 id="17-añadir-anotaciones-y-revisiones-humanas">17. Añadir anotaciones y revisiones humanas <a class="heading-link" href="#17-añadir-anotaciones-y-revisiones-humanas" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p>El método de S. Keshav propone tres pasadas: la primera identifica estructura y panorama; la segunda examina contenido, evidencia y referencias; la tercera reconstruye y critica el trabajo en profundidad. bibgraph automatiza parte de la primera y conserva la revisión humana.</p>
+<p>En una página local de obra aparece un bloque JSON prellenado que puede copiarse a <code>ARCHIVO.json</code>; con JavaScript habilitado también hay descarga progresiva. El esquema completo no está formalizado como un archivo de esquema. La implementación solo exige que la raíz sea un objeto JSON y valida <code>pass_status</code> si aparece.</p>
+<p>Ejemplo mínimo seguro:</p>
+<pre tabindex="0"><code class="language-json">{
+  &quot;pass_status&quot;: &quot;pass_1&quot;
+}</code></pre>
+<p>Valores: <code>unread</code>, <code>pass_1</code>, <code>pass_2</code>, <code>pass_3</code>.</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph annotate ALIAS ARCHIVO.json</code></pre>
+<p>El alias debe existir. El registro se normaliza en <code>annotations/ALIAS.json</code> y también se registra en <code>data/state.sqlite3</code>. Para corregir JSON inválido, compruebe comillas dobles, comas y llaves, y valide con:</p>
+<pre tabindex="0"><code class="language-bash">python3 -m json.tool ARCHIVO.json</code></pre>
+<p>Las anotaciones son privadas salvo que contengan explícitamente <code>&quot;publish&quot;: true</code> y se cree una construcción pública.</p>
+<h2 id="18-construir-el-sitio-local">18. Construir el sitio local <a class="heading-link" href="#18-construir-el-sitio-local" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph build-site --local</code></pre>
+<p>El destino normal es <code>build/site/</code>. Puede cambiarlo:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph build-site --local --output RUTA/DE/SALIDA</code></pre>
+<p>Si el catálogo fuente no fue suministrado o el grafo no tiene relaciones, la construcción se niega con código 2. Para inspeccionar un resultado incompleto:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph build-site --local --allow-incomplete</code></pre>
+<p>La salida advertirá cada motivo y el sitio mostrará distintivos visibles de incompletitud. El sitio local puede contener extractos, anotaciones y procedencia privada. <strong>Advertencia:</strong> no lo suba a Internet y no lo copie para fabricar la versión pública.</p>
+<h2 id="19-comprobar-el-sitio">19. Comprobar el sitio <a class="heading-link" href="#19-comprobar-el-sitio" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph check-site build/site</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph check-site publish --public</code></pre>
+<p>Comprueba enlaces internos, anclas, rutas que escapan de la raíz y archivos ausentes. Con <code>--public</code> también busca carpetas privadas, PDF y bases de datos prohibidos, rutas locales absolutas y valores con apariencia de secretos. La construcción pública aplica además un presupuesto de 100 MiB al crearla; <code>check-site</code> no vuelve a calcular ese presupuesto. El informe queda en <code>reports/check-site.md</code> y <code>.jsonl</code>.</p>
+<h2 id="20-iniciar-el-sitio">20. Iniciar el sitio <a class="heading-link" href="#20-iniciar-el-sitio" aria-label="Enlace permanente a esta sección">#</a></h2>
+<ol>
+<li>Construya y compruebe el sitio local.
+</li>
+<li>Inicie el servidor:
+</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">python3 -m http.server --bind 127.0.0.1 --directory build/site 8000</code></pre>
+<ol start="3">
+<li>La terminal quedará ocupada: es normal; está atendiendo el sitio.
+</li>
+<li>Abra <a href="http://127.0.0.1:8000/">el sitio local en <code>http://127.0.0.1:8000/</code></a> con su navegador.
+</li>
+<li>Para detenerlo, vuelva a la terminal y pulse <code>Ctrl+C</code>.
+</li>
+<li>Si 8000 está ocupado, use otro puerto:
+</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">python3 -m http.server --bind 127.0.0.1 --directory build/site 8080</code></pre>
+<p>Abra entonces <code>http://127.0.0.1:8080/</code>.</p>
+<p><code>127.0.0.1</code> significa “solo este equipo”. No cambie a una dirección abierta a toda la red si no comprende el acceso y la privacidad.</p>
+<p>Atajos equivalentes:</p>
+<pre tabindex="0"><code class="language-bash">make serve</code></pre>
+<pre tabindex="0"><code class="language-bash">make serve PORT=8080</code></pre>
+<h2 id="21-crear-una-versión-pública">21. Crear una versión pública <a class="heading-link" href="#21-crear-una-versión-pública" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph build-site --public</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph check-site publish --public</code></pre>
+<p>O use el atajo que ejecuta ambos en orden:</p>
+<pre tabindex="0"><code class="language-bash">make publish</code></pre>
+<p><code>build/site/</code> es local y puede contener material privado. <code>publish/</code> parte de una lista vacía y permite solo metadatos autorizados, pasajes autorizados, grafos derivados, enlaces externos y anotaciones con <code>&quot;publish&quot;: true</code>. Los títulos y referencias dependen de <code>publish_metadata</code>. Resumen requiere <code>publish_abstract</code>; introducción y conclusión requieren <code>publish_fulltext</code>. Los pasajes requieren además <code>license_evidence_url</code>.</p>
+<p>El informe <code>reports/publication.md</code> enumera contenido incluido y retenido, licencia y evidencia. Poder leer algo en la Web no concede redistribución. Ejecute siempre <code>check-site publish --public</code> antes de publicar y publique solo el contenido de <code>publish/</code>.</p>
+<h2 id="22-opciones-globales">22. Opciones globales <a class="heading-link" href="#22-opciones-globales" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p>Las opciones globales van <strong>antes</strong> del subcomando porque así las interpreta <code>argparse</code>:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph --root RUTA/AL/PROYECTO validate</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph --json validate</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph --root RUTA/AL/PROYECTO --json doctor</code></pre>
+<p><code>--root</code> permite operar sobre otro proyecto sin cambiar de carpeta, aunque el lanzador sigue perteneciendo a este repositorio. <code>--json</code> ofrece salida estructurada para herramientas; una persona normalmente preferirá la salida predeterminada. La implementación usa <code>--json</code> principalmente en <code>doctor</code>, <code>validate</code>, <code>fetch</code>, <code>extract</code> y <code>check-site</code>; no todos los manejadores cambian su salida con esta opción global.</p>
+<h2 id="23-atajos-de-make">23. Atajos de Make <a class="heading-link" href="#23-atajos-de-make" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p><code>make</code> es una herramienta opcional y puede no estar instalada. Estos atajos llaman a Python con <code>PYTHONPATH=src</code>; no contienen una segunda implementación.</p>
+<table tabindex="0">
+<thead><tr><th scope="col">Atajo</th><th scope="col">Equivale o sirve para</th><th scope="col">Modifica archivos</th></tr></thead>
+<tbody>
+<tr><td><code>make help</code></td><td>Lista objetivos documentados.</td><td>No, salvo lectura.</td></tr>
+<tr><td><code>make doctor</code></td><td><code>doctor</code>.</td><td>Crea carpetas y pruebas temporales de escritura.</td></tr>
+<tr><td><code>make validate</code></td><td><code>validate</code>.</td><td>Sí: informes.</td></tr>
+<tr><td><code>make fetch</code></td><td><code>fetch --strict</code>.</td><td>Sí: privados, estado e informes.</td></tr>
+<tr><td><code>make extract</code></td><td><code>extract --strict</code>.</td><td>Sí: documentos, texto e informes.</td></tr>
+<tr><td><code>make resolve</code></td><td><code>resolve --strict</code>.</td><td>Sí: referencias, análisis e informes.</td></tr>
+<tr><td><code>make analyze</code></td><td><code>analyze</code>.</td><td>Sí: datos derivados.</td></tr>
+<tr><td><code>make site</code></td><td><code>build-site --local</code>.</td><td>Sí: <code>build/site/</code>.</td></tr>
+<tr><td><code>make check-site</code></td><td><code>check-site build/site</code>.</td><td>Sí: informe.</td></tr>
+<tr><td><code>make serve</code></td><td>Servidor local en <code>PORT</code>, 8000 por defecto.</td><td>No modifica el sitio.</td></tr>
+<tr><td><code>make test</code></td><td><code>python3 -m unittest</code>.</td><td>Puede crear temporales y caché de Python.</td></tr>
+<tr><td><code>make publish</code></td><td>Construye <code>publish/</code> y lo comprueba.</td><td>Sí: publicación e informes.</td></tr>
+<tr><td><code>make clean</code></td><td>Borra <code>build</code>, <code>publish</code> y todos los directorios <code>__pycache__</code> bajo el proyecto.</td><td><strong>Sí, elimina esos elementos.</strong></td></tr>
+</tbody></table>
+<h2 id="24-receta-completa-para-copiar-y-pegar">24. Receta completa para copiar y pegar <a class="heading-link" href="#24-receta-completa-para-copiar-y-pegar" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p>Ejecute un bloque, lea el resultado y solo entonces continúe.</p>
+<pre tabindex="0"><code class="language-bash">cd RUTA/AL/PROYECTO</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph doctor</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import-catalogue phase-1-access-verification.md --observed-on AAAA-MM-DD --dry-run</code></pre>
+<pre tabindex="0"><code class="language-bash">cp config/corpus.json config/corpus.json.backup</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import-catalogue phase-1-access-verification.md --observed-on AAAA-MM-DD</code></pre>
+<p>Ahora abra y revise <code>config/dependencies.json</code> y <code>config/reading-profile.json</code>.</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph validate --strict</code></pre>
+<pre tabindex="0"><code class="language-bash">export BIBGRAPH_CONTACT_EMAIL=&quot;nombre@example.org&quot;</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph fetch --keep-going</code></pre>
+<p>Si el informe pide una copia legal, impórtela una por una:</p>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph import ALIAS RUTA/AL/ARCHIVO.pdf</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph extract</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph resolve</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph analyze</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph build-site --local</code></pre>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph check-site build/site</code></pre>
+<pre tabindex="0"><code class="language-bash">python3 -m http.server --bind 127.0.0.1 --directory build/site 8000</code></pre>
+<p>Abra <code>http://127.0.0.1:8000/</code> y detenga el servidor con <code>Ctrl+C</code>.</p>
+<h2 id="25-tabla-completa-de-comandos">25. Tabla completa de comandos <a class="heading-link" href="#25-tabla-completa-de-comandos" aria-label="Enlace permanente a esta sección">#</a></h2>
+<table tabindex="0">
+<thead><tr><th scope="col">Comando</th><th scope="col">Finalidad</th><th scope="col">Lee</th><th scope="col">Crea o modifica</th><th scope="col">Internet</th><th scope="col">Riesgo o precaución</th><th scope="col">Resultado esperado</th><th scope="col">Siguiente comando</th></tr></thead>
+<tbody>
+<tr><td><code>doctor</code></td><td>Diagnosticar el entorno.</td><td>Entorno y presencia de <code>config/</code>.</td><td>Carpetas y sondas temporales.</td><td>No.</td><td>No revela valores secretos.</td><td>Lista de capacidades.</td><td><code>import-catalogue</code> o <code>validate</code>.</td></tr>
+<tr><td><code>validate [--strict]</code></td><td>Validar manifiestos y derechos.</td><td><code>config/corpus.json</code>, dependencias, perfil.</td><td><code>reports/validate.*</code>.</td><td>No.</td><td>Estricto convierte avisos en fallo.</td><td>Conteos e incidencias.</td><td><code>fetch</code>.</td></tr>
+<tr><td><code>import-catalogue ...</code></td><td>Convertir la tabla Markdown.</td><td>Archivo Markdown.</td><td><code>config/corpus.json</code> o <code>--output</code>; nada con <code>--dry-run</code>.</td><td>No.</td><td>Puede reemplazar el catálogo.</td><td>Obras y recursos importados.</td><td>Revisar dependencias y <code>validate</code>.</td></tr>
+<tr><td><code>fetch [...]</code></td><td>Adquirir rutas autorizadas.</td><td>Configuración y estado.</td><td><code>private/raw/</code>, SQLite e informes por ejecución.</td><td>Sí.</td><td>No debilitar protecciones sin justificación.</td><td>Estado por recurso.</td><td><code>import</code> o <code>extract</code>.</td></tr>
+<tr><td><code>import ALIAS ARCHIVO</code></td><td>Registrar copia legal.</td><td>Catálogo y archivo local.</td><td><code>private/manual-import/</code>, SQLite.</td><td>No.</td><td>Copiar solo material obtenido legalmente.</td><td>Hash y ruta privada.</td><td><code>extract</code>.</td></tr>
+<tr><td><code>extract [...]</code></td><td>Extraer estructura y referencias.</td><td>Artefactos, catálogo, SQLite.</td><td><code>data/documents/</code>, <code>private/text/</code>, informe.</td><td>No.</td><td>PDF requiere <code>pdftotext</code>.</td><td>Estados por campo y cola manual.</td><td><code>resolve</code>.</td></tr>
+<tr><td><code>resolve [...]</code></td><td>Relacionar referencias.</td><td>Documentos y catálogo.</td><td><code>data/references.jsonl</code>, grafos, encuesta, informe.</td><td>Solo con <code>--online</code>.</td><td>Crossref es opcional; revisar ambigüedades.</td><td>Coincidencias y cola.</td><td><code>analyze</code>.</td></tr>
+<tr><td><code>analyze</code></td><td>Regenerar grafos y rankings.</td><td><code>data/references.jsonl</code>, ranking, revisiones.</td><td>Datos derivados y <code>data/survey.json</code>.</td><td>No.</td><td>Las métricas no son juicio académico.</td><td>Conteos de grafos y autores.</td><td><code>build-site</code>.</td></tr>
+<tr><td><code>promote [...]</code></td><td>Proponer obras descubiertas.</td><td>Referencias y configuración.</td><td><code>reports/promotion-queue.*</code>.</td><td>No.</td><td>Propuesta, no incorporación.</td><td>Lista limitada de candidatos.</td><td>Revisión humana.</td></tr>
+<tr><td><code>annotate ALIAS ARCHIVO.json</code></td><td>Registrar lectura humana.</td><td>Catálogo y JSON.</td><td><code>annotations/ALIAS.json</code>, SQLite.</td><td>No.</td><td>Privada salvo <code>publish: true</code>.</td><td>Estado de pasada registrado.</td><td><code>build-site</code>.</td></tr>
+<tr><td><code>build-site --local/--public</code></td><td>Generar sitio.</td><td>Configuración, datos, informes y anotaciones.</td><td><code>build/site/</code> o <code>publish/</code>; informe público.</td><td>No.</td><td>Local no debe publicarse.</td><td>Archivos HTML/CSS/JS estáticos.</td><td><code>check-site</code>.</td></tr>
+<tr><td><code>check-site RUTA [--public]</code></td><td>Revisar enlaces y fugas.</td><td>Sitio indicado.</td><td><code>reports/check-site.*</code>.</td><td>No.</td><td>Use <code>--public</code> sobre <code>publish</code>.</td><td>Cero errores antes de usar/publicar.</td><td>Servir o publicar.</td></tr>
+</tbody></table>
+<h2 id="26-códigos-de-salida">26. Códigos de salida <a class="heading-link" href="#26-códigos-de-salida" aria-label="Enlace permanente a esta sección">#</a></h2>
+<table tabindex="0">
+<thead><tr><th scope="col">Código</th><th scope="col">Significado</th></tr></thead>
+<tbody>
+<tr><td><code>0</code></td><td>Operación completada.</td></tr>
+<tr><td><code>2</code></td><td>Adquisición o extracción incompleta. También se usa para otros resultados incompletos, como sitio no comprobable.</td></tr>
+<tr><td><code>3</code></td><td>Manifiesto o entrada de configuración inválida.</td></tr>
+<tr><td><code>4</code></td><td>Fallo de integridad o tipo de contenido.</td></tr>
+</tbody></table>
+<p>Si coinciden varios, la prioridad es <code>3 &gt; 4 &gt; 2 &gt; 0</code>. Un valor distinto de cero no significa que todo sea inútil: puede haber archivos válidos e informes con los detalles. Revise siempre <code>reports/</code>.</p>
+<h2 id="27-solución-de-problemas">27. Solución de problemas <a class="heading-link" href="#27-solución-de-problemas" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p>Cada caso conserva la misma plantilla. No publique URL privadas, correos, claves, anotaciones ni documentos al pedir ayuda.</p>
+<h3 id="1-el-lanzador-muestra-permission-denied">1. El lanzador muestra <code>Permission denied</code> <a class="heading-link" href="#1-el-lanzador-muestra-permission-denied" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma">Síntoma <a class="heading-link" href="#síntoma" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La terminal rechaza <code>./bin/bibgraph</code> con <code>Permission denied</code>.</p>
+<h4 id="significado">Significado <a class="heading-link" href="#significado" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El archivo no tiene permiso de ejecución o la unidad no permite ejecutar archivos.</p>
+<h4 id="comprobación">Comprobación <a class="heading-link" href="#comprobación" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">test -x bin/bibgraph &amp;&amp; echo ejecutable</code></pre>
+<h4 id="solución-paso-a-paso">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Confirme que está en la raíz. 2. Use <code>chmod u+x bin/bibgraph</code>. 3. Si la unidad bloquea ejecución, use <code>PYTHONPATH=src python3 -m bibgraph doctor</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta el error, <code>pwd</code> y <code>stat bin/bibgraph</code>; oculte nombres privados de carpetas.</p>
+<h3 id="2-no-existe-python3">2. No existe <code>python3</code> <a class="heading-link" href="#2-no-existe-python3" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-2">Síntoma <a class="heading-link" href="#síntoma-2" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Ve <code>python3: command not found</code>.</p>
+<h4 id="significado-2">Significado <a class="heading-link" href="#significado-2" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Python no está instalado o no está en la ruta de programas.</p>
+<h4 id="comprobación-2">Comprobación <a class="heading-link" href="#comprobación-2" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">command -v python3</code></pre>
+<h4 id="solución-paso-a-paso-2">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-2" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Instale Python 3.10+ desde el sistema o python.org. 2. Cierre y abra la terminal. 3. Repita <code>python3 --version</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-2">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-2" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Indique sistema operativo y resultado del comando, sin datos personales.</p>
+<h3 id="3-python-es-anterior-a-310">3. Python es anterior a 3.10 <a class="heading-link" href="#3-python-es-anterior-a-310" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-3">Síntoma <a class="heading-link" href="#síntoma-3" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>doctor</code> dice <code>TOO OLD</code>.</p>
+<h4 id="significado-3">Significado <a class="heading-link" href="#significado-3" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La sintaxis y funciones requeridas no están disponibles.</p>
+<h4 id="comprobación-3">Comprobación <a class="heading-link" href="#comprobación-3" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">python3 --version</code></pre>
+<h4 id="solución-paso-a-paso-3">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-3" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Instale una versión admitida. 2. Asegure que <code>python3</code> apunta a ella. 3. Repita <code>doctor</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-3">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-3" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta las rutas de <code>command -v python3</code> y la versión.</p>
+<h3 id="4-sqlite-no-está-disponible">4. SQLite no está disponible <a class="heading-link" href="#4-sqlite-no-está-disponible" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-4">Síntoma <a class="heading-link" href="#síntoma-4" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>doctor</code> muestra SQLite <code>UNUSABLE</code>.</p>
+<h4 id="significado-4">Significado <a class="heading-link" href="#significado-4" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El módulo SQLite de esa instalación de Python falta o falla.</p>
+<h4 id="comprobación-4">Comprobación <a class="heading-link" href="#comprobación-4" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">python3 -c &quot;import sqlite3; print(sqlite3.sqlite_version)&quot;</code></pre>
+<h4 id="solución-paso-a-paso-4">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-4" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Reinstale una distribución completa de Python. 2. No borre <code>data/state.sqlite3</code>. 3. Repita <code>doctor</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-4">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-4" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta el error completo y versión de Python; no comparta la base de datos.</p>
+<h3 id="5-una-carpeta-no-permite-escritura">5. Una carpeta no permite escritura <a class="heading-link" href="#5-una-carpeta-no-permite-escritura" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-5">Síntoma <a class="heading-link" href="#síntoma-5" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>doctor</code> marca <code>config</code>, <code>data</code>, <code>reports</code>, <code>private</code>, <code>cache</code> o <code>build</code> como no escribible.</p>
+<h4 id="significado-5">Significado <a class="heading-link" href="#significado-5" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Su usuario no puede crear archivos allí.</p>
+<h4 id="comprobación-5">Comprobación <a class="heading-link" href="#comprobación-5" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph doctor</code></pre>
+<h4 id="solución-paso-a-paso-5">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-5" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Mueva una copia del proyecto a una carpeta de su usuario. 2. Revise propietario y permisos. 3. Evite <code>sudo</code>. 4. Repita <code>doctor</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-5">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-5" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta solo la fila afectada y permisos; oculte la ruta personal.</p>
+<h3 id="6-falta-pdftotext">6. Falta <code>pdftotext</code> <a class="heading-link" href="#6-falta-pdftotext" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-6">Síntoma <a class="heading-link" href="#síntoma-6" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>doctor</code> muestra <code>pdftotext ABSENT</code>.</p>
+<h4 id="significado-6">Significado <a class="heading-link" href="#significado-6" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La extracción automática de PDF no está disponible.</p>
+<h4 id="comprobación-6">Comprobación <a class="heading-link" href="#comprobación-6" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">pdftotext -v</code></pre>
+<h4 id="solución-paso-a-paso-6">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-6" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Instale Poppler con el gestor oficial del sistema. 2. Abra otra terminal. 3. Repita <code>doctor</code> y <code>extract</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-6">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-6" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Indique sistema y salida de <code>doctor</code>; no adjunte el PDF si es privado.</p>
+<h3 id="7-un-pdf-queda-manualrequired">7. Un PDF queda <code>manual_required</code> <a class="heading-link" href="#7-un-pdf-queda-manualrequired" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-7">Síntoma <a class="heading-link" href="#síntoma-7" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El informe de extracción envía una obra a la cola manual.</p>
+<h4 id="significado-7">Significado <a class="heading-link" href="#significado-7" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Puede faltar <code>pdftotext</code>, agotarse su tiempo o no haber una copia procesable.</p>
+<h4 id="comprobación-7">Comprobación <a class="heading-link" href="#comprobación-7" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise <code>reports/extract.md</code> y ejecute <code>./bin/bibgraph doctor</code>.</p>
+<h4 id="solución-paso-a-paso-7">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-7" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Lea el motivo exacto. 2. Instale <code>pdftotext</code> si falta. 3. Si es lento, use <code>--pdf-timeout 180</code>. 4. Revise manualmente sin eludir protecciones.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-7">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-7" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta alias, motivo y versión de Poppler, no el contenido privado.</p>
+<h3 id="8-no-se-encuentra-el-archivo-del-catálogo">8. No se encuentra el archivo del catálogo <a class="heading-link" href="#8-no-se-encuentra-el-archivo-del-catálogo" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-8">Síntoma <a class="heading-link" href="#síntoma-8" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Se informa que <code>phase-1-access-verification.md</code> no existe.</p>
+<h4 id="significado-8">Significado <a class="heading-link" href="#significado-8" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La ruta es incorrecta o está en otra carpeta.</p>
+<h4 id="comprobación-8">Comprobación <a class="heading-link" href="#comprobación-8" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">test -f phase-1-access-verification.md &amp;&amp; echo encontrado</code></pre>
+<h4 id="solución-paso-a-paso-8">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-8" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Entre en la raíz. 2. Mueva o guarde allí el archivo. 3. O indique su ruta real en el comando.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-8">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-8" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta <code>pwd</code> y el nombre del archivo, ocultando rutas privadas.</p>
+<h3 id="9-no-se-encuentra-una-tabla-markdown-válida">9. No se encuentra una tabla Markdown válida <a class="heading-link" href="#9-no-se-encuentra-una-tabla-markdown-válida" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-9">Síntoma <a class="heading-link" href="#síntoma-9" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El importador dice que no halló la tabla del catálogo.</p>
+<h4 id="significado-9">Significado <a class="heading-link" href="#significado-9" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>No existe una tabla con barras, separador y todas las cabeceras requeridas.</p>
+<h4 id="comprobación-9">Comprobación <a class="heading-link" href="#comprobación-9" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Compare el archivo con el ejemplo de la sección 7.</p>
+<h4 id="solución-paso-a-paso-9">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-9" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Copie la cabecera exacta. 2. Añada la fila de guiones. 3. Evite barras dentro de celdas. 4. Pruebe con <code>--dry-run</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-9">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-9" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta solo cabecera y una fila anonimizadas.</p>
+<h3 id="10-falta-una-columna-obligatoria">10. Falta una columna obligatoria <a class="heading-link" href="#10-falta-una-columna-obligatoria" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-10">Síntoma <a class="heading-link" href="#síntoma-10" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La importación enumera columnas necesarias que no encontró.</p>
+<h4 id="significado-10">Significado <a class="heading-link" href="#significado-10" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La cabecera no incluye <code>ID</code>, <code>Title</code>, <code>Type</code>, <code>Access</code>, <code>URL</code>, <code>Role</code> o <code>Intent</code>.</p>
+<h4 id="comprobación-10">Comprobación <a class="heading-link" href="#comprobación-10" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise la primera fila de la tabla.</p>
+<h4 id="solución-paso-a-paso-10">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-10" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Añada la columna faltante. 2. Mantenga una celda por columna en cada fila. 3. Repita la prueba seca.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-10">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-10" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta la cabecera exacta.</p>
+<h3 id="11-hay-un-valor-de-vocabulario-no-permitido">11. Hay un valor de vocabulario no permitido <a class="heading-link" href="#11-hay-un-valor-de-vocabulario-no-permitido" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-11">Síntoma <a class="heading-link" href="#síntoma-11" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El error menciona <code>Type</code>, <code>Access</code>, <code>Role</code> o <code>Intent</code> y enumera valores.</p>
+<h4 id="significado-11">Significado <a class="heading-link" href="#significado-11" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La celda no coincide con el vocabulario controlado.</p>
+<h4 id="comprobación-11">Comprobación <a class="heading-link" href="#comprobación-11" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise la tabla de la sección 7.</p>
+<h4 id="solución-paso-a-paso-11">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-11" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Localice fila y alias indicados. 2. Sustituya por un valor exacto permitido. 3. Repita <code>--dry-run</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-11">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-11" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta campo, valor y lista indicada; oculte la URL.</p>
+<h3 id="12-faltan-alias-esperados">12. Faltan alias esperados <a class="heading-link" href="#12-faltan-alias-esperados" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-12">Síntoma <a class="heading-link" href="#síntoma-12" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La importación advierte que faltan alias semilla.</p>
+<h4 id="significado-12">Significado <a class="heading-link" href="#significado-12" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El archivo no contiene todos los 20 alias previstos (<code>R0</code>, A1–A7, B1–B6, C1–C5, D1).</p>
+<h4 id="comprobación-12">Comprobación <a class="heading-link" href="#comprobación-12" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph validate</code></pre>
+<h4 id="solución-paso-a-paso-12">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-12" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Compare la fuente con la lista. 2. Corrija IDs o agregue filas reales. 3. No invente metadatos. 4. Reimporte.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-12">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-12" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta solo la lista de alias ausentes.</p>
+<h3 id="13-el-manifiesto-es-inválido">13. El manifiesto es inválido <a class="heading-link" href="#13-el-manifiesto-es-inválido" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-13">Síntoma <a class="heading-link" href="#síntoma-13" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Un comando se niega a continuar con código 3.</p>
+<h4 id="significado-13">Significado <a class="heading-link" href="#significado-13" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La configuración no se pudo leer o contiene errores de modelo.</p>
+<h4 id="comprobación-13">Comprobación <a class="heading-link" href="#comprobación-13" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">./bin/bibgraph validate</code></pre>
+<h4 id="solución-paso-a-paso-13">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-13" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Lea cada error. 2. Corrija el archivo y ubicación indicados. 3. Valide JSON con <code>python3 -m json.tool RUTA</code>. 4. Repita.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-13">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-13" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta errores y fragmento anonimizado, nunca todo el corpus privado.</p>
+<h3 id="14-validate-strict-falla-por-advertencias">14. <code>validate --strict</code> falla por advertencias <a class="heading-link" href="#14-validate-strict-falla-por-advertencias" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-14">Síntoma <a class="heading-link" href="#síntoma-14" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La validación normal pasa, pero la estricta devuelve 3.</p>
+<h4 id="significado-14">Significado <a class="heading-link" href="#significado-14" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El modo estricto trata toda advertencia como fallo.</p>
+<h4 id="comprobación-14">Comprobación <a class="heading-link" href="#comprobación-14" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise <code>reports/validate.md</code>.</p>
+<h4 id="solución-paso-a-paso-14">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-14" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Atienda cada advertencia. 2. Complete metadatos o relaciones reales. 3. No silencie avisos inventando datos. 4. Repita el modo estricto.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-14">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-14" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta códigos y mensajes de advertencia.</p>
+<h3 id="15-existe-un-ciclo-en-dependencias">15. Existe un ciclo en dependencias <a class="heading-link" href="#15-existe-un-ciclo-en-dependencias" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-15">Síntoma <a class="heading-link" href="#síntoma-15" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La validación informa un ciclo de orden.</p>
+<h4 id="significado-15">Significado <a class="heading-link" href="#significado-15" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Las relaciones exigen un orden imposible.</p>
+<h4 id="comprobación-15">Comprobación <a class="heading-link" href="#comprobación-15" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise <code>edges</code> en <code>config/dependencies.json</code> y <code>reports/validate.md</code>.</p>
+<h4 id="solución-paso-a-paso-15">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-15" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Dibuje las flechas del ciclo. 2. Confirme <code>from</code> y <code>to</code>. 3. Elimine o cambie solo la relación conceptualmente incorrecta. 4. Valide.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-15">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-15" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta los alias y tipos del ciclo, no notas privadas.</p>
+<h3 id="16-una-dependencia-apunta-a-un-alias-inexistente">16. Una dependencia apunta a un alias inexistente <a class="heading-link" href="#16-una-dependencia-apunta-a-un-alias-inexistente" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-16">Síntoma <a class="heading-link" href="#síntoma-16" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La validación no reconoce un extremo de una relación.</p>
+<h4 id="significado-16">Significado <a class="heading-link" href="#significado-16" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>from</code> o <code>to</code> no coincide con ningún nodo.</p>
+<h4 id="comprobación-16">Comprobación <a class="heading-link" href="#comprobación-16" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Compare <code>edges</code> con <code>nodes</code> en <code>config/dependencies.json</code>.</p>
+<h4 id="solución-paso-a-paso-16">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-16" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Corrija la errata del alias. 2. Si la obra es real, añada/revise su nodo y corpus. 3. No deje nodos ficticios. 4. Valide.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-16">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-16" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta la relación y los IDs de nodos.</p>
+<h3 id="17-el-alias-de-import-no-existe">17. El alias de <code>import</code> no existe <a class="heading-link" href="#17-el-alias-de-import-no-existe" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-17">Síntoma <a class="heading-link" href="#síntoma-17" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>import</code> responde <code>unknown alias</code>.</p>
+<h4 id="significado-17">Significado <a class="heading-link" href="#significado-17" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La copia no se puede asociar a una obra del catálogo.</p>
+<h4 id="comprobación-17">Comprobación <a class="heading-link" href="#comprobación-17" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Busque el alias en <code>config/corpus.json</code>.</p>
+<h4 id="solución-paso-a-paso-17">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-17" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Corrija mayúsculas y escritura. 2. Importe primero el catálogo si falta. 3. Valide. 4. Repita <code>import</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-17">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-17" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta el alias, no el archivo.</p>
+<h3 id="18-el-archivo-local-no-existe">18. El archivo local no existe <a class="heading-link" href="#18-el-archivo-local-no-existe" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-18">Síntoma <a class="heading-link" href="#síntoma-18" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>import</code> no puede abrir <code>RUTA/AL/ARCHIVO</code>.</p>
+<h4 id="significado-18">Significado <a class="heading-link" href="#significado-18" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La ruta está mal escrita o no es visible desde ese entorno.</p>
+<h4 id="comprobación-18">Comprobación <a class="heading-link" href="#comprobación-18" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">test -f RUTA/AL/ARCHIVO &amp;&amp; echo encontrado</code></pre>
+<h4 id="solución-paso-a-paso-18">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-18" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Use la ruta exacta. 2. Entre en la carpeta apropiada o use ruta absoluta. 3. En WSL convierta la ruta a <code>/mnt/...</code>. 4. Repita.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-18">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-18" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta el tipo de ruta, ocultando nombres personales.</p>
+<h3 id="19-una-url-http-es-rechazada">19. Una URL HTTP es rechazada <a class="heading-link" href="#19-una-url-http-es-rechazada" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-19">Síntoma <a class="heading-link" href="#síntoma-19" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El informe dice que HTTP simple no fue aprobado.</p>
+<h4 id="significado-19">Significado <a class="heading-link" href="#significado-19" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La conexión no estaría cifrada.</p>
+<h4 id="comprobación-19">Comprobación <a class="heading-link" href="#comprobación-19" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise la URL del recurso en <code>config/corpus.json</code>.</p>
+<h4 id="solución-paso-a-paso-19">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-19" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Busque una URL HTTPS oficial. 2. Corrija el catálogo. 3. Solo si no existe y acepta el riesgo, use conscientemente <code>--allow-http</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-19">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-19" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta dominio y mensaje, no parámetros privados.</p>
+<h3 id="20-la-url-apunta-a-una-dirección-privada-o-local">20. La URL apunta a una dirección privada o local <a class="heading-link" href="#20-la-url-apunta-a-una-dirección-privada-o-local" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-20">Síntoma <a class="heading-link" href="#síntoma-20" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>fetch</code> rechaza una dirección no pública.</p>
+<h4 id="significado-20">Significado <a class="heading-link" href="#significado-20" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La protección evita que una URL alcance servicios internos.</p>
+<h4 id="comprobación-20">Comprobación <a class="heading-link" href="#comprobación-20" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise host y resolución DNS con su administrador.</p>
+<h4 id="solución-paso-a-paso-20">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-20" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Verifique que no sea una URL errónea o maliciosa. 2. Use una fuente pública. 3. Solo para un servidor local controlado, permita ese host exacto con <code>--allow-private-host HOST</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-20">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-20" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta el host anonimizado y si es un entorno de pruebas.</p>
+<h3 id="21-robotstxt-impide-la-descarga">21. <code>robots.txt</code> impide la descarga <a class="heading-link" href="#21-robotstxt-impide-la-descarga" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-21">Síntoma <a class="heading-link" href="#síntoma-21" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El informe marca <code>disallowed by robots.txt</code>.</p>
+<h4 id="significado-21">Significado <a class="heading-link" href="#significado-21" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El sitio pide que esa ruta no sea obtenida automáticamente.</p>
+<h4 id="comprobación-21">Comprobación <a class="heading-link" href="#comprobación-21" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise el informe de <code>fetch</code> y la política del sitio.</p>
+<h4 id="solución-paso-a-paso-21">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-21" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Respete la indicación. 2. Busque una ruta oficial permitida. 3. Solicite una copia o permiso. 4. Importe una copia legal manualmente.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-21">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-21" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta dominio, alias y motivo; no pida evadir la regla.</p>
+<h3 id="22-respuesta-http-401">22. Respuesta HTTP 401 <a class="heading-link" href="#22-respuesta-http-401" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-22">Síntoma <a class="heading-link" href="#síntoma-22" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>fetch</code> registra <code>HTTP 401</code>.</p>
+<h4 id="significado-22">Significado <a class="heading-link" href="#significado-22" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La ruta exige autenticación.</p>
+<h4 id="comprobación-22">Comprobación <a class="heading-link" href="#comprobación-22" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise el recurso y <code>reports/fetch-*.md</code>.</p>
+<h4 id="solución-paso-a-paso-22">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-22" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>No incruste credenciales. 2. Obtenga legalmente la copia con los medios normales. 3. Impórtela con <code>bibgraph import</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-22">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-22" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta estado y dominio, nunca credenciales ni cookies.</p>
+<h3 id="23-respuesta-http-403">23. Respuesta HTTP 403 <a class="heading-link" href="#23-respuesta-http-403" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-23">Síntoma <a class="heading-link" href="#síntoma-23" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>fetch</code> registra <code>HTTP 403</code>.</p>
+<h4 id="significado-23">Significado <a class="heading-link" href="#significado-23" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El servidor prohíbe la solicitud; no es transitorio para bibgraph.</p>
+<h4 id="comprobación-23">Comprobación <a class="heading-link" href="#comprobación-23" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise URL, derechos e informe.</p>
+<h4 id="solución-paso-a-paso-23">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-23" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>No intente eludir el control. 2. Busque una ruta oficial autorizada. 3. Aporte una copia legal si dispone de ella.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-23">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-23" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta código, dominio y alias.</p>
+<h3 id="24-respuesta-http-404">24. Respuesta HTTP 404 <a class="heading-link" href="#24-respuesta-http-404" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-24">Síntoma <a class="heading-link" href="#síntoma-24" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>fetch</code> registra <code>HTTP 404</code>.</p>
+<h4 id="significado-24">Significado <a class="heading-link" href="#significado-24" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El recurso no existe en esa dirección.</p>
+<h4 id="comprobación-24">Comprobación <a class="heading-link" href="#comprobación-24" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Abra la página informativa oficial manualmente, sin automatizar accesos.</p>
+<h4 id="solución-paso-a-paso-24">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-24" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Corrija una errata. 2. Localice una URL oficial vigente. 3. Actualice el catálogo y fecha de observación. 4. Valide y repita.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-24">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-24" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta URL sin parámetros sensibles y fecha.</p>
+<h3 id="25-respuesta-http-429">25. Respuesta HTTP 429 <a class="heading-link" href="#25-respuesta-http-429" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-25">Síntoma <a class="heading-link" href="#síntoma-25" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El servidor responde <code>429</code>.</p>
+<h4 id="significado-25">Significado <a class="heading-link" href="#significado-25" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Se han hecho demasiadas solicitudes.</p>
+<h4 id="comprobación-25">Comprobación <a class="heading-link" href="#comprobación-25" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise intentos y <code>Retry-After</code> en el informe.</p>
+<h4 id="solución-paso-a-paso-25">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-25" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Deje terminar los reintentos limitados. 2. Espere. 3. Configure el correo. 4. Aumente <code>--delay</code>. 5. No lance varias descargas simultáneas.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-25">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-25" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta dominio, hora, demora e intentos.</p>
+<h3 id="26-tiempo-de-espera-agotado">26. Tiempo de espera agotado <a class="heading-link" href="#26-tiempo-de-espera-agotado" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-26">Síntoma <a class="heading-link" href="#síntoma-26" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El informe registra un error de transporte o tiempo agotado.</p>
+<h4 id="significado-26">Significado <a class="heading-link" href="#significado-26" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La respuesta no llegó dentro del límite.</p>
+<h4 id="comprobación-26">Comprobación <a class="heading-link" href="#comprobación-26" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Compruebe conexión y disponibilidad del sitio; para PDF revise <code>--pdf-timeout</code>.</p>
+<h4 id="solución-paso-a-paso-26">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-26" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Espere y repita una vez. 2. Reduzca el alcance con <code>--alias</code>. 3. Para conversión PDF, aumente razonablemente <code>--pdf-timeout</code>. 4. Registre el fallo si persiste.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-26">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-26" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta fase, alias y mensaje; no contenido.</p>
+<h3 id="27-el-archivo-supera-el-límite">27. El archivo supera el límite <a class="heading-link" href="#27-el-archivo-supera-el-límite" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-27">Síntoma <a class="heading-link" href="#síntoma-27" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El informe dice que la respuesta superó 67.108.864 bytes.</p>
+<h4 id="significado-27">Significado <a class="heading-link" href="#significado-27" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El límite fijo de descarga es 64 MiB.</p>
+<h4 id="comprobación-27">Comprobación <a class="heading-link" href="#comprobación-27" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise tamaño publicado y que la URL sea el documento correcto.</p>
+<h4 id="solución-paso-a-paso-27">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-27" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>No fuerce la descarga. 2. Verifique si recibió otro archivo. 3. Obtenga legalmente una copia y considere importarla localmente. 4. Conserve el informe.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-27">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-27" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta tamaño, tipo y dominio; no el archivo.</p>
+<h3 id="28-el-tipo-mime-declarado-no-coincide">28. El tipo MIME declarado no coincide <a class="heading-link" href="#28-el-tipo-mime-declarado-no-coincide" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-28">Síntoma <a class="heading-link" href="#síntoma-28" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>fetch</code> registra discrepancia entre tipo esperado, declarado y observado.</p>
+<h4 id="significado-28">Significado <a class="heading-link" href="#significado-28" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El servidor entregó otro tipo de contenido o está mal configurado.</p>
+<h4 id="comprobación-28">Comprobación <a class="heading-link" href="#comprobación-28" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise <code>expected_media_type</code>, URL e informe.</p>
+<h4 id="solución-paso-a-paso-28">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-28" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Confirme manualmente la URL. 2. Corrija la URL o su extensión en el catálogo. 3. No renombre contenido incorrecto para engañar la comprobación. 4. Reimporte y valide.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-28">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-28" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta los tres tipos indicados y el dominio.</p>
+<h3 id="29-la-extensión-es-pdf-pero-el-contenido-no">29. La extensión es PDF, pero el contenido no <a class="heading-link" href="#29-la-extensión-es-pdf-pero-el-contenido-no" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-29">Síntoma <a class="heading-link" href="#síntoma-29" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Se informa que los bytes mágicos no empiezan por <code>%PDF-</code>.</p>
+<h4 id="significado-29">Significado <a class="heading-link" href="#significado-29" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El contenido no es un PDF auténtico.</p>
+<h4 id="comprobación-29">Comprobación <a class="heading-link" href="#comprobación-29" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise si la URL redirige o muestra una página.</p>
+<h4 id="solución-paso-a-paso-29">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-29" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>No abra el archivo como confiable. 2. Encuentre la descarga oficial real. 3. Actualice la URL. 4. Repita <code>fetch</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-29">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-29" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta hash, tamaño y mensaje, no el archivo dudoso.</p>
+<h3 id="30-se-recibe-una-página-de-inicio-de-sesión">30. Se recibe una página de inicio de sesión <a class="heading-link" href="#30-se-recibe-una-página-de-inicio-de-sesión" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-30">Síntoma <a class="heading-link" href="#síntoma-30" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Se esperaba un PDF y se detecta HTML de acceso, pago o error.</p>
+<h4 id="significado-30">Significado <a class="heading-link" href="#significado-30" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La URL no entrega el documento sin una sesión.</p>
+<h4 id="comprobación-30">Comprobación <a class="heading-link" href="#comprobación-30" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise la página informativa y derechos.</p>
+<h4 id="solución-paso-a-paso-30">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-30" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>No automatice el inicio de sesión. 2. Obtenga la copia mediante acceso autorizado. 3. Guárdela legalmente. 4. Use <code>bibgraph import</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-30">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-30" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta estado, tipo y dominio; nunca sesión, contraseña o documento.</p>
+<h3 id="31-fetch-termina-con-código-2">31. <code>fetch</code> termina con código 2 <a class="heading-link" href="#31-fetch-termina-con-código-2" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-31">Síntoma <a class="heading-link" href="#síntoma-31" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La descarga acaba con estado 2.</p>
+<h4 id="significado-31">Significado <a class="heading-link" href="#significado-31" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Faltó algún recurso requerido o texto completo exigido.</p>
+<h4 id="comprobación-31">Comprobación <a class="heading-link" href="#comprobación-31" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Abra el informe <code>reports/fetch-*.md</code> más reciente.</p>
+<h4 id="solución-paso-a-paso-31">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-31" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Localice <code>required_failures</code> o <code>works_without_fulltext</code>. 2. Corrija solo causas autorizadas. 3. Importe copias legales cuando proceda. 4. Repita el alias afectado.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-31">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-31" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta resumen, alias y motivos, ocultando URL privadas.</p>
+<h3 id="32-fetch-termina-con-código-4">32. <code>fetch</code> termina con código 4 <a class="heading-link" href="#32-fetch-termina-con-código-4" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-32">Síntoma <a class="heading-link" href="#síntoma-32" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La descarga acaba con estado 4.</p>
+<h4 id="significado-32">Significado <a class="heading-link" href="#significado-32" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Algún cuerpo falló integridad, tamaño o tipo; tiene prioridad sobre el estado 2.</p>
+<h4 id="comprobación-32">Comprobación <a class="heading-link" href="#comprobación-32" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise <code>integrity_failures</code> en el informe.</p>
+<h4 id="solución-paso-a-paso-32">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-32" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>No use el artefacto rechazado. 2. Revise URL, tipo y tamaño. 3. Corrija el catálogo o aporte copia legal. 4. Repita.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-32">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-32" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta motivo, hash si existe y alias.</p>
+<h3 id="33-no-hay-documento-para-extraer">33. No hay documento para extraer <a class="heading-link" href="#33-no-hay-documento-para-extraer" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-33">Síntoma <a class="heading-link" href="#síntoma-33" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>extract</code> no encuentra artefactos adecuados.</p>
+<h4 id="significado-33">Significado <a class="heading-link" href="#significado-33" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La obra no se descargó ni se importó correctamente.</p>
+<h4 id="comprobación-33">Comprobación <a class="heading-link" href="#comprobación-33" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise informes de <code>fetch</code> y <code>data/state.sqlite3</code> mediante la salida de la aplicación, sin editar la base.</p>
+<h4 id="solución-paso-a-paso-33">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-33" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Ejecute <code>fetch --alias ALIAS</code>. 2. Atienda la cola manual. 3. Importe una copia legal. 4. Repita <code>extract --alias ALIAS</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-33">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-33" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta alias y estados, no la base ni el documento.</p>
+<h3 id="34-la-extracción-no-encuentra-referencias">34. La extracción no encuentra referencias <a class="heading-link" href="#34-la-extracción-no-encuentra-referencias" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-34">Síntoma <a class="heading-link" href="#síntoma-34" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El conteo de referencias es cero o avisa que no pudo segmentarlas.</p>
+<h4 id="significado-34">Significado <a class="heading-link" href="#significado-34" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La obra puede no tener bibliografía, usar un formato no reconocido o haberse extraído mal.</p>
+<h4 id="comprobación-34">Comprobación <a class="heading-link" href="#comprobación-34" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise el campo <code>references</code> en <code>data/documents/ALIAS.json</code> y <code>reports/extract.md</code>.</p>
+<h4 id="solución-paso-a-paso-34">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-34" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Compruebe visualmente el documento. 2. Distinga <code>not_present</code> de <code>not_applicable</code>. 3. Registre revisión humana. 4. No invente referencias.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-34">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-34" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta estado, adaptador y encabezados anonimizados.</p>
+<h3 id="35-hay-referencias-ambiguas-o-sin-resolver">35. Hay referencias ambiguas o sin resolver <a class="heading-link" href="#35-hay-referencias-ambiguas-o-sin-resolver" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-35">Síntoma <a class="heading-link" href="#síntoma-35" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>resolve</code> crea una cola de revisión.</p>
+<h4 id="significado-35">Significado <a class="heading-link" href="#significado-35" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>No existe una coincidencia fuerte y única.</p>
+<h4 id="comprobación-35">Comprobación <a class="heading-link" href="#comprobación-35" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise <code>reports/resolve.md</code>.</p>
+<h4 id="solución-paso-a-paso-35">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-35" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Compare autores, título, año y DOI. 2. Consulte fuentes autorizadas. 3. No fusione por intuición. 4. Conserve como ambigua si no hay evidencia.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-35">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-35" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta cadena bibliográfica y candidatos, sin notas privadas.</p>
+<h3 id="36-resolve-pide-ejecutar-extract">36. <code>resolve</code> pide ejecutar <code>extract</code> <a class="heading-link" href="#36-resolve-pide-ejecutar-extract" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-36">Síntoma <a class="heading-link" href="#síntoma-36" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Ve una advertencia de que no hay documentos extraídos.</p>
+<h4 id="significado-36">Significado <a class="heading-link" href="#significado-36" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>data/documents/</code> está vacío; no hay referencias que resolver.</p>
+<h4 id="comprobación-36">Comprobación <a class="heading-link" href="#comprobación-36" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">find data/documents -maxdepth 1 -name &#x27;*.json&#x27; -print</code></pre>
+<h4 id="solución-paso-a-paso-36">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-36" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Adquiera o importe documentos. 2. Ejecute <code>extract</code>. 3. Revise su informe. 4. Ejecute <code>resolve</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-36">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-36" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta conteos de adquisición y extracción.</p>
+<h3 id="37-analyze-no-encuentra-datareferencesjsonl">37. <code>analyze</code> no encuentra <code>data/references.jsonl</code> <a class="heading-link" href="#37-analyze-no-encuentra-datareferencesjsonl" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-37">Síntoma <a class="heading-link" href="#síntoma-37" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>analyze</code> termina con código 2 y pide <code>resolve</code>.</p>
+<h4 id="significado-37">Significado <a class="heading-link" href="#significado-37" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Todavía no existe la exportación de referencias.</p>
+<h4 id="comprobación-37">Comprobación <a class="heading-link" href="#comprobación-37" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">test -f data/references.jsonl &amp;&amp; echo encontrado</code></pre>
+<h4 id="solución-paso-a-paso-37">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-37" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Ejecute <code>extract</code>. 2. Ejecute <code>resolve</code>. 3. Atienda errores. 4. Repita <code>analyze</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-37">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-37" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta salidas resumidas de esos comandos.</p>
+<h3 id="38-build-site-se-niega-por-datos-incompletos">38. <code>build-site</code> se niega por datos incompletos <a class="heading-link" href="#38-build-site-se-niega-por-datos-incompletos" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-38">Síntoma <a class="heading-link" href="#síntoma-38" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El comando termina con 2 y enumera motivos de incompletitud.</p>
+<h4 id="significado-38">Significado <a class="heading-link" href="#significado-38" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Falta el catálogo fuente o no hay relaciones de dependencia.</p>
+<h4 id="comprobación-38">Comprobación <a class="heading-link" href="#comprobación-38" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise <code>config/corpus.json</code>, <code>config/dependencies.json</code> y <code>validate</code>.</p>
+<h4 id="solución-paso-a-paso-38">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-38" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Importe datos reales. 2. Revise dependencias. 3. Valide. 4. Solo para inspección, use <code>--allow-incomplete</code> y lea sus avisos.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-38">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-38" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta los motivos exactos, no datos privados.</p>
+<h3 id="39-el-sitio-se-genera-sin-estilos">39. El sitio se genera sin estilos <a class="heading-link" href="#39-el-sitio-se-genera-sin-estilos" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-39">Síntoma <a class="heading-link" href="#síntoma-39" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El HTML parece texto sin diseño o falta <code>site.css</code>.</p>
+<h4 id="significado-39">Significado <a class="heading-link" href="#significado-39" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Los recursos de <code>site-src/</code> no se copiaron o el sitio se movió parcialmente. La implementación actual debe fallar si no encuentra CSS/JS.</p>
+<h4 id="comprobación-39">Comprobación <a class="heading-link" href="#comprobación-39" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">test -f build/site/site.css &amp;&amp; echo encontrado</code></pre>
+<h4 id="solución-paso-a-paso-39">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-39" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>No copie solo HTML. 2. Restaure <code>site-src/site.css</code> y <code>site.js</code>. 3. Reconstruya. 4. Ejecute <code>check-site</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-39">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-39" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta errores de construcción y listado de nombres, no contenidos.</p>
+<h3 id="40-check-site-encuentra-enlaces-rotos">40. <code>check-site</code> encuentra enlaces rotos <a class="heading-link" href="#40-check-site-encuentra-enlaces-rotos" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-40">Síntoma <a class="heading-link" href="#síntoma-40" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El informe contiene <code>broken-link</code> o <code>broken-anchor</code>.</p>
+<h4 id="significado-40">Significado <a class="heading-link" href="#significado-40" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Una página apunta a un archivo o sección inexistente.</p>
+<h4 id="comprobación-40">Comprobación <a class="heading-link" href="#comprobación-40" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Abra <code>reports/check-site.md</code>.</p>
+<h4 id="solución-paso-a-paso-40">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-40" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Identifique página y destino. 2. Reconstruya el sitio completo. 3. No mueva archivos sueltos. 4. Compruebe de nuevo.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-40">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-40" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta código, ubicación y destino, sin rutas personales.</p>
+<h3 id="41-la-comprobación-pública-encuentra-una-ruta-privada">41. La comprobación pública encuentra una ruta privada <a class="heading-link" href="#41-la-comprobación-pública-encuentra-una-ruta-privada" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-41">Síntoma <a class="heading-link" href="#síntoma-41" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>check-site --public</code> informa <code>private-path</code> o <code>absolute-local-path</code>.</p>
+<h4 id="significado-41">Significado <a class="heading-link" href="#significado-41" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La salida revela una carpeta privada o una ruta del equipo.</p>
+<h4 id="comprobación-41">Comprobación <a class="heading-link" href="#comprobación-41" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise el archivo indicado en <code>reports/check-site.md</code>.</p>
+<h4 id="solución-paso-a-paso-41">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-41" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>No publique. 2. Elimine la salida <code>publish/</code> solo después de respaldar lo necesario. 3. Reconstruya con <code>build-site --public</code>, no copiando el sitio local. 4. Compruebe de nuevo.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-41">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-41" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta el código y una ruta redactada.</p>
+<h3 id="42-la-publicación-requiere-evidencia-de-licencia">42. La publicación requiere evidencia de licencia <a class="heading-link" href="#42-la-publicación-requiere-evidencia-de-licencia" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-42">Síntoma <a class="heading-link" href="#síntoma-42" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Validación o informe retiene resumen/texto por falta de evidencia.</p>
+<h4 id="significado-42">Significado <a class="heading-link" href="#significado-42" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Una marca de publicación no basta sin <code>license_evidence_url</code>.</p>
+<h4 id="comprobación-42">Comprobación <a class="heading-link" href="#comprobación-42" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise derechos en <code>config/corpus.json</code> y <code>reports/publication.md</code>.</p>
+<h4 id="solución-paso-a-paso-42">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-42" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Localice evidencia oficial. 2. Registre licencia y URL. 3. Si no existe, mantenga los pasajes privados. 4. Valide y reconstruya.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-42">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-42" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta licencia y enlace público, no el texto retenido.</p>
+<h3 id="43-el-puerto-8000-está-ocupado">43. El puerto 8000 está ocupado <a class="heading-link" href="#43-el-puerto-8000-está-ocupado" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-43">Síntoma <a class="heading-link" href="#síntoma-43" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El servidor informa que la dirección ya está en uso.</p>
+<h4 id="significado-43">Significado <a class="heading-link" href="#significado-43" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Otro programa usa ese puerto.</p>
+<h4 id="comprobación-43">Comprobación <a class="heading-link" href="#comprobación-43" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Pruebe <code>http://127.0.0.1:8000/</code> por si ya es su servidor.</p>
+<h4 id="solución-paso-a-paso-43">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-43" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Detenga el servidor anterior con <code>Ctrl+C</code> si lo controla. 2. Si no, use 8080. 3. Abra la URL con el nuevo puerto.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-43">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-43" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta el mensaje y puerto, no información de red privada.</p>
+<h3 id="44-el-navegador-no-abre-el-sitio-local">44. El navegador no abre el sitio local <a class="heading-link" href="#44-el-navegador-no-abre-el-sitio-local" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-44">Síntoma <a class="heading-link" href="#síntoma-44" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>127.0.0.1:8000</code> no responde.</p>
+<h4 id="significado-44">Significado <a class="heading-link" href="#significado-44" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El servidor no está activo, usa otro puerto o se ejecuta en otro entorno.</p>
+<h4 id="comprobación-44">Comprobación <a class="heading-link" href="#comprobación-44" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Mire la terminal del servidor y confirme la URL exacta con <code>http://</code>.</p>
+<h4 id="solución-paso-a-paso-44">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-44" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Mantenga el comando en ejecución. 2. Confirme puerto. 3. En WSL pruebe desde el navegador del mismo equipo. 4. Reinicie el servidor.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-44">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-44" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta mensaje del servidor, sistema y URL sin datos externos.</p>
+<h3 id="45-la-terminal-parece-bloqueada-tras-iniciar-el-servidor">45. La terminal parece bloqueada tras iniciar el servidor <a class="heading-link" href="#45-la-terminal-parece-bloqueada-tras-iniciar-el-servidor" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-45">Síntoma <a class="heading-link" href="#síntoma-45" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>No vuelve el indicador para escribir.</p>
+<h4 id="significado-45">Significado <a class="heading-link" href="#significado-45" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Es normal: el servidor ocupa esa terminal.</p>
+<h4 id="comprobación-45">Comprobación <a class="heading-link" href="#comprobación-45" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Abra el sitio en el navegador.</p>
+<h4 id="solución-paso-a-paso-45">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-45" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Deje esa terminal abierta. 2. Abra otra para otros comandos. 3. Pulse <code>Ctrl+C</code> cuando termine.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-45">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-45" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Pida ayuda solo si no responde a <code>Ctrl+C</code>; indique el sistema.</p>
+<h3 id="46-al-cerrar-la-terminal-el-sitio-deja-de-responder">46. Al cerrar la terminal, el sitio deja de responder <a class="heading-link" href="#46-al-cerrar-la-terminal-el-sitio-deja-de-responder" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-46">Síntoma <a class="heading-link" href="#síntoma-46" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>La página funcionaba y deja de hacerlo al cerrar la ventana.</p>
+<h4 id="significado-46">Significado <a class="heading-link" href="#significado-46" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El servidor era un proceso temporal ligado a esa terminal.</p>
+<h4 id="comprobación-46">Comprobación <a class="heading-link" href="#comprobación-46" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Abra la URL y observe el error de conexión.</p>
+<h4 id="solución-paso-a-paso-46">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-46" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Abra otra terminal. 2. Entre en el proyecto. 3. Inicie de nuevo el servidor. 4. Mantenga la terminal abierta.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-46">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-46" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Indique el comando usado y puerto.</p>
+<h3 id="47-se-modificó-accidentalmente-configcorpusjson">47. Se modificó accidentalmente <code>config/corpus.json</code> <a class="heading-link" href="#47-se-modificó-accidentalmente-configcorpusjson" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-47">Síntoma <a class="heading-link" href="#síntoma-47" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Faltan datos o <code>validate</code> falla tras una edición/importación.</p>
+<h4 id="significado-47">Significado <a class="heading-link" href="#significado-47" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El archivo fuente de verdad cambió.</p>
+<h4 id="comprobación-47">Comprobación <a class="heading-link" href="#comprobación-47" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">git diff -- config/corpus.json</code></pre>
+<h4 id="solución-paso-a-paso-47">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-47" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>No siga ejecutando la canalización. 2. Compare <code>config/corpus.json.backup</code>. 3. Restaure con <code>cp config/corpus.json.backup config/corpus.json</code> si es la copia correcta. 4. Valide.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-47">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-47" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta el diff sin URL, licencias privadas ni notas sensibles.</p>
+<h3 id="48-make-no-está-instalado">48. <code>make</code> no está instalado <a class="heading-link" href="#48-make-no-está-instalado" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-48">Síntoma <a class="heading-link" href="#síntoma-48" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Ve <code>make: command not found</code>.</p>
+<h4 id="significado-48">Significado <a class="heading-link" href="#significado-48" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Los atajos opcionales no están disponibles.</p>
+<h4 id="comprobación-48">Comprobación <a class="heading-link" href="#comprobación-48" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">command -v make</code></pre>
+<h4 id="solución-paso-a-paso-48">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-48" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Use directamente <code>./bin/bibgraph ...</code>. 2. Para servir, use <code>python3 -m http.server ...</code>. 3. Instale Make solo si lo desea.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-48">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-48" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Indique el atajo deseado para recibir su equivalente.</p>
+<h3 id="49-una-forma-de-iniciar-funciona-y-la-otra-no">49. Una forma de iniciar funciona y la otra no <a class="heading-link" href="#49-una-forma-de-iniciar-funciona-y-la-otra-no" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-49">Síntoma <a class="heading-link" href="#síntoma-49" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Funciona <code>PYTHONPATH=src python3 -m bibgraph</code> pero no el lanzador, o al revés.</p>
+<h4 id="significado-49">Significado <a class="heading-link" href="#significado-49" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Hay una diferencia de shell, permiso o intérprete.</p>
+<h4 id="comprobación-49">Comprobación <a class="heading-link" href="#comprobación-49" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Revise <code>head -1 bin/bibgraph</code>, <code>command -v bash</code> y <code>command -v python3</code>.</p>
+<h4 id="solución-paso-a-paso-49">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-49" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Entre en la raíz. 2. En Windows use WSL/Git Bash. 3. Corrija permiso de ejecución. 4. Use temporalmente la forma que funciona.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-49">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-49" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta comandos, shell y errores exactos.</p>
+<h3 id="50-el-comando-se-ejecutó-desde-otra-carpeta">50. El comando se ejecutó desde otra carpeta <a class="heading-link" href="#50-el-comando-se-ejecutó-desde-otra-carpeta" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-50">Síntoma <a class="heading-link" href="#síntoma-50" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Faltan <code>config/</code>, <code>site-src/</code> o el lanzador.</p>
+<h4 id="significado-50">Significado <a class="heading-link" href="#significado-50" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El punto (<code>.</code>) se resolvió como una carpeta equivocada.</p>
+<h4 id="comprobación-50">Comprobación <a class="heading-link" href="#comprobación-50" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">pwd</code></pre>
+<h4 id="solución-paso-a-paso-50">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-50" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Use <code>cd RUTA/AL/PROYECTO</code>. 2. Compruebe <code>bin/bibgraph</code>. 3. O coloque <code>--root RUTA/AL/PROYECTO</code> antes del subcomando.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-50">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-50" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta <code>pwd</code> redactado y nombres de archivos del nivel superior.</p>
+<h3 id="51-un-json-tiene-puntuación-incorrecta">51. Un JSON tiene puntuación incorrecta <a class="heading-link" href="#51-un-json-tiene-puntuación-incorrecta" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-51">Síntoma <a class="heading-link" href="#síntoma-51" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Se menciona <code>JSONDecodeError</code>, una coma, llave o comilla.</p>
+<h4 id="significado-51">Significado <a class="heading-link" href="#significado-51" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>El archivo no cumple la sintaxis JSON.</p>
+<h4 id="comprobación-51">Comprobación <a class="heading-link" href="#comprobación-51" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">python3 -m json.tool RUTA/AL/ARCHIVO.json</code></pre>
+<h4 id="solución-paso-a-paso-51">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-51" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Trabaje sobre una copia. 2. Use comillas dobles. 3. Quite comas finales. 4. Empareje llaves/corchetes. 5. Valide de nuevo.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-51">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-51" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta línea, columna y fragmento anonimizado.</p>
+<h3 id="52-el-sitio-local-contiene-información-no-publicable">52. El sitio local contiene información no publicable <a class="heading-link" href="#52-el-sitio-local-contiene-información-no-publicable" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-52">Síntoma <a class="heading-link" href="#síntoma-52" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Ve textos, rutas o anotaciones privadas en <code>build/site/</code>.</p>
+<h4 id="significado-52">Significado <a class="heading-link" href="#significado-52" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Es el comportamiento esperado de la construcción local.</p>
+<h4 id="comprobación-52">Comprobación <a class="heading-link" href="#comprobación-52" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Confirme que la ruta es <code>build/site/</code>, no <code>publish/</code>.</p>
+<h4 id="solución-paso-a-paso-52">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-52" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>No publique <code>build/site/</code>. 2. Revise derechos. 3. Ejecute <code>build-site --public</code>. 4. Revise <code>publication.md</code>. 5. Ejecute la comprobación pública.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-52">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-52" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta solo el tipo de fuga, nunca el contenido.</p>
+<h3 id="53-una-anotación-tiene-passstatus-no-permitido">53. Una anotación tiene <code>pass_status</code> no permitido <a class="heading-link" href="#53-una-anotación-tiene-passstatus-no-permitido" aria-label="Enlace permanente a esta sección">#</a></h3>
+<h4 id="síntoma-53">Síntoma <a class="heading-link" href="#síntoma-53" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p><code>annotate</code> rechaza el estado.</p>
+<h4 id="significado-53">Significado <a class="heading-link" href="#significado-53" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Solo admite <code>unread</code>, <code>pass_1</code>, <code>pass_2</code> o <code>pass_3</code>.</p>
+<h4 id="comprobación-53">Comprobación <a class="heading-link" href="#comprobación-53" aria-label="Enlace permanente a esta sección">#</a></h4>
+<pre tabindex="0"><code class="language-bash">python3 -m json.tool ARCHIVO.json</code></pre>
+<h4 id="solución-paso-a-paso-53">Solución paso a paso <a class="heading-link" href="#solución-paso-a-paso-53" aria-label="Enlace permanente a esta sección">#</a></h4>
+<ol>
+<li>Abra el JSON. 2. Sustituya el valor por uno exacto y en minúsculas. 3. Valide la sintaxis. 4. Repita <code>annotate</code>.
+</li>
+</ol>
+<h4 id="cuándo-pedir-ayuda-53">Cuándo pedir ayuda <a class="heading-link" href="#cuándo-pedir-ayuda-53" aria-label="Enlace permanente a esta sección">#</a></h4>
+<p>Comparta solo <code>pass_status</code> y el error, no sus notas.</p>
+<h2 id="28-recuperación-y-copias-de-seguridad">28. Recuperación y copias de seguridad <a class="heading-link" href="#28-recuperación-y-copias-de-seguridad" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p>Antes de editar, haga copias con fecha o etiqueta:</p>
+<pre tabindex="0"><code class="language-bash">cp config/corpus.json config/corpus.json.backup</code></pre>
+<pre tabindex="0"><code class="language-bash">cp config/dependencies.json config/dependencies.json.backup</code></pre>
+<pre tabindex="0"><code class="language-bash">cp config/reading-profile.json config/reading-profile.json.backup</code></pre>
+<pre tabindex="0"><code class="language-bash">cp -a annotations annotations.backup</code></pre>
+<p><code>config/</code> y <code>annotations/</code> contienen decisiones y trabajo humano: respáldelos. <code>private/</code> contiene material posiblemente privado; protéjalo y no lo publique. <code>data/state.sqlite3</code> conserva estado local y no debe borrarse como arreglo genérico. <code>data/documents/</code>, JSONL derivados, <code>reports/</code>, <code>build/</code> y <code>publish/</code> pueden regenerarse en distinto grado, pero los informes pueden ser valiosos para auditoría.</p>
+<p><strong>Advertencia:</strong></p>
+<pre tabindex="0"><code class="language-bash">make clean</code></pre>
+<p>elimina recursivamente <strong>solo</strong> <code>build/</code>, <code>publish/</code> y cada directorio llamado <code>__pycache__</code> bajo el proyecto. No elimina <code>private/</code>, <code>data/state.sqlite3</code> ni <code>annotations/</code>. Aun así, confirme que está en el proyecto correcto antes de usarlo.</p>
+<h2 id="29-privacidad-y-publicación-segura">29. Privacidad y publicación segura <a class="heading-link" href="#29-privacidad-y-publicación-segura" aria-label="Enlace permanente a esta sección">#</a></h2>
+<p>Antes de publicar:</p>
+<ul>
+<li>[ ] Se usó <code>./bin/bibgraph build-site --public</code>.
+</li>
+<li>[ ] Se ejecutó <code>./bin/bibgraph check-site publish --public</code> sin errores.
+</li>
+<li>[ ] Se revisó <code>reports/publication.md</code>.
+</li>
+<li>[ ] Cada pasaje copiado tiene licencia y evidencia de licencia.
+</li>
+<li>[ ] Las anotaciones publicables tienen <code>&quot;publish&quot;: true</code> de forma intencional.
+</li>
+<li>[ ] No quedan rutas locales absolutas ni valores con apariencia de secretos.
+</li>
+<li>[ ] No hay PDF, base de datos, caché ni material de <code>private/</code>.
+</li>
+<li>[ ] No se va a publicar <code>build/site/</code>.
+</li>
+<li>[ ] Se publicará únicamente el contenido de <code>publish/</code>.
+</li>
+</ul>
+<h2 id="30-glosario">30. Glosario <a class="heading-link" href="#30-glosario" aria-label="Enlace permanente a esta sección">#</a></h2>
+<table tabindex="0">
+<thead><tr><th scope="col">Término</th><th scope="col">Definición</th></tr></thead>
+<tbody>
+<tr><td>API</td><td>Servicio que permite consultas entre programas; Crossref ofrece una.</td></tr>
+<tr><td>Biblioteca estándar</td><td>Herramientas incluidas con Python, sin instalar paquetes de terceros.</td></tr>
+<tr><td>CAPTCHA</td><td>Prueba destinada a distinguir personas de programas; bibgraph no la elude.</td></tr>
+<tr><td>CSS</td><td>Archivo que da presentación visual al HTML.</td></tr>
+<tr><td>Crossref</td><td>Servicio externo de metadatos bibliográficos usado solo con <code>--online</code>.</td></tr>
+<tr><td>DAG</td><td>Grafo dirigido sin ciclos; modela un orden posible de lectura.</td></tr>
+<tr><td>DOI</td><td>Identificador persistente de una publicación.</td></tr>
+<tr><td>Hash SHA-256</td><td>Huella calculada para identificar bytes y detectar cambios.</td></tr>
+<tr><td>HTML</td><td>Formato de páginas web; bibgraph puede extraerlo y generarlo.</td></tr>
+<tr><td>HTTP/HTTPS</td><td>Formas de transferir contenido web; HTTPS cifra la conexión.</td></tr>
+<tr><td>JSON</td><td>Texto estructurado con objetos, listas, comillas y comas.</td></tr>
+<tr><td>JSONL</td><td>Un objeto JSON por línea, usado para registros reproducibles.</td></tr>
+<tr><td>Licencia</td><td>Permiso legal que define usos y redistribución.</td></tr>
+<tr><td>Markdown</td><td>Texto con marcas sencillas, como tablas con <code>|</code>.</td></tr>
+<tr><td>MIME o tipo de contenido</td><td>Etiqueta del formato, como <code>application/pdf</code>.</td></tr>
+<tr><td>Poppler</td><td>Conjunto de herramientas PDF que incluye <code>pdftotext</code>.</td></tr>
+<tr><td>Procedencia</td><td>Registro de dónde se obtuvo un dato o archivo.</td></tr>
+<tr><td>Python</td><td>Lenguaje con el que está implementada la aplicación.</td></tr>
+<tr><td>Ranking</td><td>Orden calculado a partir de criterios publicados.</td></tr>
+<tr><td><code>robots.txt</code></td><td>Archivo con orientación de rastreo de un sitio web.</td></tr>
+<tr><td>SQLite</td><td>Base de datos local incluida normalmente con Python.</td></tr>
+<tr><td>SSL/TLS</td><td>Protección criptográfica usada por HTTPS.</td></tr>
+<tr><td>URL</td><td>Dirección de un recurso en la Web.</td></tr>
+<tr><td>WSL</td><td>Entorno Linux dentro de Windows.</td></tr>
+</tbody></table>
+<p>Los conceptos terminal, comando, carpeta, catálogo, alias, recurso, manifiesto, metadatos, grafo, dependencia, sitio estático, construcción y código de salida se definen en la sección 3.</p>
+<h2 id="31-lista-final-de-comprobación">31. Lista final de comprobación <a class="heading-link" href="#31-lista-final-de-comprobación" aria-label="Enlace permanente a esta sección">#</a></h2>
+<ul>
+<li>[ ] El entorno fue comprobado.
+</li>
+<li>[ ] El catálogo fue importado.
+</li>
+<li>[ ] Las dependencias fueron revisadas.
+</li>
+<li>[ ] La configuración pasa la validación.
+</li>
+<li>[ ] Las descargas autorizadas terminaron o sus fallos están registrados.
+</li>
+<li>[ ] Las copias manuales fueron importadas.
+</li>
+<li>[ ] La extracción fue revisada.
+</li>
+<li>[ ] Las referencias ambiguas fueron identificadas.
+</li>
+<li>[ ] El análisis fue generado.
+</li>
+<li>[ ] El sitio local fue comprobado.
+</li>
+<li>[ ] La versión pública pasó su comprobación.
+</li>
+<li>[ ] Las licencias fueron revisadas.
+</li>
+</ul>
+<h2 id="parte-ii-hoja-rápida-de-una-página">Parte II. Hoja rápida de una página <a class="heading-link" href="#parte-ii-hoja-rápida-de-una-página" aria-label="Enlace permanente a esta sección">#</a></h2>
+<ol>
+<li>Entre en el proyecto: <code>cd RUTA/AL/PROYECTO</code>.
+</li>
+<li>Compruebe: <code>./bin/bibgraph doctor</code>.
+</li>
+<li>Prepare la tabla descrita en la sección 7.
+</li>
+<li>Pruebe: <code>./bin/bibgraph import-catalogue phase-1-access-verification.md --observed-on AAAA-MM-DD --dry-run</code>.
+</li>
+<li>Respalde <code>config/corpus.json</code> e importe sin <code>--dry-run</code>.
+</li>
+<li>Revise a mano <code>config/dependencies.json</code> y <code>config/reading-profile.json</code>.
+</li>
+<li>Valide: <code>./bin/bibgraph validate --strict</code>.
+</li>
+<li>Configure <code>BIBGRAPH_CONTACT_EMAIL</code> y ejecute <code>./bin/bibgraph fetch --keep-going</code>.
+</li>
+<li>Para copias legales faltantes: <code>./bin/bibgraph import ALIAS ARCHIVO</code>.
+</li>
+<li>Ejecute, por separado: <code>extract</code>, <code>resolve</code>, <code>analyze</code>.
+</li>
+<li>Cree el sitio: <code>./bin/bibgraph build-site --local</code>.
+</li>
+<li>Compruébelo: <code>./bin/bibgraph check-site build/site</code>.
+</li>
+<li>Sírvalo en local: <code>python3 -m http.server --bind 127.0.0.1 --directory build/site 8000</code>.
+</li>
+<li>Abra <code>http://127.0.0.1:8000/</code>; detenga con <code>Ctrl+C</code>.
+</li>
+<li>Para publicar, use exclusivamente <code>build-site --public</code>, revise <code>reports/publication.md</code>, compruebe <code>publish --public</code> y suba solo <code>publish/</code>.
+</li>
+</ol>
+<h2 id="parte-iii-tabla-resumen-de-todos-los-comandos">Parte III. Tabla resumen de todos los comandos <a class="heading-link" href="#parte-iii-tabla-resumen-de-todos-los-comandos" aria-label="Enlace permanente a esta sección">#</a></h2>
+<table tabindex="0">
+<thead><tr><th scope="col">Subcomando real</th><th scope="col">Opciones/argumentos principales</th><th scope="col">Uso habitual o avanzado</th></tr></thead>
+<tbody>
+<tr><td><code>doctor</code></td><td>Sin opciones propias.</td><td>Habitual.</td></tr>
+<tr><td><code>validate</code></td><td><code>--strict</code>.</td><td>Habitual; estricto recomendado antes del flujo.</td></tr>
+<tr><td><code>import-catalogue</code></td><td><code>path</code>, <code>--observed-on</code>, <code>--output</code>, <code>--dry-run</code>.</td><td>Habitual al preparar el corpus.</td></tr>
+<tr><td><code>fetch</code></td><td><code>--strict</code>, <code>--keep-going</code>, <code>--alias</code> repetible, <code>--require-fulltext-all</code>, <code>--delay</code>.</td><td>Habitual.</td></tr>
+<tr><td><code>fetch</code></td><td><code>--allow-http</code>, <code>--allow-private-host</code> repetible, <code>--no-robots</code>.</td><td>Avanzado y de seguridad reducida.</td></tr>
+<tr><td><code>import</code></td><td><code>alias</code>, <code>file</code>, <code>--role</code>.</td><td>Habitual cuando hay copias legales.</td></tr>
+<tr><td><code>extract</code></td><td><code>--strict</code>, <code>--alias</code> repetible, <code>--pdf-timeout</code>.</td><td>Habitual.</td></tr>
+<tr><td><code>resolve</code></td><td><code>--strict</code>, <code>--online</code>, <code>--no-discovery</code>.</td><td>Habitual; red y control de descubrimiento son opcionales.</td></tr>
+<tr><td><code>analyze</code></td><td>Sin opciones propias.</td><td>Habitual.</td></tr>
+<tr><td><code>promote</code></td><td><code>--max-new</code>, <code>--min-citations</code>, <code>--year-from</code>, <code>--year-to</code>.</td><td>Avanzado; propuesta humana.</td></tr>
+<tr><td><code>annotate</code></td><td><code>alias</code>, <code>file</code>.</td><td>Habitual en revisión humana.</td></tr>
+<tr><td><code>build-site</code></td><td><code>--local</code> o <code>--public</code>, <code>--output</code>, <code>--allow-incomplete</code>.</td><td>Local habitual; público delicado.</td></tr>
+<tr><td><code>check-site</code></td><td><code>path</code>, <code>--public</code>.</td><td>Obligatorio antes de usar/publicar.</td></tr>
+</tbody></table>
+<p>Opciones globales, siempre antes del subcomando: <code>--root RUTA</code> y <code>--json</code>.</p>
+<h2 id="parte-iv-árbol-de-decisión-de-solución-de-problemas">Parte IV. Árbol de decisión de solución de problemas <a class="heading-link" href="#parte-iv-árbol-de-decisión-de-solución-de-problemas" aria-label="Enlace permanente a esta sección">#</a></h2>
+<pre tabindex="0"><code class="language-text">¿El comando llega a iniciarse?
+├─ No → ¿&quot;python3&quot; falta? → Instalar Python 3.10+.
+│       ├─ ¿&quot;Permission denied&quot;? → Dar ejecución al lanzador o usar PYTHONPATH.
+│       └─ ¿Faltan archivos? → Entrar en la raíz o usar --root antes del comando.
+└─ Sí → ¿Código 3?
+├─ Sí → Validar JSON y ejecutar validate; corregir manifiestos.
+└─ No → ¿Código 4?
+├─ Sí → No usar el archivo; revisar tamaño, MIME, firma y URL.
+└─ No → ¿Código 2?
+├─ fetch → Revisar recursos requeridos y copias legales.
+├─ extract → Revisar pdftotext y cola manual.
+├─ resolve/analyze → Ejecutar primero la fase anterior.
+└─ build/check → Completar datos o corregir enlaces/fugas.
+
+¿El problema es al ver el sitio?
+├─ Sin estilos → Reconstruir y comprobar site.css.
+├─ No conecta → Mantener servidor abierto y confirmar puerto.
+└─ Contiene datos privados → Es local; crear publish/ con la lista permitida.</code></pre>
+<h2 id="parte-v-lista-de-comprobación-antes-de-publicar">Parte V. Lista de comprobación antes de publicar <a class="heading-link" href="#parte-v-lista-de-comprobación-antes-de-publicar" aria-label="Enlace permanente a esta sección">#</a></h2>
+<ul>
+<li>[ ] La fuente bibliográfica real fue suministrada y no quedan datos provisionales engañosos.
+</li>
+<li>[ ] Las dependencias y elecciones fueron revisadas por una persona.
+</li>
+<li>[ ] <code>validate --strict</code> no informa problemas pendientes.
+</li>
+<li>[ ] Las licencias y sus URL de evidencia se comprobaron en fuentes autorizadas.
+</li>
+<li>[ ] Cada anotación con <code>&quot;publish&quot;: true</code> fue revisada expresamente.
+</li>
+<li>[ ] Se ejecutó <code>./bin/bibgraph build-site --public</code>.
+</li>
+<li>[ ] Se leyó <code>reports/publication.md</code> completo.
+</li>
+<li>[ ] Se ejecutó <code>./bin/bibgraph check-site publish --public</code> y devolvió 0.
+</li>
+<li>[ ] No hay documentos, bases, caché, rutas locales, secretos ni notas privadas.
+</li>
+<li>[ ] No se copiará <code>build/site/</code>.
+</li>
+<li>[ ] Solo se publicará el contenido de <code>publish/</code>.
+</li>
+</ul>
+<h2 id="parte-vi-aspectos-que-no-pudieron-verificarse">Parte VI. Aspectos que no pudieron verificarse <a class="heading-link" href="#parte-vi-aspectos-que-no-pudieron-verificarse" aria-label="Enlace permanente a esta sección">#</a></h2>
+<ul>
+<li>El catálogo real <code>phase-1-access-verification.md</code> no está incluido. No se pudieron verificar títulos, autores, URL, accesos ni licencias reales.
+</li>
+<li>El diagrama original de relaciones no está incluido. Las dependencias reales y las dos elecciones no pudieron resolverse; el archivo actual tiene nodos pero cero relaciones.
+</li>
+<li>La precisión sobre documentos académicos reales no está validada externamente. Las pruebas cuantitativas usan casos creados dentro del propio repositorio y detectan regresiones, no demuestran precisión general.
+</li>
+<li>La compatibilidad nativa con Símbolo del sistema o PowerShell no existe en el lanzador Bash. WSL y Git Bash son alternativas del entorno, pero no se declara una matriz formal de plataformas.
+</li>
+<li>Los permisos legales de cada futura copia aportada por el usuario no pueden comprobarse automáticamente; corresponden al usuario y a la evidencia registrada.
+</li>
+<li>No existe un esquema JSON formal completo para anotaciones. Solo pudieron documentarse las validaciones implementadas: objeto raíz y los cuatro valores de <code>pass_status</code>.
+</li>
+<li>No se ejecutaron descargas ni operaciones de la canalización durante la investigación documental. Las descripciones proceden de inspección estática del código, configuración, pruebas y documentación del repositorio.
+</li>
+</ul>
+    </article>
+  </main>
+  <footer>
+    <p>Manual de bibgraph. Edición del <time datetime="2026-09-17">17 de septiembre de 2026</time>.</p>
+  </footer>
+</body>
+</html>
