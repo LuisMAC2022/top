@@ -13,6 +13,10 @@ Read [VERIFICATION.md](VERIFICATION.md) first: it records where the source
 catalogue is missing and which parts of the plan could not be followed
 literally.
 
+For step-by-step instructions in clear Spanish, including environment setup,
+catalogue import, every CLI command, troubleshooting, backups, and safe
+publication, see the [complete user manual](MANUAL_USUARIO.md).
+
 ## Quick start
 
 ```bash
