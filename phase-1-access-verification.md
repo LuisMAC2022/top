@@ -11,7 +11,8 @@ records. Route failures and usable alternatives are retained in **Notes**.
 
 | ID | Title | Type | Access | URL | Role | Intent | Authors | Year | Observed | Notes | Container | Members |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| R0 | How to Read a Paper | article | open | [Free PDF](https://ccr.sigcomm.org/online/files/p83-keshavA.pdf) | fulltext | required | Keshav, S. | 2007 | Publisher PDF opened (pages 83–84). | Reading-method source. | | |
+| R0 | How to Read a Paper | article | open | [DOI record](https://doi.org/10.1145/1273445.1273458) | landing | metadata_only | Keshav, S. | 2007 | Stable DOI route verified. | Reading-method source; use this route if the PDF is temporarily unavailable. | | |
+| R0 | How to Read a Paper | article | open | [Publisher PDF](https://dl.acm.org/doi/pdf/10.1145/1273445.1273458) | fulltext | required | Keshav, S. | 2007 | Replaced obsolete CCR URL, whose TLS endpoint is unsupported by current browsers. | Publisher PDF, pages 83–84. | | |
 | A1 | Finite Topological Spaces | notes | open | [Official index](https://www.math.uchicago.edu/~may/MISCMaster.html) | landing | metadata_only | May, J. P. | | Official index opened. | REU notes. | | |
 | A1 | Finite Topological Spaces | notes | open | [Official PDF](https://www.math.uchicago.edu/~may/MISC/FiniteSpaces.pdf) | fulltext | required | May, J. P. | | Official PDF opened. | | | |
 | A1 | Finite Topological Spaces | notes | open | [Academic mirror](https://webhomes.maths.ed.ac.uk/~v1ranick/papers/mayfinitespaces.pdf) | mirror | fallback | May, J. P. | | Academic mirror opened. | | | |
