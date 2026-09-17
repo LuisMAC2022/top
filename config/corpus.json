@@ -13,12 +13,20 @@
       ],
       "assets": [
         {
+          "expected_media_type": "text/html",
+          "id": "R0-landing-1",
+          "intent": "metadata_only",
+          "note": "Stable DOI record; use this route if the publisher PDF is temporarily unavailable.",
+          "role": "landing",
+          "url": "https://doi.org/10.1145/1273445.1273458"
+        },
+        {
           "expected_media_type": "application/pdf",
-          "id": "R0-fulltext-1",
+          "id": "R0-fulltext-2",
           "intent": "required",
-          "note": null,
+          "note": "Replaces the obsolete ccr.sigcomm.org route, whose TLS endpoint is not supported by current browsers.",
           "role": "fulltext",
-          "url": "https://ccr.sigcomm.org/online/files/p83-keshavA.pdf"
+          "url": "https://dl.acm.org/doi/pdf/10.1145/1273445.1273458"
         }
       ],
       "authors": [
